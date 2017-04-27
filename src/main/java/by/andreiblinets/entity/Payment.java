@@ -5,12 +5,11 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PeriodicalEdition")
+@Table(name = "Payment")
 public class Payment {
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @ManyToOne
@@ -49,24 +48,28 @@ public class Payment {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Payment)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Payment)){
+            return false;
+        }
 
         Payment payment = (Payment) o;
 
-        if (getId() != payment.getId()) return false;
-        if (Double.compare(payment.getSumma(), getSumma()) != 0) return false;
+        if (getId() != payment.getId()){
+            return false;
+        }
+        if (Double.compare(payment.getSumma(), getSumma()) != 0){
+            return false;
+        }
         return getUser() != null ? getUser().equals(payment.getUser()) : payment.getUser() == null;
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
-        temp = Double.doubleToLongBits(getSumma());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        int result = 0;
+        result = (int) this.getId() + 2;
         return result;
     }
 

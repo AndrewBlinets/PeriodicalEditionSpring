@@ -11,11 +11,10 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length = 32)
     private String name;
 
     @Column(name = "surname", nullable = false)
@@ -60,33 +59,41 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof User)){
+            return false;
+        }
 
         User user = (User) o;
 
-        if (getId() != user.getId()) return false;
-        if (!getName().equals(user.getName())) return false;
+        if (getId() != user.getId()){
+            return false;
+        }
+        if (!getName().equals(user.getName())){
+            return false;
+        }
         return getUserRole() == user.getUserRole();
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + getName().hashCode();
-        result = 31 * result + getUserRole().hashCode();
+        int result = 0;
+        result = (int) this.getId() + 2;
         return result;
     }
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("User{");
+        final StringBuilder sb = new StringBuilder("User{");
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
+        sb.append(", surname='").append(surname).append('\'');
         sb.append(", userRole=").append(userRole);
+        sb.append(", account=").append(account);
+        sb.append(", subscriptions=").append(subscriptions);
         sb.append('}');
         return sb.toString();
     }
-
-
 }

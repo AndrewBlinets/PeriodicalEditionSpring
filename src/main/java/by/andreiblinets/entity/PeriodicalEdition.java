@@ -9,8 +9,7 @@ import javax.persistence.*;
 public class PeriodicalEdition {
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "name", nullable = false)
@@ -55,24 +54,28 @@ public class PeriodicalEdition {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PeriodicalEdition)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof PeriodicalEdition)){
+            return false;
+        }
 
         PeriodicalEdition that = (PeriodicalEdition) o;
 
-        if (getId() != that.getId()) return false;
-        if (Double.compare(that.getPrice(), getPrice()) != 0) return false;
+        if (getId() != that.getId()){
+            return false;
+        }
+        if (Double.compare(that.getPrice(), getPrice()) != 0){
+            return false;
+        }
         return getName() != null ? getName().equals(that.getName()) : that.getName() == null;
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        temp = Double.doubleToLongBits(getPrice());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        int result = 0;
+        result = (int) this.getId() + 2;
         return result;
     }
 

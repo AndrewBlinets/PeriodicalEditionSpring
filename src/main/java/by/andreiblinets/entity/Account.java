@@ -5,12 +5,11 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "User")
+@Table(name = "Account")
 public class Account {
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "login", nullable = false)
@@ -59,24 +58,32 @@ public class Account {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Account)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Account)){
+            return false;
+        }
 
         Account account = (Account) o;
 
-        if (getId() != account.getId()) return false;
-        if (getLogin() != null ? !getLogin().equals(account.getLogin()) : account.getLogin() != null) return false;
-        if (getHashpassword() != null ? !getHashpassword().equals(account.getHashpassword()) : account.getHashpassword() != null)
+        if (getId() != account.getId()){
             return false;
+        }
+        if (getLogin() != null ? !getLogin().equals(account.getLogin()) : account.getLogin() != null){
+            return false;
+        }
+        if (getHashpassword() != null ? !getHashpassword().equals(account.getHashpassword()) : account.getHashpassword() != null)
+        {
+            return false;
+        }
         return getUser() != null ? getUser().equals(account.getUser()) : account.getUser() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getLogin() != null ? getLogin().hashCode() : 0);
-        result = 31 * result + (getHashpassword() != null ? getHashpassword().hashCode() : 0);
-        result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
+        int result = 0;
+        result = (int) this.getId() + 2;
         return result;
     }
 

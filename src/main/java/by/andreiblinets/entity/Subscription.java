@@ -3,14 +3,14 @@ package by.andreiblinets.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Subscription")
 public class Subscription {
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @ManyToOne
@@ -19,7 +19,7 @@ public class Subscription {
 
     @OneToMany
     @JoinColumn (name = "id")
-    private PeriodicalEdition periodicalEdition;
+    private List<PeriodicalEdition> periodicalEditions;
 
 
     public Subscription() {
@@ -41,31 +41,38 @@ public class Subscription {
         this.user = user;
     }
 
-    public PeriodicalEdition getPeriodicalEdition() {
-        return periodicalEdition;
+    public List<PeriodicalEdition> getPeriodicalEditions() {
+        return periodicalEditions;
     }
 
-    public void setPeriodicalEdition(PeriodicalEdition periodicalEdition) {
-        this.periodicalEdition = periodicalEdition;
+    public void setPeriodicalEditions(List<PeriodicalEdition> periodicalEditions) {
+        this.periodicalEditions = periodicalEditions;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Subscription)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Subscription)){
+            return false;
+        }
 
         Subscription that = (Subscription) o;
 
-        if (getId() != that.getId()) return false;
-        if (getUser() != null ? !getUser().equals(that.getUser()) : that.getUser() != null) return false;
-        return getPeriodicalEdition() != null ? getPeriodicalEdition().equals(that.getPeriodicalEdition()) : that.getPeriodicalEdition() == null;
+        if (getId() != that.getId()){
+            return false;
+        }
+        if (getUser() != null ? !getUser().equals(that.getUser()) : that.getUser() != null){
+            return false;
+        }
+        return getPeriodicalEditions() != null ? getPeriodicalEditions().equals(that.getPeriodicalEditions()) : that.getPeriodicalEditions() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
-        result = 31 * result + (getPeriodicalEdition() != null ? getPeriodicalEdition().hashCode() : 0);
+        int result = 0;
+        result = (int) this.getId() + 2;
         return result;
     }
 
@@ -74,7 +81,7 @@ public class Subscription {
         final StringBuilder sb = new StringBuilder("Subscription{");
         sb.append("id=").append(id);
         sb.append(", user=").append(user);
-        sb.append(", periodicalEdition=").append(periodicalEdition);
+        sb.append(", periodicalEditions=").append(periodicalEditions);
         sb.append('}');
         return sb.toString();
     }
