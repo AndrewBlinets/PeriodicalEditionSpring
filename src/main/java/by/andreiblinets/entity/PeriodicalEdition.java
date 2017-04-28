@@ -3,10 +3,11 @@ package by.andreiblinets.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "PeriodicalEdition")
-public class PeriodicalEdition {
+public class PeriodicalEdition implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
