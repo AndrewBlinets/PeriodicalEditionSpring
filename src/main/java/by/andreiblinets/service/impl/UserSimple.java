@@ -2,13 +2,11 @@ package by.andreiblinets.service.impl;
 
 import by.andreiblinets.dao.BaseDAO;
 import by.andreiblinets.dao.exceptions.DaoException;
-import by.andreiblinets.dao.impl.PaymentDAOImpl;
 import by.andreiblinets.entity.User;
 import by.andreiblinets.service.BaseService;
 import by.andreiblinets.service.constant.ConstantsService;
 import by.andreiblinets.service.exceptions.ServiceException;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

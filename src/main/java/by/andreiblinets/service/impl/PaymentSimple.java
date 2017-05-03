@@ -2,7 +2,6 @@ package by.andreiblinets.service.impl;
 
 import by.andreiblinets.dao.BaseDAO;
 import by.andreiblinets.dao.exceptions.DaoException;
-import by.andreiblinets.dao.impl.PaymentDAOImpl;
 import by.andreiblinets.entity.Payment;
 import by.andreiblinets.service.BaseService;
 import by.andreiblinets.service.constant.ConstantsService;
