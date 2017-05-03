@@ -1,6 +1,7 @@
 package by.andreiblinets.service.impl;
 
 import by.andreiblinets.dao.AccountDAO;
+import by.andreiblinets.dao.BaseDAO;
 import by.andreiblinets.dao.exceptions.DaoException;
 import by.andreiblinets.dao.impl.PaymentDAOImpl;
 import by.andreiblinets.entity.Account;
@@ -17,52 +18,87 @@ import java.util.List;
 @Service
 public class AccountSimple implements AccountService {
 
-    private static Logger logger = Logger.getLogger(PaymentDAOImpl.class.getName());
+    private static Logger logger = Logger.getLogger(AccountSimple.class.getName());
 
     @Autowired
     private AccountDAO accountDAO;
+
+    @Autowired
+    private BaseDAO<User> userBaseDAO;
 
     @Override
     public boolean create(Account account) throws ServiceException {
         try {
             accountDAO.create(account);
-            logger.error(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            return true;
         } catch (DaoException e) {
             logger.error( ConstantsService.TRANSACTION_FAIL + e.getMessage());
             throw new ServiceException(ConstantsService.TRANSACTION_FAIL + e.getMessage());
         }
-        return true;
     }
 
     @Override
-    public boolean update(Account account) {
-        accountDAO.update(account);
-        return true;
+    public boolean update(Account account) throws ServiceException {
+        try {
+            accountDAO.update(account);
+            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            return true;
+        } catch (DaoException e) {
+            logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
+            throw new ServiceException(ConstantsService.TRANSACTION_FAIL);
+        }
     }
 
     @Override
-    public List<Account> readAll() {
-        return accountDAO.readAll();
+    public List<Account> readAll() throws ServiceException {
+        try {
+            return accountDAO.readAll();
+        } catch (DaoException e) {
+            logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
+            throw new ServiceException(ConstantsService.TRANSACTION_FAIL);
+        }
     }
 
     @Override
-    public Account readById(Long id) {
-        return accountDAO.readById(id);
+    public Account readById(Long id) throws ServiceException {
+        try {
+            return accountDAO.readById(id);
+        } catch (DaoException e) {
+            logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
+            throw new ServiceException(ConstantsService.TRANSACTION_FAIL);
+        }
     }
 
     @Override
-    public boolean delete(Account account) {
-        accountDAO.delete(account);
-        return true;
+    public boolean delete(Account account) throws ServiceException {
+        try {
+            accountDAO.delete(account);
+            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            return true;
+        } catch (DaoException e) {
+            logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
+            throw new ServiceException(ConstantsService.TRANSACTION_FAIL);
+        }
     }
 
     @Override
-    public User get(String login, String password) {
-        return accountDAO.getAccountByLoginAndPassword(login, password);
+    public User getUser(String login, String password) throws ServiceException {
+        try {
+            return userBaseDAO.readById(accountDAO.getAccountByLoginAndPassword(login, password).getId());
+        } catch (DaoException e) {
+            logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
+            throw new ServiceException(ConstantsService.TRANSACTION_FAIL);
+        }
     }
 
     @Override
-    public boolean getLogin(Account account) {
-        return accountDAO.chekingLogin(account);
+    public boolean chekingLogin(String login) throws ServiceException {
+        try {
+            return accountDAO.chekingLogin(login);
+        } catch (DaoException e) {
+            logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
+            throw new ServiceException(ConstantsService.TRANSACTION_FAIL);
+        }
     }
 }

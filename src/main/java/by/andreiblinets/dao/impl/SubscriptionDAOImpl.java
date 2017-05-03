@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public class SubscriptionDAOImpl implements BaseDAO<Subscription> {
 
-    private static Logger logger = Logger.getLogger(PaymentDAOImpl.class.getName());
+    private static Logger logger = Logger.getLogger(SubscriptionDAOImpl.class.getName());
 
     @Autowired
     private EntityManager entityManager;

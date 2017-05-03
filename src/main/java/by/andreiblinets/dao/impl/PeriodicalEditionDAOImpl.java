@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
 
-    private static Logger logger = Logger.getLogger(PaymentDAOImpl.class.getName());
+    private static Logger logger = Logger.getLogger(PeriodicalEditionDAOImpl.class.getName());
 
     @Autowired
     private EntityManager entityManager;

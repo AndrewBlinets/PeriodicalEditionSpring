@@ -7,9 +7,9 @@ import java.util.List;
 public interface BaseService<T> {
 
     boolean create(T t) throws ServiceException;
-    boolean update(T t);
-    List<T> readAll();
-    T readById(Long id);
-    boolean delete(T t);
+    boolean update(T t) throws ServiceException;
+    List<T> readAll() throws ServiceException;
+    T readById(Long id) throws ServiceException;
+    boolean delete(T t) throws ServiceException;
 
 }

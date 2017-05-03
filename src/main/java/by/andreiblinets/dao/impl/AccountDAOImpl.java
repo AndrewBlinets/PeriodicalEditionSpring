@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public class AccountDAOImpl implements AccountDAO {
 
-    private static Logger logger = Logger.getLogger(PaymentDAOImpl.class.getName());
+    private static Logger logger = Logger.getLogger(AccountDAOImpl.class.getName());
 
     @Autowired
     private EntityManager entityManager;

@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public class UserDAOImpl implements BaseDAO<User> {
 
-    private static Logger logger = Logger.getLogger(PaymentDAOImpl.class.getName());
+    private static Logger logger = Logger.getLogger(UserDAOImpl.class.getName());
 
     @Autowired
     private EntityManager entityManager;

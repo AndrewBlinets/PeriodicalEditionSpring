@@ -1,9 +1,11 @@
 package by.andreiblinets.service;
 
+import by.andreiblinets.dao.exceptions.DaoException;
 import by.andreiblinets.entity.Account;
 import by.andreiblinets.entity.User;
+import by.andreiblinets.service.exceptions.ServiceException;
 
 public interface AccountService extends BaseService<Account> {
-    User get(String login, String password);
-    boolean getLogin(Account account);
+    User getUser(String login, String password) throws DaoException, ServiceException;
+    boolean chekingLogin(String login) throws ServiceException;
 }
