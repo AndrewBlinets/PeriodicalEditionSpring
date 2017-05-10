@@ -24,7 +24,7 @@ public class SubscriptionSimple implements BaseService<Subscription> {
     public boolean create(Subscription subscription) throws ServiceException {
         try {
             subscriptionBaseDAO.create(subscription);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error( ConstantsService.TRANSACTION_FAIL + e.getMessage());
@@ -36,7 +36,7 @@ public class SubscriptionSimple implements BaseService<Subscription> {
     public boolean update(Subscription subscription) throws ServiceException {
         try {
             subscriptionBaseDAO.update(subscription);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
@@ -68,7 +68,7 @@ public class SubscriptionSimple implements BaseService<Subscription> {
     public boolean delete(Subscription subscription) throws ServiceException {
         try {
             subscriptionBaseDAO.delete(subscription);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());

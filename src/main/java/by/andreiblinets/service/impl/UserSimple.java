@@ -24,7 +24,7 @@ public class UserSimple implements BaseService<User> {
     public boolean create(User user) throws ServiceException {
         try {
             userBaseDAO.create(user);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error( ConstantsService.TRANSACTION_FAIL + e.getMessage());
@@ -36,7 +36,7 @@ public class UserSimple implements BaseService<User> {
     public boolean update(User user) throws ServiceException {
         try {
             userBaseDAO.update(user);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
@@ -68,7 +68,7 @@ public class UserSimple implements BaseService<User> {
     public boolean delete(User user) throws ServiceException {
         try {
             userBaseDAO.delete(user);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());

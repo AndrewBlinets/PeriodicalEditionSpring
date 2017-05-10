@@ -1,0 +1,13 @@
+CREATE TABLE `periodicaledition`.`user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `surname` VARCHAR(45) NULL,
+  `userRole` VARCHAR(45) NULL,
+  `idAccount` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `account_idx` (`idAccount` ASC),
+  CONSTRAINT `account`
+    FOREIGN KEY (`idAccount`)
+    REFERENCES `periodicaledition`.`account` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

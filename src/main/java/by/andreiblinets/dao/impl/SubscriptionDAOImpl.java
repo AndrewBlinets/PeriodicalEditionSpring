@@ -32,6 +32,7 @@ public class SubscriptionDAOImpl implements BaseDAO<Subscription> {
         }
     }
 
+    @Override
     public void update(Subscription subscription) throws DaoException {
         try {
             entityManager.merge(subscription);
@@ -43,6 +44,7 @@ public class SubscriptionDAOImpl implements BaseDAO<Subscription> {
         }
     }
 
+    @Override
     public List<Subscription> readAll() throws DaoException {
         try {
             return entityManager.createQuery(Query.GET_ALL_SUBSCRIPTION).getResultList();
@@ -54,6 +56,7 @@ public class SubscriptionDAOImpl implements BaseDAO<Subscription> {
         }
     }
 
+    @Override
     public Subscription readById(Long id) throws DaoException {
         try {
             return entityManager.find(Subscription.class,id);
@@ -65,6 +68,7 @@ public class SubscriptionDAOImpl implements BaseDAO<Subscription> {
         }
     }
 
+    @Override
     public void delete(Subscription subscription) throws DaoException {
         try {
             entityManager.remove(subscription);

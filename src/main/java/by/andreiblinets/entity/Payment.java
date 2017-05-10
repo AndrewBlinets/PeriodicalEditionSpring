@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Payment")
+@Table(name = "payment")
 public class Payment implements Serializable {
 
     @Id
@@ -14,7 +14,7 @@ public class Payment implements Serializable {
     private long id;
 
     @ManyToOne
-    @JoinColumn (name = "id")
+    @JoinColumn (name = "iduser")
     private User user;
 
     @Column (name = "summa")

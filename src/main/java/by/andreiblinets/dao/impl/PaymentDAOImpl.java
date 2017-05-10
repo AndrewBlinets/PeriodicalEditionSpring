@@ -32,6 +32,7 @@ public class PaymentDAOImpl implements BaseDAO<Payment> {
         }
     }
 
+    @Override
     public void update(Payment payment) throws DaoException {
         try {
             entityManager.merge(payment);
@@ -43,6 +44,7 @@ public class PaymentDAOImpl implements BaseDAO<Payment> {
         }
     }
 
+    @Override
     public List<Payment> readAll() throws DaoException {
         try {
             return entityManager.createQuery(Query.GET_ALL_PAYMENT).getResultList();
@@ -54,6 +56,7 @@ public class PaymentDAOImpl implements BaseDAO<Payment> {
         }
     }
 
+    @Override
     public Payment readById(Long id) throws  DaoException {
         try {
             return entityManager.find(Payment.class, id);
@@ -65,6 +68,7 @@ public class PaymentDAOImpl implements BaseDAO<Payment> {
         }
     }
 
+    @Override
     public void delete(Payment payment) throws DaoException {
         try {
             entityManager.remove(payment);

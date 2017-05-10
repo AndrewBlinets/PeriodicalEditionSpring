@@ -24,7 +24,7 @@ public class PaymentSimple implements BaseService<Payment> {
     public boolean create(Payment payment) throws ServiceException {
         try {
             paymentBaseDAO.create(payment);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error( ConstantsService.TRANSACTION_FAIL + e.getMessage());
@@ -36,7 +36,7 @@ public class PaymentSimple implements BaseService<Payment> {
     public boolean update(Payment payment) throws ServiceException {
         try {
             paymentBaseDAO.update(payment);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
@@ -68,7 +68,7 @@ public class PaymentSimple implements BaseService<Payment> {
     public boolean delete(Payment payment) throws ServiceException {
         try {
             paymentBaseDAO.delete(payment);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());

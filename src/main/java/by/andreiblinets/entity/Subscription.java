@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "Subscription")
+@Table(name = "subscription")
 public class Subscription implements Serializable {
 
     @Id
@@ -15,11 +15,11 @@ public class Subscription implements Serializable {
     private long id;
 
     @ManyToOne
-    @JoinColumn (name = "id")
+    @JoinColumn (name = "iduser")
     private User user;
 
     @OneToMany
-    @JoinColumn (name = "id")
+    @JoinColumn (name = "idperiodicaledition")
     private List<PeriodicalEdition> periodicalEditions;
 
 

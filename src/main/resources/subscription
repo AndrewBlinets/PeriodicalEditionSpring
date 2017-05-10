@@ -1,0 +1,17 @@
+CREATE TABLE `periodicaledition`.`subscription` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `iduser` INT NULL,
+  `idperiodicaledition` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_idx` (`iduser` ASC),
+  INDEX `periodicaledition_idx` (`idperiodicaledition` ASC),
+  CONSTRAINT `usersubscription`
+    FOREIGN KEY (`iduser`)
+    REFERENCES `periodicaledition`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `periodicaledition`
+    FOREIGN KEY (`idperiodicaledition`)
+    REFERENCES `periodicaledition`.`periodicaledition` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

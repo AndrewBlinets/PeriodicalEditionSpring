@@ -29,7 +29,7 @@ public class AccountSimple implements AccountService {
     public boolean create(Account account) throws ServiceException {
         try {
             accountDAO.create(account);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error( ConstantsService.TRANSACTION_FAIL + e.getMessage());
@@ -41,7 +41,7 @@ public class AccountSimple implements AccountService {
     public boolean update(Account account) throws ServiceException {
         try {
             accountDAO.update(account);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
@@ -73,7 +73,7 @@ public class AccountSimple implements AccountService {
     public boolean delete(Account account) throws ServiceException {
         try {
             accountDAO.delete(account);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());

@@ -24,7 +24,7 @@ public class PeriodicalEditionSimpl implements BaseService<PeriodicalEdition> {
     public boolean create(PeriodicalEdition periodicalEdition) throws ServiceException {
         try {
             periodicalEditionBaseDAO.create(periodicalEdition);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error( ConstantsService.TRANSACTION_FAIL + e.getMessage());
@@ -36,7 +36,7 @@ public class PeriodicalEditionSimpl implements BaseService<PeriodicalEdition> {
     public boolean update(PeriodicalEdition periodicalEdition) throws ServiceException {
         try {
             periodicalEditionBaseDAO.update(periodicalEdition);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
@@ -68,7 +68,7 @@ public class PeriodicalEditionSimpl implements BaseService<PeriodicalEdition> {
     public boolean delete(PeriodicalEdition periodicalEdition) throws ServiceException {
         try {
             periodicalEditionBaseDAO.delete(periodicalEdition);
-            logger.info(ConstantsService.TRANSACTION_SUCCESSFULLY);
+            logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());

@@ -32,6 +32,7 @@ public class AccountDAOImpl implements AccountDAO {
         }
     }
 
+    @Override
     public void update(Account account) throws DaoException {
         try {
             entityManager.merge(account);
@@ -43,6 +44,7 @@ public class AccountDAOImpl implements AccountDAO {
         }
     }
 
+    @Override
     public List<Account> readAll() throws DaoException {
         try {
             return entityManager.createQuery(Query.GET_ALL_ACCOUNT).getResultList();
@@ -54,6 +56,7 @@ public class AccountDAOImpl implements AccountDAO {
         }
     }
 
+    @Override
     public Account readById(Long id) throws DaoException {
         try {
             return entityManager.find(Account.class, id);
@@ -65,6 +68,7 @@ public class AccountDAOImpl implements AccountDAO {
         }
     }
 
+    @Override
     public void delete(Account account) throws DaoException {
         try {
             entityManager.remove(account);
@@ -76,6 +80,7 @@ public class AccountDAOImpl implements AccountDAO {
         }
     }
 
+    @Override
     public Account getAccountByLoginAndPassword(String login, String password) throws DaoException {
         try {
             return (Account) entityManager
@@ -88,6 +93,7 @@ public class AccountDAOImpl implements AccountDAO {
         }
     }
 
+    @Override
     public boolean chekingLogin(String login) throws DaoException {
         try {
             return entityManager.createStoredProcedureQuery(Query.CHEKING_LOGIN, login).getFirstResult() == 0;

@@ -21,6 +21,7 @@ public class UserDAOImpl implements BaseDAO<User> {
     @Autowired
     private EntityManager entityManager;
 
+    @Override
     public void create(User user) throws DaoException {
         try {
             entityManager.persist(user);
@@ -32,6 +33,7 @@ public class UserDAOImpl implements BaseDAO<User> {
         }
     }
 
+    @Override
     public void update(User user) throws DaoException {
         try {
             entityManager.merge(user);
@@ -43,6 +45,7 @@ public class UserDAOImpl implements BaseDAO<User> {
         }
     }
 
+    @Override
     public List<User> readAll() throws DaoException {
         try {
             return entityManager.createQuery(Query.GET_ALL_USERS).getResultList();
@@ -54,6 +57,7 @@ public class UserDAOImpl implements BaseDAO<User> {
         }
     }
 
+    @Override
     public User readById(Long id) throws DaoException {
         try {
             return entityManager.find(User.class,id);
@@ -65,6 +69,7 @@ public class UserDAOImpl implements BaseDAO<User> {
         }
     }
 
+    @Override
     public void delete(User user) throws DaoException {
         try {
             entityManager.remove(user);

@@ -1,0 +1,11 @@
+CREATE TABLE `periodicaledition`.`payment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `iduser` INT NULL,
+  `summa` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_idx` (`iduser` ASC),
+  CONSTRAINT `user`
+    FOREIGN KEY (`iduser`)
+    REFERENCES `periodicaledition`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

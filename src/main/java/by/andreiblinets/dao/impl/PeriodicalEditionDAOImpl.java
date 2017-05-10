@@ -21,6 +21,7 @@ public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
     @Autowired
     private EntityManager entityManager;
 
+    @Override
     public void create(PeriodicalEdition periodicalEdition) throws DaoException {
         try {
             entityManager.persist(periodicalEdition);
@@ -32,6 +33,7 @@ public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
         }
     }
 
+    @Override
     public void update(PeriodicalEdition periodicalEdition) throws DaoException {
         try {
             entityManager.merge(periodicalEdition);
@@ -43,6 +45,7 @@ public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
         }
     }
 
+    @Override
     public List<PeriodicalEdition> readAll() throws DaoException {
         try {
             return entityManager.createQuery(Query.GET_ALL_PERIODICAL_EDITION).getResultList();
@@ -54,6 +57,7 @@ public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
         }
     }
 
+    @Override
     public PeriodicalEdition readById(Long id) throws DaoException {
         try {
             return entityManager.find(PeriodicalEdition.class, id);
@@ -65,6 +69,7 @@ public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
         }
     }
 
+    @Override
     public void delete(PeriodicalEdition periodicalEdition) throws DaoException {
         try {
             entityManager.remove(periodicalEdition);
