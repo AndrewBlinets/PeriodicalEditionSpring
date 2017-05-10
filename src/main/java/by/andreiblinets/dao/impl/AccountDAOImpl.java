@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
@@ -18,7 +19,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     private static Logger logger = Logger.getLogger(AccountDAOImpl.class.getName());
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     public void create(Account account) throws DaoException {

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
@@ -18,7 +19,7 @@ public class UserDAOImpl implements BaseDAO<User> {
 
     private static Logger logger = Logger.getLogger(UserDAOImpl.class.getName());
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -60,7 +61,8 @@ public class UserDAOImpl implements BaseDAO<User> {
     @Override
     public User readById(Long id) throws DaoException {
         try {
-            return entityManager.find(User.class,id);
+            User user = entityManager.find(User.class,id);
+            return user;
         }
         catch (HibernateException e)
         {

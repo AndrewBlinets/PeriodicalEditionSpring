@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
@@ -18,7 +19,7 @@ public class PaymentDAOImpl implements BaseDAO<Payment> {
 
     private static Logger logger = Logger.getLogger(PaymentDAOImpl.class.getName());
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     public void create(Payment payment) throws DaoException {
