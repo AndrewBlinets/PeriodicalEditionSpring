@@ -25,7 +25,7 @@ public class User implements Serializable {
     private UserRole userRole;
 
     @OneToOne
-    @JoinColumn (name = "idAccount")
+    @JoinColumn (name = "id")
     private Account account;
 
     @OneToMany (mappedBy = "user")

@@ -2,7 +2,7 @@ package by.andreiblinets.service.impl;
 
 import by.andreiblinets.dao.BaseDAO;
 import by.andreiblinets.dao.exceptions.DaoException;
-import by.andreiblinets.entity.PeriodicalEdition;
+import by.andreiblinets.entity.CamelCase;
 import by.andreiblinets.service.BaseService;
 import by.andreiblinets.service.constant.ConstantsService;
 import by.andreiblinets.service.exceptions.ServiceException;
@@ -13,17 +13,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PeriodicalEditionSimpl implements BaseService<PeriodicalEdition> {
+public class PeriodicalEditionSimpl implements BaseService<CamelCase> {
 
     private static Logger logger = Logger.getLogger(PeriodicalEditionSimpl.class.getName());
 
     @Autowired
-    private BaseDAO<PeriodicalEdition> periodicalEditionBaseDAO;
+    private BaseDAO<CamelCase> periodicalEditionBaseDAO;
 
     @Override
-    public boolean create(PeriodicalEdition periodicalEdition) throws ServiceException {
+    public boolean create(CamelCase camelCase) throws ServiceException {
         try {
-            periodicalEditionBaseDAO.create(periodicalEdition);
+            periodicalEditionBaseDAO.create(camelCase);
             logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
@@ -33,9 +33,9 @@ public class PeriodicalEditionSimpl implements BaseService<PeriodicalEdition> {
     }
 
     @Override
-    public boolean update(PeriodicalEdition periodicalEdition) throws ServiceException {
+    public boolean update(CamelCase camelCase) throws ServiceException {
         try {
-            periodicalEditionBaseDAO.update(periodicalEdition);
+            periodicalEditionBaseDAO.update(camelCase);
             logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
@@ -45,7 +45,7 @@ public class PeriodicalEditionSimpl implements BaseService<PeriodicalEdition> {
     }
 
     @Override
-    public List<PeriodicalEdition> readAll() throws ServiceException {
+    public List<CamelCase> readAll() throws ServiceException {
         try {
             return periodicalEditionBaseDAO.readAll();
         } catch (DaoException e) {
@@ -55,7 +55,7 @@ public class PeriodicalEditionSimpl implements BaseService<PeriodicalEdition> {
     }
 
     @Override
-    public PeriodicalEdition readById(Long id) throws ServiceException {
+    public CamelCase readById(Long id) throws ServiceException {
         try {
             return periodicalEditionBaseDAO.readById(id);
         } catch (DaoException e) {
@@ -65,9 +65,9 @@ public class PeriodicalEditionSimpl implements BaseService<PeriodicalEdition> {
     }
 
     @Override
-    public boolean delete(PeriodicalEdition periodicalEdition) throws ServiceException {
+    public boolean delete(CamelCase camelCase) throws ServiceException {
         try {
-            periodicalEditionBaseDAO.delete(periodicalEdition);
+            periodicalEditionBaseDAO.delete(camelCase);
             logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {

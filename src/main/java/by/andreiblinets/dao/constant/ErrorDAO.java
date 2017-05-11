@@ -20,10 +20,10 @@ public final class ErrorDAO {
     public static final String ERROR_READ_PAYMENT = "Error read Payment in DB ";
     public static final String ERROR_DELETE_PAYMENT = "Error delete Payment in DB ";
 
-    public static final String ERROR_ADD_PERIODICALEDITION = "Error add PeriodicalEdition in DB ";
-    public static final String ERROR_UPDATE_PERIODICALEDITION = "Error update PeriodicalEdition in DB ";
-    public static final String ERROR_READ_PERIODICALEDITION = "Error read PeriodicalEdition in DB ";
-    public static final String ERROR_DELETE_PERIODICALEDITION = "Error delete PeriodicalEdition in DB ";
+    public static final String ERROR_ADD_PERIODICALEDITION = "Error add CamelCase in DB ";
+    public static final String ERROR_UPDATE_PERIODICALEDITION = "Error update CamelCase in DB ";
+    public static final String ERROR_READ_PERIODICALEDITION = "Error read CamelCase in DB ";
+    public static final String ERROR_DELETE_PERIODICALEDITION = "Error delete CamelCase in DB ";
 
     public static final String ERROR_ADD_USER = "Error add User in DB ";
     public static final String ERROR_UPDATE_USER = "Error update User in DB ";

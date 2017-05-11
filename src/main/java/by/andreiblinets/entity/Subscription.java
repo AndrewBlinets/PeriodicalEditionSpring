@@ -16,9 +16,9 @@ public class Subscription implements Serializable {
     @JoinColumn (name = "iduser")
     private User user;
 
-    @OneToMany
-    @JoinColumn (name = "idperiodicaledition")
-    private List<PeriodicalEdition> periodicalEditions;
+    @ManyToOne
+    @JoinColumn (name = "idcamelcase")
+    private CamelCase camelCase;
 
 
     public Subscription() {
@@ -40,12 +40,12 @@ public class Subscription implements Serializable {
         this.user = user;
     }
 
-    public List<PeriodicalEdition> getPeriodicalEditions() {
-        return periodicalEditions;
+    public CamelCase getCamelCase() {
+        return camelCase;
     }
 
-    public void setPeriodicalEditions(List<PeriodicalEdition> periodicalEditions) {
-        this.periodicalEditions = periodicalEditions;
+    public void setCamelCase(CamelCase camelCase) {
+        this.camelCase = camelCase;
     }
 
     @Override
@@ -65,13 +65,14 @@ public class Subscription implements Serializable {
         if (getUser() != null ? !getUser().equals(that.getUser()) : that.getUser() != null){
             return false;
         }
-        return getPeriodicalEditions() != null ? getPeriodicalEditions().equals(that.getPeriodicalEditions()) : that.getPeriodicalEditions() == null;
+        return getCamelCase() != null ? getCamelCase().equals(that.getCamelCase()) : that.getCamelCase() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = 0;
-        result = (int) this.getId() + 2;
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
+        result = 31 * result + (getCamelCase() != null ? getCamelCase().hashCode() : 0);
         return result;
     }
 
@@ -80,7 +81,7 @@ public class Subscription implements Serializable {
         final StringBuilder sb = new StringBuilder("Subscription{");
         sb.append("id=").append(id);
         sb.append(", user=").append(user);
-        sb.append(", periodicalEditions=").append(periodicalEditions);
+        sb.append(", camelCase=").append(camelCase);
         sb.append('}');
         return sb.toString();
     }

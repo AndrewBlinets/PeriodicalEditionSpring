@@ -4,10 +4,9 @@ import by.andreiblinets.dao.BaseDAO;
 import by.andreiblinets.dao.constant.ErrorDAO;
 import by.andreiblinets.dao.constant.Query;
 import by.andreiblinets.dao.exceptions.DaoException;
-import by.andreiblinets.entity.PeriodicalEdition;
+import by.andreiblinets.entity.CamelCase;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -15,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
+public class PeriodicalEditionDAOImpl implements BaseDAO<CamelCase> {
 
     private static Logger logger = Logger.getLogger(PeriodicalEditionDAOImpl.class.getName());
 
@@ -23,9 +22,9 @@ public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
     private EntityManager entityManager;
 
     @Override
-    public void create(PeriodicalEdition periodicalEdition) throws DaoException {
+    public void create(CamelCase camelCase) throws DaoException {
         try {
-            entityManager.persist(periodicalEdition);
+            entityManager.persist(camelCase);
         }
         catch (HibernateException e)
         {
@@ -35,9 +34,9 @@ public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
     }
 
     @Override
-    public void update(PeriodicalEdition periodicalEdition) throws DaoException {
+    public void update(CamelCase camelCase) throws DaoException {
         try {
-            entityManager.merge(periodicalEdition);
+            entityManager.merge(camelCase);
         }
         catch (HibernateException e)
         {
@@ -47,7 +46,7 @@ public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
     }
 
     @Override
-    public List<PeriodicalEdition> readAll() throws DaoException {
+    public List<CamelCase> readAll() throws DaoException {
         try {
             return entityManager.createQuery(Query.GET_ALL_PERIODICAL_EDITION).getResultList();
         }
@@ -59,9 +58,9 @@ public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
     }
 
     @Override
-    public PeriodicalEdition readById(Long id) throws DaoException {
+    public CamelCase readById(Long id) throws DaoException {
         try {
-            return entityManager.find(PeriodicalEdition.class, id);
+            return entityManager.find(CamelCase.class, id);
         }
         catch (HibernateException e)
         {
@@ -71,9 +70,9 @@ public class PeriodicalEditionDAOImpl implements BaseDAO<PeriodicalEdition> {
     }
 
     @Override
-    public void delete(PeriodicalEdition periodicalEdition) throws DaoException {
+    public void delete(CamelCase camelCase) throws DaoException {
         try {
-            entityManager.remove(periodicalEdition);
+            entityManager.remove(camelCase);
         }
         catch (HibernateException e)
         {

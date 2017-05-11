@@ -2,10 +2,11 @@ package by.andreiblinets.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "periodicaledition")
-public class PeriodicalEdition implements Serializable {
+@Table(name = "camelcase")
+public class CamelCase implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,14 +18,18 @@ public class PeriodicalEdition implements Serializable {
     @Column(name = "price", nullable = false)
     private double price;
 
+    @OneToMany (mappedBy = "camelCase")
+    private List<Subscription> subscriptions;
 
-    public PeriodicalEdition(long id, String name, double price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
+    public CamelCase() {
     }
 
-    public PeriodicalEdition() {
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
     }
 
     public long getId() {
@@ -56,11 +61,11 @@ public class PeriodicalEdition implements Serializable {
         if (this == o){
             return true;
         }
-        if (!(o instanceof PeriodicalEdition)){
+        if (!(o instanceof CamelCase)){
             return false;
         }
 
-        PeriodicalEdition that = (PeriodicalEdition) o;
+        CamelCase that = (CamelCase) o;
 
         if (getId() != that.getId()){
             return false;
@@ -80,7 +85,7 @@ public class PeriodicalEdition implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("PeriodicalEdition{");
+        final StringBuilder sb = new StringBuilder("CamelCase{");
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
         sb.append(", price=").append(price);
