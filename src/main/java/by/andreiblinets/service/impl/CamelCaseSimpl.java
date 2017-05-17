@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PeriodicalEditionSimpl implements BaseService<CamelCase> {
+public class CamelCaseSimpl implements BaseService<CamelCase> {
 
-    private static Logger logger = Logger.getLogger(PeriodicalEditionSimpl.class.getName());
+    private static Logger logger = Logger.getLogger(CamelCaseSimpl.class.getName());
 
     @Autowired
     private BaseDAO<CamelCase> periodicalEditionBaseDAO;

@@ -21,7 +21,7 @@
     </table>
     ${errorLoginOrPassword} <br />
     <input type="submit" value="Войти" />
-    <a href="controller?command=gotoregistration">Регистрация</a>
+    <a href="registration">Регистрация</a>
 </form>
 </body>
 </html>

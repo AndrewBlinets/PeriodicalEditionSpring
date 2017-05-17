@@ -1,6 +1,5 @@
 package by.andreiblinets.web.controller;
 
-import by.andreiblinets.entity.Account;
 import by.andreiblinets.entity.User;
 import by.andreiblinets.service.AccountService;
 import by.andreiblinets.service.BaseService;
@@ -22,9 +21,9 @@ public class HomeController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView getIndex() {
-        Account account = null;
+        boolean flag;
         try {
-            account =  accountService.readById((long)1);
+            flag =  accountService.chekingLogin("qwe");
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -36,6 +35,13 @@ public class HomeController {
         }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(Page.INDEX);
+        return modelAndView;
+    }
+
+    @RequestMapping (value = "/registration", method = RequestMethod.GET)
+    public ModelAndView GoReegistration() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(Page.REGISTRATION);
         return modelAndView;
     }
 }

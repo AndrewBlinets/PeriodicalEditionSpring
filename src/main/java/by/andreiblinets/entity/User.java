@@ -1,8 +1,5 @@
 package by.andreiblinets.entity;
 
-import by.andreiblinets.entity.enums.UserRole;
-
-import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -22,14 +19,12 @@ public class User implements Serializable {
     private String surname;
 
     @Column (name = "userRole", nullable = false)
-    private UserRole userRole;
+    private String userRole;
 
     @OneToOne
     @JoinColumn (name = "id")
     private Account account;
 
-    @OneToMany (mappedBy = "user")
-    private List<Subscription> subscriptions;
 
     public User() {
     }
@@ -50,38 +45,52 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public UserRole getUserRole() {
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(UserRole userRole) {
+    public void setUserRole(String userRole) {
         this.userRole = userRole;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o){
-            return true;
-        }
-        if (!(o instanceof User)){
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
 
         User user = (User) o;
 
-        if (getId() != user.getId()){
+        if (getId() != user.getId()) return false;
+        if (getName() != null ? !getName().equals(user.getName()) : user.getName() != null) return false;
+        if (getSurname() != null ? !getSurname().equals(user.getSurname()) : user.getSurname() != null) return false;
+        if (getUserRole() != null ? !getUserRole().equals(user.getUserRole()) : user.getUserRole() != null)
             return false;
-        }
-        if (!getName().equals(user.getName())){
-            return false;
-        }
-        return getUserRole() == user.getUserRole();
+        return getAccount() != null ? getAccount().equals(user.getAccount()) : user.getAccount() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = 0;
-        result = (int) this.getId() + 2;
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getSurname() != null ? getSurname().hashCode() : 0);
+        result = 31 * result + (getUserRole() != null ? getUserRole().hashCode() : 0);
+        result = 31 * result + (getAccount() != null ? getAccount().hashCode() : 0);
         return result;
     }
 
@@ -91,9 +100,8 @@ public class User implements Serializable {
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
         sb.append(", surname='").append(surname).append('\'');
-        sb.append(", userRole=").append(userRole);
+        sb.append(", userRole='").append(userRole).append('\'');
         sb.append(", account=").append(account);
-        sb.append(", subscriptions=").append(subscriptions);
         sb.append('}');
         return sb.toString();
     }

@@ -1,7 +1,7 @@
 package by.andreiblinets.dao.constant;
 
 
-public final class Query {
+public final class MyQuery {
     public static final String GET_ALL_USERS = "from User";
     public static final String GET_ALL_ACCOUNT = "from Account";
     public static final String GET_ALL_PAYMENT =  "from Payment";

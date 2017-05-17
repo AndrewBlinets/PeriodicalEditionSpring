@@ -10,10 +10,12 @@
 		<table border="1">
 			<tr bgcolor="#CCCCCC">
 					<td align="center"><strong>Имя</strong></td>
+					<td align="center"><strong>Фамилия</strong></td>
 			</tr>
 			<c:forEach var="reader" items="${readerList}">
 				<tr>
 					<td><c:out value="${ reader.name }" /></td>
+					<td><c:out value="${ reader.surname }" /></td>
 				</tr>
 			</c:forEach>
 		</table>

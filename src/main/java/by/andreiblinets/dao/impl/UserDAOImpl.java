@@ -2,12 +2,11 @@ package by.andreiblinets.dao.impl;
 
 import by.andreiblinets.dao.BaseDAO;
 import by.andreiblinets.dao.constant.ErrorDAO;
-import by.andreiblinets.dao.constant.Query;
+import by.andreiblinets.dao.constant.MyQuery;
 import by.andreiblinets.dao.exceptions.DaoException;
 import by.andreiblinets.entity.User;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -49,7 +48,7 @@ public class UserDAOImpl implements BaseDAO<User> {
     @Override
     public List<User> readAll() throws DaoException {
         try {
-            return entityManager.createQuery(Query.GET_ALL_USERS).getResultList();
+            return entityManager.createQuery(MyQuery.GET_ALL_USERS).getResultList();
         }
         catch (HibernateException e)
         {

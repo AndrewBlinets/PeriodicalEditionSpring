@@ -2,12 +2,11 @@ package by.andreiblinets.dao.impl;
 
 import by.andreiblinets.dao.BaseDAO;
 import by.andreiblinets.dao.constant.ErrorDAO;
-import by.andreiblinets.dao.constant.Query;
+import by.andreiblinets.dao.constant.MyQuery;
 import by.andreiblinets.dao.exceptions.DaoException;
 import by.andreiblinets.entity.Subscription;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -48,7 +47,7 @@ public class SubscriptionDAOImpl implements BaseDAO<Subscription> {
     @Override
     public List<Subscription> readAll() throws DaoException {
         try {
-            return entityManager.createQuery(Query.GET_ALL_SUBSCRIPTION).getResultList();
+            return entityManager.createQuery(MyQuery.GET_ALL_SUBSCRIPTION).getResultList();
         }
         catch (HibernateException e)
         {

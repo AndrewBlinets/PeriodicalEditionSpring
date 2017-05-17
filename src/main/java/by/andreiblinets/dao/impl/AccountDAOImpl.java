@@ -2,21 +2,22 @@ package by.andreiblinets.dao.impl;
 
 import by.andreiblinets.dao.AccountDAO;
 import by.andreiblinets.dao.constant.ErrorDAO;
-import by.andreiblinets.dao.constant.Query;
+import by.andreiblinets.dao.constant.MyQuery;
 import by.andreiblinets.dao.exceptions.DaoException;
 import by.andreiblinets.entity.Account;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
 public class AccountDAOImpl implements AccountDAO {
 
+    private static final String PARAMETER_USER_LOGIN = "login";
     private static Logger logger = Logger.getLogger(AccountDAOImpl.class.getName());
 
     @PersistenceContext
@@ -48,7 +49,7 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public List<Account> readAll() throws DaoException {
         try {
-            return entityManager.createQuery(Query.GET_ALL_ACCOUNT).getResultList();
+            return entityManager.createQuery(MyQuery.GET_ALL_ACCOUNT).getResultList();
         }
         catch (HibernateException e)
         {
@@ -85,7 +86,7 @@ public class AccountDAOImpl implements AccountDAO {
     public Account getAccountByLoginAndPassword(String login, String password) throws DaoException {
         try {
             return (Account) entityManager
-                    .createStoredProcedureQuery(Query.GET_USER_BY_LOGIN_AND_PASSWORD,login,password).getResultList();
+                    .createStoredProcedureQuery(MyQuery.GET_USER_BY_LOGIN_AND_PASSWORD,login,password).getResultList();
         }
         catch (HibernateException e)
         {
@@ -97,7 +98,17 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public boolean chekingLogin(String login) throws DaoException {
         try {
-            return entityManager.createStoredProcedureQuery(Query.CHEKING_LOGIN, login).getFirstResult() == 0;
+            Query query= entityManager.createNativeQuery(MyQuery.CHEKING_LOGIN);
+            query.setParameter(PARAMETER_USER_LOGIN, login);
+
+            if(query.getResultList().size() != 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         catch (HibernateException e)
         {

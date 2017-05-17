@@ -2,7 +2,7 @@ package by.andreiblinets.dao.impl;
 
 import by.andreiblinets.dao.BaseDAO;
 import by.andreiblinets.dao.constant.ErrorDAO;
-import by.andreiblinets.dao.constant.Query;
+import by.andreiblinets.dao.constant.MyQuery;
 import by.andreiblinets.dao.exceptions.DaoException;
 import by.andreiblinets.entity.CamelCase;
 import org.apache.log4j.Logger;
@@ -48,7 +48,7 @@ public class PeriodicalEditionDAOImpl implements BaseDAO<CamelCase> {
     @Override
     public List<CamelCase> readAll() throws DaoException {
         try {
-            return entityManager.createQuery(Query.GET_ALL_PERIODICAL_EDITION).getResultList();
+            return entityManager.createQuery(MyQuery.GET_ALL_PERIODICAL_EDITION).getResultList();
         }
         catch (HibernateException e)
         {
