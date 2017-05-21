@@ -2,28 +2,34 @@ package by.andreiblinets.service.impl;
 
 import by.andreiblinets.dao.BaseDAO;
 import by.andreiblinets.dao.exceptions.DaoException;
-import by.andreiblinets.entity.CamelCase;
+import by.andreiblinets.entity.AbstractEntity;
 import by.andreiblinets.service.BaseService;
 import by.andreiblinets.service.constant.ConstantsService;
 import by.andreiblinets.service.exceptions.ServiceException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class CamelCaseSimpl implements BaseService<CamelCase> {
+@Transactional
+public abstract class BaseServiceImpl<T extends AbstractEntity> implements BaseService<T> {
 
-    private static Logger logger = Logger.getLogger(CamelCaseSimpl.class.getName());
+    private static Logger logger;
 
-    @Autowired
-    private BaseDAO<CamelCase> periodicalEditionBaseDAO;
+    private BaseDAO<T> baseDAO;
+
+    public BaseServiceImpl(BaseDAO<T> dao, Logger aLogger) {
+        this.baseDAO = dao;
+        logger = aLogger;
+    }
 
     @Override
-    public boolean create(CamelCase camelCase) throws ServiceException {
+    public boolean create(T t) throws ServiceException {
         try {
-            periodicalEditionBaseDAO.create(camelCase);
+            baseDAO.create(t);
             logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
@@ -33,9 +39,9 @@ public class CamelCaseSimpl implements BaseService<CamelCase> {
     }
 
     @Override
-    public boolean update(CamelCase camelCase) throws ServiceException {
+    public boolean update(T t) throws ServiceException {
         try {
-            periodicalEditionBaseDAO.update(camelCase);
+            baseDAO.update(t);
             logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {
@@ -45,9 +51,9 @@ public class CamelCaseSimpl implements BaseService<CamelCase> {
     }
 
     @Override
-    public List<CamelCase> readAll() throws ServiceException {
+    public List<T> readAll() throws ServiceException {
         try {
-            return periodicalEditionBaseDAO.readAll();
+            return baseDAO.readAll();
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
             throw new ServiceException(ConstantsService.TRANSACTION_FAIL);
@@ -55,9 +61,9 @@ public class CamelCaseSimpl implements BaseService<CamelCase> {
     }
 
     @Override
-    public CamelCase readById(Long id) throws ServiceException {
+    public T readById(Long id) throws ServiceException {
         try {
-            return periodicalEditionBaseDAO.readById(id);
+            return baseDAO.readById(id);
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
             throw new ServiceException(ConstantsService.TRANSACTION_FAIL);
@@ -65,9 +71,9 @@ public class CamelCaseSimpl implements BaseService<CamelCase> {
     }
 
     @Override
-    public boolean delete(CamelCase camelCase) throws ServiceException {
+    public boolean delete(T t) throws ServiceException {
         try {
-            periodicalEditionBaseDAO.delete(camelCase);
+            baseDAO.delete(t);
             logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {

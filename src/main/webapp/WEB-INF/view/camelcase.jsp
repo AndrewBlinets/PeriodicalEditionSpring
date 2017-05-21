@@ -19,6 +19,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="controller?command=logout">Выйти из системы</a>
+		<a href="/addcamelcase">Добавить периодическое издание</a>
 	</body>
 </html>

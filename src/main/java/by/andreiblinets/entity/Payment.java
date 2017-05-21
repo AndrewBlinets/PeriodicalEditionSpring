@@ -1,15 +1,13 @@
 package by.andreiblinets.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "payment")
-public class Payment implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class Payment extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn (name = "iduser")
@@ -19,14 +17,7 @@ public class Payment implements Serializable {
     private double summa;
 
     public Payment() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        super();
     }
 
     public User getUser() {

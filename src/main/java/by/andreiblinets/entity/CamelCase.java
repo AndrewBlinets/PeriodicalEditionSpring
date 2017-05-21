@@ -1,43 +1,22 @@
 package by.andreiblinets.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "camelcase")
-public class CamelCase implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class CamelCase extends AbstractEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "price", nullable = false)
-    private double price;
-
-    @OneToMany (mappedBy = "camelCase")
-    private List<Subscription> subscriptions;
+    private long price;
 
     public CamelCase() {
-    }
-
-    public List<Subscription> getSubscriptions() {
-        return subscriptions;
-    }
-
-    public void setSubscriptions(List<Subscription> subscriptions) {
-        this.subscriptions = subscriptions;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -48,11 +27,11 @@ public class CamelCase implements Serializable {
         this.name = name;
     }
 
-    public double getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 

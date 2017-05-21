@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<table border="1">
-			<tr bgcolor="#CCCCCC">
+			<tr>
 					<td align="center"><strong>Имя</strong></td>
 					<td align="center"><strong>Фамилия</strong></td>
 			</tr>

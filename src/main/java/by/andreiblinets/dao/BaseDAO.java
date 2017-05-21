@@ -1,10 +1,11 @@
 package by.andreiblinets.dao;
 
 import by.andreiblinets.dao.exceptions.DaoException;
+import by.andreiblinets.entity.AbstractEntity;
 
 import java.util.List;
 
-public interface BaseDAO<T> {
+public interface BaseDAO<T extends AbstractEntity> {
     void create(T t) throws DaoException;
     void update(T t) throws DaoException;
     List<T> readAll() throws DaoException;

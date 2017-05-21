@@ -2,6 +2,7 @@ package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.User;
 import by.andreiblinets.service.BaseService;
+import by.andreiblinets.service.UserService;
 import by.andreiblinets.service.exceptions.ServiceException;
 import by.andreiblinets.web.constant.Error;
 import by.andreiblinets.web.constant.Message;
@@ -21,7 +22,7 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private BaseService<User> userService;
+    private UserService userService;
 
     @Autowired
     private PagePathManager pagePathManager;

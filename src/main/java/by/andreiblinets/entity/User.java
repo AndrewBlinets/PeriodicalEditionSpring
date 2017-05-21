@@ -1,16 +1,14 @@
 package by.andreiblinets.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class User extends AbstractEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -27,14 +25,6 @@ public class User implements Serializable {
 
 
     public User() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {

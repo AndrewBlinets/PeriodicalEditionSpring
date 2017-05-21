@@ -1,15 +1,13 @@
 package by.andreiblinets.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "account")
-public class Account implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class Account extends AbstractEntity  {
 
     @Column(name = "login", nullable = false)
     private String login;
@@ -18,14 +16,6 @@ public class Account implements Serializable {
     private String hashpassword;
 
     public Account() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getLogin() {

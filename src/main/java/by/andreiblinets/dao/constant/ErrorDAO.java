@@ -20,13 +20,20 @@ public final class ErrorDAO {
     public static final String ERROR_READ_PAYMENT = "Error read Payment in DB ";
     public static final String ERROR_DELETE_PAYMENT = "Error delete Payment in DB ";
 
-    public static final String ERROR_ADD_PERIODICALEDITION = "Error add CamelCase in DB ";
-    public static final String ERROR_UPDATE_PERIODICALEDITION = "Error update CamelCase in DB ";
-    public static final String ERROR_READ_PERIODICALEDITION = "Error read CamelCase in DB ";
-    public static final String ERROR_DELETE_PERIODICALEDITION = "Error delete CamelCase in DB ";
+    public static final String ERROR_ADD_CAMEL_CASE = "Error add CamelCase in DB ";
+    public static final String ERROR_UPDATE_CAMEL_CASE = "Error update CamelCase in DB ";
+    public static final String ERROR_READ_CAMEL_CASE = "Error read CamelCase in DB ";
+    public static final String ERROR_DELETE_CAMEL_CASE = "Error delete CamelCase in DB ";
 
-    public static final String ERROR_ADD_USER = "Error add User in DB ";
-    public static final String ERROR_UPDATE_USER = "Error update User in DB ";
-    public static final String ERROR_READ_USER = "Error read User in DB ";
-    public static final String ERROR_DELETE_USER = "Error delete User in DB ";
+    public static final String ERROR_ADD_USER = "Error add in db";
+    public static final String ERROR_UPDATE_USER = "Error update in db";
+    public static final String ERROR_READ_USER = "Error read in db";
+    public static final String ERROR_DELETE_USER = "Error delete in db";
+
+    public static final String ERROR_ADD = "Error add ";
+    public static final String ERROR_UPDATE = "Error update ";
+    public static final String ERROR_READ = "Error read ";
+    public static final String ERROR_DELETE = "Error delete ";
+
+    public static final String IN_DB = " in db";
 }
