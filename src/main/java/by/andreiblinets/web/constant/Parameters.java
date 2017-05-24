@@ -7,4 +7,6 @@ public class Parameters {
 
     public static final String CONFIGS_SOURCE = "configs";
     public static final String USER = "user";
+    public static final String ACCOUNT = "account";
+    public static final String MESSAGE = "message";
 }

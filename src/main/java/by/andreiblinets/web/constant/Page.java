@@ -9,4 +9,5 @@ public final class Page {
     public static final String ADMIN_SHOW_CAMEL_CASE_PAGE = "path.admin.camelcase";
     public static final String USER = "path.user";
     public static final String ADD_CAMEL_CASE = "path.add.camelcase";
+    public static final String ACCOUNT = "path.account";
 }
