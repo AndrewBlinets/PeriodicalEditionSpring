@@ -20,8 +20,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private AccountService accountService;
 
     @Autowired
     private PagePathManager pagePathManager;
@@ -57,9 +55,8 @@ public class UserController {
     public String deleteUser(ModelMap model, @PathVariable("id") long id) {
         String pagePath;
         try {
-            User user = userService.readById(id);
-            userService.delete(user);
-            model.addAttribute(Parameters.USER_LIST, userService.readAll());
+            userService.delete(userService.readById(id));
+            model.addAttribute(Parameters.USER, userService.readById(id));
             pagePath = pagePathManager.getProperty(Page.USER);
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
@@ -73,7 +70,7 @@ public class UserController {
         String pagePath;
         try {
             userService.update(user);
-            model.addAttribute(Parameters.USER, accountService.readById(id));
+            model.addAttribute(Parameters.USER, userService.readById(id));
             pagePath = pagePathManager.getProperty(Page.USER);
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);

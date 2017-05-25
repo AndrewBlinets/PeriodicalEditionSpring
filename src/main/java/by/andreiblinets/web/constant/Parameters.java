@@ -9,4 +9,7 @@ public class Parameters {
     public static final String USER = "user";
     public static final String ACCOUNT = "account";
     public static final String MESSAGE = "message";
+    public static final String CAMEL_CASE = "camelcase";
+    public static final String SUBSCRIPTION_LIST = "subscriptions";
+    public static final String SUBSCRIPTION = "subscription";
 }

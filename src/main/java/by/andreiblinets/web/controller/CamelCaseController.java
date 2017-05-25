@@ -50,41 +50,53 @@ public class CamelCaseController {
         return pagePath;
     }
 
-    /*@RequestMapping(value = "/camelcase/{id}", method = RequestMethod.GET)
-    public ModelAndView getCamelCase(@PathVariable("id") long id) {
-        String pagePath;
+    @RequestMapping(value = "/camelcase/{id}", method = RequestMethod.GET)
+    public String getCamelCase(ModelMap model, @PathVariable("id") long id) {
+        String pagePath = null;
         try {
             camelCaseService.readById(id);
-            return null;
+            //pagePath = pagePathManager.getProperty(Page.)
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
             pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
         }
-        return page;
+        return pagePath;
     }
 
-    @RequestMapping(value = "/camelcases", method = RequestMethod.POST)
-    public ModelAndView saveCamelCase(@RequestBody CamelCase camelCase) {
+    @RequestMapping(value = "/camelcas/{id}", method = RequestMethod.PUT)
+    public String updateCamelCase(ModelMap model, @PathVariable("id") long id, @RequestBody CamelCase camelCase) {
+       String pagePath = null;
         try {
             camelCaseService.update(camelCase);
-            return null;
+            model.addAttribute(Parameters.CAMEL_CASE,camelCaseService.readById(id));
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
             pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
         }
-        return page;
+        return pagePath;
     }
 
     @RequestMapping(value = "/camelcase/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable long id) {
+    public String delete(ModelMap model, @PathVariable long id) {
+        String pagePath = null;
         try {
             CamelCase camelCase = camelCaseService.readById(id);
             camelCaseService.delete(camelCase);
+            if(camelCaseService.readById(id) == null)
+            {
+                model.addAttribute(Parameters.MESSAGE, Message.DELETE_CAMELCASE);
+                pagePath = pagePathManager.getProperty(Page.ACCOUNT);
+            }
+            else
+            {
+                model.addAttribute(Parameters.MESSAGE, Message.NOT_DELETE_CAMELCASE);
+                pagePath = pagePathManager.getProperty(Page.ACCOUNT);
+            }
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
             pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
         }
-        return page;
-    }*/
+        return pagePath;
+    }
 
 }
