@@ -19,10 +19,14 @@ public class User extends AbstractEntity {
     @Column (name = "userRole", nullable = false)
     private String userRole;
 
-    @OneToOne
-    @JoinColumn (name = "id")
+    @OneToOne(mappedBy = "user")
     private Account account;
 
+    @OneToMany (mappedBy = "user")
+    private List<Subscription> subscriptions;
+
+    @OneToMany(mappedBy = "user")
+    private List<Payment> payments;
 
     public User() {
     }
@@ -59,39 +63,78 @@ public class User extends AbstractEntity {
         this.account = account;
     }
 
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof User)){
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
 
         User user = (User) o;
 
-        if (getId() != user.getId()) return false;
-        if (getName() != null ? !getName().equals(user.getName()) : user.getName() != null) return false;
-        if (getSurname() != null ? !getSurname().equals(user.getSurname()) : user.getSurname() != null) return false;
-        if (getUserRole() != null ? !getUserRole().equals(user.getUserRole()) : user.getUserRole() != null)
+        if (getName() != null ? !getName().equals(user.getName()) : user.getName() != null){
             return false;
-        return getAccount() != null ? getAccount().equals(user.getAccount()) : user.getAccount() == null;
+        }
+        if (getSurname() != null ? !getSurname().equals(user.getSurname()) : user.getSurname() != null){
+            return false;
+        }
+        if (getUserRole() != null ? !getUserRole().equals(user.getUserRole()) : user.getUserRole() != null)
+        {
+            return false;
+        }
+        if (getAccount() != null ? !getAccount().equals(user.getAccount()) : user.getAccount() != null){
+            return false;
+        }
+        if (getSubscriptions() != null ? !getSubscriptions().equals(user.getSubscriptions()) : user.getSubscriptions() != null)
+        {
+            return false;
+        }
+        return getPayments() != null ? getPayments().equals(user.getPayments()) : user.getPayments() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (getId() ^ (getId() >>> 32));
+        int result = super.hashCode();
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getSurname() != null ? getSurname().hashCode() : 0);
         result = 31 * result + (getUserRole() != null ? getUserRole().hashCode() : 0);
         result = 31 * result + (getAccount() != null ? getAccount().hashCode() : 0);
+        result = 31 * result + (getSubscriptions() != null ? getSubscriptions().hashCode() : 0);
+        result = 31 * result + (getPayments() != null ? getPayments().hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("User{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
+        sb.append("name='").append(name).append('\'');
         sb.append(", surname='").append(surname).append('\'');
+        sb.append(", id=").append(id);
         sb.append(", userRole='").append(userRole).append('\'');
         sb.append(", account=").append(account);
+        sb.append(", subscriptions=").append(subscriptions);
+        sb.append(", payments=").append(payments);
         sb.append('}');
         return sb.toString();
     }

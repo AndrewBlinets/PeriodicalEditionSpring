@@ -7,7 +7,7 @@
 		<title>Регистрация</title>
 	</head>
 	<body>
-		<form name="registrationForm" method="POST" action="/user" th:object="${registration}">
+		<form name="registrationForm" method="POST" action="/registration" th:object="${registration}">
 			<input type="hidden" name="command" value="registration" />
 			Введите ваши данные:<br/>
 			<table>
@@ -31,7 +31,7 @@
 			${operationMessage} 
 			${errorUserExists} <br />
 			<input type="submit" value="Зарегистрировать" />
-			<a href="controller?command=back">Назад</a>
+			<a href="index">Назад</a>
 		</form>
 		
 		

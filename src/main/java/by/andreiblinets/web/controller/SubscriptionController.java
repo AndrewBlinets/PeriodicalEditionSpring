@@ -42,7 +42,6 @@ public class SubscriptionController {
     public String getSubscriptionById(ModelMap model, @PathVariable("id") long id) {
         String pagePath;
         try {
-
             model.addAttribute(Parameters.SUBSCRIPTION, subscriptionService.readById(id));
             pagePath = pagePathManager.getProperty(Page.SUBSCRIPTION);
         } catch (ServiceException e) {

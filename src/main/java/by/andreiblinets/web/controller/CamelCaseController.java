@@ -26,7 +26,6 @@ public class CamelCaseController {
     public String getAllCamelCase(ModelMap model) {
         String pagePath;
         try {
-
             model.addAttribute(Parameters.CAMELCASE_LIST, camelCaseService.readAll());
             pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
         } catch (ServiceException e) {

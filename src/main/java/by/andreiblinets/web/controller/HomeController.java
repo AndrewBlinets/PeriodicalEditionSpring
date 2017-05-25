@@ -21,39 +21,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
     @Autowired
-    private AccountService accountService;
-    @Autowired
-    private UserService userBaseService;
-
-    @Autowired
     private PagePathManager pagePathManager;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView getIndex() {
-        boolean flag;
-        try {
-            flag =  accountService.chekingLogin("qwe");
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        User user = null ;
-        try {
-            user = userBaseService.readById((long)1);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(Page.INDEX);
-        return modelAndView;
+    public String getIndex() {
+        return pagePathManager.getProperty(Page.INDEX);
     }
 
     @RequestMapping (value = "/registration", method = RequestMethod.GET)
     public String goReegistration() {
         return pagePathManager.getProperty(Page.REGISTRATION);
-    }
-
-    @RequestMapping (value = "/addcamelcase", method = RequestMethod.GET)
-    public String goAddCamelCase() {
-        return pagePathManager.getProperty(Page.ADD_CAMEL_CASE);
     }
 }

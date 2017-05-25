@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Payment extends AbstractEntity {
 
     @ManyToOne
-    @JoinColumn (name = "iduser")
+    @JoinColumn (name = "user")
     private User user;
 
     @Column (name = "summa")

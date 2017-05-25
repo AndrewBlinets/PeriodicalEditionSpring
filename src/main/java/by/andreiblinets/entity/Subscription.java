@@ -11,11 +11,11 @@ import java.util.List;
 public class Subscription extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn (name = "iduser")
+    @JoinColumn (name = "user")
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn (name = "idcamelcase")
+    @JoinColumn (name = "camelcase")
     private CamelCase camelCase;
 
 

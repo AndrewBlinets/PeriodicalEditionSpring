@@ -42,7 +42,6 @@ public class PaymentController {
     public String getPaymentById(ModelMap model, @PathVariable("id") long id) {
         String pagePath;
         try {
-
             model.addAttribute(Parameters.PAYMENT, paymentService.readById(id));
             pagePath = pagePathManager.getProperty(Page.PAYMENT);
         } catch (ServiceException e) {

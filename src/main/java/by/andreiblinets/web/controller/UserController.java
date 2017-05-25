@@ -41,7 +41,6 @@ public class UserController {
     public String getUserById(ModelMap model, @PathVariable("id") long id) {
         String pagePath;
         try {
-
             model.addAttribute(Parameters.USER, userService.readById(id));
             pagePath = pagePathManager.getProperty(Page.USER);
         } catch (ServiceException e) {

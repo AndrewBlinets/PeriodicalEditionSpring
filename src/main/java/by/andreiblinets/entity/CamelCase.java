@@ -16,6 +16,9 @@ public class CamelCase extends AbstractEntity {
     @Column(name = "price", nullable = false)
     private long price;
 
+    @OneToMany(mappedBy = "camelcase")
+    private List<Subscription> subscriptions;
+
     public CamelCase() {
     }
 
@@ -35,39 +38,53 @@ public class CamelCase extends AbstractEntity {
         this.price = price;
     }
 
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o){
+        if (this == o) {
             return true;
         }
         if (!(o instanceof CamelCase)){
             return false;
         }
-
-        CamelCase that = (CamelCase) o;
-
-        if (getId() != that.getId()){
+        if (!super.equals(o)){
             return false;
         }
-        if (Double.compare(that.getPrice(), getPrice()) != 0){
+
+        CamelCase camelCase = (CamelCase) o;
+
+        if (getPrice() != camelCase.getPrice()){
             return false;
         }
-        return getName() != null ? getName().equals(that.getName()) : that.getName() == null;
+        if (getName() != null ? !getName().equals(camelCase.getName()) : camelCase.getName() != null){
+            return false;
+        }
+        return getSubscriptions() != null ? getSubscriptions().equals(camelCase.getSubscriptions()) : camelCase.getSubscriptions() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = 0;
-        result = (int) this.getId() + 2;
+        int result = super.hashCode();
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (int) (getPrice() ^ (getPrice() >>> 32));
+        result = 31 * result + (getSubscriptions() != null ? getSubscriptions().hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("CamelCase{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
+        sb.append("name='").append(name).append('\'');
         sb.append(", price=").append(price);
+        sb.append(", id=").append(id);
+        sb.append(", subscriptions=").append(subscriptions);
         sb.append('}');
         return sb.toString();
     }
