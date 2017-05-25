@@ -12,4 +12,6 @@ public class Parameters {
     public static final String CAMEL_CASE = "camelcase";
     public static final String SUBSCRIPTION_LIST = "subscriptions";
     public static final String SUBSCRIPTION = "subscription";
+    public static final String PAYMENT_LIST = "payments";
+    public static final String PAYMENT = "payment";
 }

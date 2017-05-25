@@ -22,8 +22,6 @@
     ${errorLoginOrPassword} <br />
     <input type="submit" value="Войти" />
     <a href="registration">Регистрация</a>
-    <p><a href="users">Пользователи</a></p>
-    <p><a href="/camelcases">Периодическое издания</a></p>
 </form>
 </body>
 </html>

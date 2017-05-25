@@ -11,4 +11,5 @@ public final class Page {
     public static final String ADD_CAMEL_CASE = "path.add.camelcase";
     public static final String ACCOUNT = "path.account";
     public static final String SUBSCRIPTION = "path.subscription";
+    public static final String PAYMENT = "path.payment";
 }

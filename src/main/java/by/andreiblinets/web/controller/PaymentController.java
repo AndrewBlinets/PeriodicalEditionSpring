@@ -1,7 +1,8 @@
 package by.andreiblinets.web.controller;
 
+import by.andreiblinets.entity.Payment;
 import by.andreiblinets.entity.Subscription;
-import by.andreiblinets.service.SubscriptionService;
+import by.andreiblinets.service.PaymentService;
 import by.andreiblinets.service.exceptions.ServiceException;
 import by.andreiblinets.web.constant.Error;
 import by.andreiblinets.web.constant.Message;
@@ -17,20 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class SubscriptionController {
-
+public class PaymentController {
     @Autowired
-    private SubscriptionService subscriptionService;
+    private PaymentService paymentService;
 
     @Autowired
     private PagePathManager pagePathManager;
 
-    @RequestMapping(value = "/subscriptions", method = RequestMethod.GET)
-    public String getAllSubscription(ModelMap model) {
+    @RequestMapping(value = "/payments", method = RequestMethod.GET)
+    public String getAllPayment(ModelMap model) {
         String pagePath;
         try {
-            model.addAttribute(Parameters.SUBSCRIPTION_LIST, subscriptionService.readAll());
-            pagePath = pagePathManager.getProperty(Page.SUBSCRIPTION);
+            model.addAttribute(Parameters.PAYMENT_LIST, paymentService.readAll());
+            pagePath = pagePathManager.getProperty(Page.PAYMENT);
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
             pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
@@ -38,13 +38,13 @@ public class SubscriptionController {
         return pagePath;
     }
 
-    @RequestMapping(value = "/subscription/{id}", method = RequestMethod.GET)
-    public String getSubscriptionById(ModelMap model, @PathVariable("id") long id) {
+    @RequestMapping(value = "/payment/{id}", method = RequestMethod.GET)
+    public String getPaymentById(ModelMap model, @PathVariable("id") long id) {
         String pagePath;
         try {
 
-            model.addAttribute(Parameters.SUBSCRIPTION, subscriptionService.readById(id));
-            pagePath = pagePathManager.getProperty(Page.SUBSCRIPTION);
+            model.addAttribute(Parameters.PAYMENT, paymentService.readById(id));
+            pagePath = pagePathManager.getProperty(Page.PAYMENT);
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
             pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
@@ -52,13 +52,13 @@ public class SubscriptionController {
         return pagePath;
     }
 
-    @RequestMapping(value = "/subscription/{id}", method = RequestMethod.DELETE)
-    public String deleteSubscription(ModelMap model, @PathVariable("id") long id) {
+    @RequestMapping(value = "/payment/{id}", method = RequestMethod.DELETE)
+    public String deletePayment(ModelMap model, @PathVariable("id") long id) {
         String pagePath;
         try {
-            subscriptionService.delete(subscriptionService.readById(id));
-            model.addAttribute(Parameters.USER_LIST, subscriptionService.readById(id));
-            pagePath = pagePathManager.getProperty(Page.USER);
+            paymentService.delete(paymentService.readById(id));
+            model.addAttribute(Parameters.PAYMENT, paymentService.readById(id));
+            pagePath = pagePathManager.getProperty(Page.PAYMENT);
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
             pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
@@ -66,13 +66,13 @@ public class SubscriptionController {
         return pagePath;
     }
 
-    @RequestMapping(value = "/subscription/{id}", method = RequestMethod.PUT)
-    public String updateSubscription(ModelMap model, @PathVariable("id") long id, @RequestBody Subscription subscription) {
+    @RequestMapping(value = "/payment/{id}", method = RequestMethod.PUT)
+    public String updatePayment(ModelMap model, @PathVariable("id") long id, @RequestBody Payment payment) {
         String pagePath;
         try {
-            subscriptionService.update(subscription);
-            model.addAttribute(Parameters.SUBSCRIPTION, subscriptionService.readById(id));
-            pagePath = pagePathManager.getProperty(Page.SUBSCRIPTION);
+            paymentService.update(payment);
+            model.addAttribute(Parameters.PAYMENT, paymentService.readById(id));
+            pagePath = pagePathManager.getProperty(Page.PAYMENT);
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
             pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
