@@ -1,8 +1,6 @@
 package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.CamelCase;
-import by.andreiblinets.entity.dto.CamelCaseDTO;
-import by.andreiblinets.service.BaseService;
 import by.andreiblinets.service.CamelCaseService;
 import by.andreiblinets.service.exceptions.ServiceException;
 import by.andreiblinets.web.constant.Error;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class CamelCaseController {
@@ -40,12 +37,9 @@ public class CamelCaseController {
     }
 
     @RequestMapping(value = "/camelcase", method = RequestMethod.POST)
-    public String createCamelCase(ModelMap model, @ModelAttribute CamelCaseDTO camelCaseDTO) {
+    public String createCamelCase(ModelMap model, @ModelAttribute CamelCase camelCase) {
         String pagePath;
         try {
-            CamelCase camelCase = new CamelCase();
-            camelCase.setName(camelCaseDTO.getName());
-            camelCase.setPrice(Long.parseLong(camelCaseDTO.getPrice()));
             camelCaseService.create(camelCase);
             model.addAttribute(Parameters.CAMELCASE_LIST, camelCaseService.readAll());
             pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);

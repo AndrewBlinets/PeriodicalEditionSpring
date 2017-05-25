@@ -1,7 +1,9 @@
 package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.Account;
+import by.andreiblinets.entity.User;
 import by.andreiblinets.service.AccountService;
+import by.andreiblinets.service.UserService;
 import by.andreiblinets.service.exceptions.ServiceException;
 import by.andreiblinets.web.constant.Error;
 import by.andreiblinets.web.constant.Message;
@@ -18,6 +20,9 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private PagePathManager pagePathManager;
@@ -37,7 +42,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String createAccount(ModelMap model, @ModelAttribute Account account) {
+    public String createAccount(ModelMap model, @ModelAttribute Account account, @ModelAttribute User user) {
         String pagePath;
         try {
             if(accountService.chekingLogin(account.getLogin()))
@@ -47,6 +52,7 @@ public class AccountController {
             }
             else {
                 accountService.create(account);
+                userService.create(user);
                 pagePath = pagePathManager.getProperty(Page.INDEX);
             }
         } catch (ServiceException e) {
@@ -70,7 +76,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/account/{id}", method = RequestMethod.PUT)
-    public String saveCamelCase(ModelMap model, @PathVariable("id") long id, @RequestBody Account account) {
+    public String updateAccount(ModelMap model, @PathVariable("id") long id, @RequestBody Account account) {
         String pagePath;
         try {
             accountService.update(account);
@@ -84,7 +90,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/account/{id}", method = RequestMethod.DELETE)
-    public String delete(ModelMap model, @PathVariable long id) {
+    public String deleteAccount(ModelMap model, @PathVariable long id) {
         String pagePath;
         try {
             accountService.delete(accountService.readById(id));
