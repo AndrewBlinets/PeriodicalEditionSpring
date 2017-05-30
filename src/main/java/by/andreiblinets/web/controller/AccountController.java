@@ -3,6 +3,7 @@ package by.andreiblinets.web.controller;
 import by.andreiblinets.entity.Account;
 import by.andreiblinets.entity.User;
 import by.andreiblinets.entity.dto.Registration;
+import by.andreiblinets.entity.enums.UserRole;
 import by.andreiblinets.service.AccountService;
 import by.andreiblinets.service.UserService;
 import by.andreiblinets.service.exceptions.ServiceException;
@@ -58,9 +59,10 @@ public class AccountController {
                 User user = new User();
                 user.setName(registration.getName());
                 user.setSurname(registration.getSurname());
-                //account.setUser(user);
-                accountService.create(account);
-                //userService.create(user);
+                user.setUserRole(String.valueOf(UserRole.READER));
+                user.setAccount(account);
+               // accountService.create(account);
+                userService.create(user);
                 pagePath = pagePathManager.getProperty(Page.INDEX);
             }
         } catch (ServiceException e) {
