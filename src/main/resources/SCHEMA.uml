@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>79fc9dbd-09dd-46ed-a488-605eae34e86c</OriginalElement>
+  <nodes>
+    <node x="355.0" y="169.0">79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.camelcase</node>
+    <node x="480.0" y="338.0">79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.news</node>
+    <node x="160.0" y="360.0">79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.redactor</node>
+    <node x="320.0" y="360.0">79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.subscription</node>
+    <node x="125.0" y="0.0">79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.account</node>
+    <node x="0.0" y="360.0">79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.payment</node>
+    <node x="105.0" y="147.0">79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.user</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.redactor" target="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.camelcase">
+      <point x="35.0" y="-48.5" />
+      <point x="265.0" y="318.0" />
+      <point x="378.3333333333333" y="318.0" />
+      <point x="-46.666666666666686" y="48.5" />
+    </edge>
+    <edge source="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.redactor" target="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.user">
+      <point x="-35.0" y="-48.5" />
+      <point x="0.0" y="70.5" />
+    </edge>
+    <edge source="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.subscription" target="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.camelcase">
+      <point x="35.0" y="-48.5" />
+      <point x="0.0" y="48.5" />
+    </edge>
+    <edge source="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.news" target="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.camelcase">
+      <point x="0.0" y="-70.5" />
+      <point x="570.0" y="318.0" />
+      <point x="471.66666666666663" y="318.0" />
+      <point x="46.66666666666663" y="48.5" />
+    </edge>
+    <edge source="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.payment" target="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.user">
+      <point x="0.0" y="-48.5" />
+      <point x="70.0" y="318.0" />
+      <point x="135.0" y="318.0" />
+      <point x="-60.0" y="70.5" />
+    </edge>
+    <edge source="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.subscription" target="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.user">
+      <point x="-35.0" y="-48.5" />
+      <point x="355.0" y="308.0" />
+      <point x="255.0" y="308.0" />
+      <point x="60.0" y="70.5" />
+    </edge>
+    <edge source="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.user" target="79fc9dbd-09dd-46ed-a488-605eae34e86c.TABLE:periodicaledition.account">
+      <point x="0.0" y="-70.5" />
+      <point x="0.0" y="48.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="330.0" y="239.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+

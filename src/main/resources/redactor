@@ -1,0 +1,17 @@
+CREATE TABLE `periodicaledition`.`redactor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `camelcase` INT NOT NULL,
+  `user` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_idx` (`user` ASC),
+  INDEX `camelcse_idx` (`camelcase` ASC),
+  CONSTRAINT `user-redactor`
+    FOREIGN KEY (`user`)
+    REFERENCES `periodicaledition`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `camelcse-redactor`
+    FOREIGN KEY (`camelcase`)
+    REFERENCES `periodicaledition`.`camelcase` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

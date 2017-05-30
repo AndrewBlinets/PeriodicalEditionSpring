@@ -16,8 +16,6 @@ public class CamelCase extends AbstractEntity {
     @Column(name = "price", nullable = false)
     private long price;
 
-    @OneToMany(mappedBy = "camelcase")
-    private List<Subscription> subscriptions;
 
     public CamelCase() {
     }
@@ -38,14 +36,6 @@ public class CamelCase extends AbstractEntity {
         this.price = price;
     }
 
-    public List<Subscription> getSubscriptions() {
-        return subscriptions;
-    }
-
-    public void setSubscriptions(List<Subscription> subscriptions) {
-        this.subscriptions = subscriptions;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -63,10 +53,7 @@ public class CamelCase extends AbstractEntity {
         if (getPrice() != camelCase.getPrice()){
             return false;
         }
-        if (getName() != null ? !getName().equals(camelCase.getName()) : camelCase.getName() != null){
-            return false;
-        }
-        return getSubscriptions() != null ? getSubscriptions().equals(camelCase.getSubscriptions()) : camelCase.getSubscriptions() == null;
+        return getName() != null ? getName().equals(camelCase.getName()) : camelCase.getName() == null;
     }
 
     @Override
@@ -74,7 +61,6 @@ public class CamelCase extends AbstractEntity {
         int result = super.hashCode();
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (int) (getPrice() ^ (getPrice() >>> 32));
-        result = 31 * result + (getSubscriptions() != null ? getSubscriptions().hashCode() : 0);
         return result;
     }
 
@@ -84,7 +70,6 @@ public class CamelCase extends AbstractEntity {
         sb.append("name='").append(name).append('\'');
         sb.append(", price=").append(price);
         sb.append(", id=").append(id);
-        sb.append(", subscriptions=").append(subscriptions);
         sb.append('}');
         return sb.toString();
     }

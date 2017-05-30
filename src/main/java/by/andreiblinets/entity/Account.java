@@ -15,9 +15,6 @@ public class Account extends AbstractEntity  {
     @Column(name = "hashpassword", nullable = false)
     private String hashpassword;
 
-    @OneToOne
-    @JoinColumn (name = "id")
-    private User user;
 
     public Account() {
     }
@@ -38,14 +35,6 @@ public class Account extends AbstractEntity  {
         this.hashpassword = hashpassword;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o){
@@ -63,11 +52,7 @@ public class Account extends AbstractEntity  {
         if (getLogin() != null ? !getLogin().equals(account.getLogin()) : account.getLogin() != null){
             return false;
         }
-        if (getHashpassword() != null ? !getHashpassword().equals(account.getHashpassword()) : account.getHashpassword() != null)
-        {
-            return false;
-        }
-        return getUser() != null ? getUser().equals(account.getUser()) : account.getUser() == null;
+        return getHashpassword() != null ? getHashpassword().equals(account.getHashpassword()) : account.getHashpassword() == null;
     }
 
     @Override
@@ -75,7 +60,6 @@ public class Account extends AbstractEntity  {
         int result = super.hashCode();
         result = 31 * result + (getLogin() != null ? getLogin().hashCode() : 0);
         result = 31 * result + (getHashpassword() != null ? getHashpassword().hashCode() : 0);
-        result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
         return result;
     }
 
@@ -85,7 +69,6 @@ public class Account extends AbstractEntity  {
         sb.append("login='").append(login).append('\'');
         sb.append(", hashpassword='").append(hashpassword).append('\'');
         sb.append(", id=").append(id);
-        sb.append(", user=").append(user);
         sb.append('}');
         return sb.toString();
     }

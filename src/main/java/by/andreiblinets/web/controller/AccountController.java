@@ -2,6 +2,7 @@ package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.Account;
 import by.andreiblinets.entity.User;
+import by.andreiblinets.entity.dto.Registration;
 import by.andreiblinets.service.AccountService;
 import by.andreiblinets.service.UserService;
 import by.andreiblinets.service.exceptions.ServiceException;
@@ -41,18 +42,25 @@ public class AccountController {
         return pagePath;
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String createAccount(ModelMap model, @ModelAttribute Account account, @ModelAttribute User user) {
+    @RequestMapping(value = "/createAccount", method = RequestMethod.POST)
+    public String createAccount(ModelMap model, @ModelAttribute("registration") Registration registration) {
         String pagePath;
         try {
-            if(accountService.chekingLogin(account.getLogin()))
+            if(!accountService.chekingLogin(registration.getLogin()))
             {
                 model.addAttribute(Error.ERROR_EXISTENCE_LOGIN, Message.ERROR_LOGIN_EXISTENCE);
                 pagePath = pagePathManager.getProperty(Page.REGISTRATION);
             }
             else {
+                Account account = new Account();
+                account.setLogin(registration.getLogin());
+                account.setHashpassword(registration.getHashpassword());
+                User user = new User();
+                user.setName(registration.getName());
+                user.setSurname(registration.getSurname());
+                //account.setUser(user);
                 accountService.create(account);
-                userService.create(user);
+                //userService.create(user);
                 pagePath = pagePathManager.getProperty(Page.INDEX);
             }
         } catch (ServiceException e) {
