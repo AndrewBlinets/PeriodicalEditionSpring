@@ -36,4 +36,6 @@ public final class ErrorDAO {
     public static final String ERROR_DELETE = "Error delete ";
 
     public static final String IN_DB = " in db";
+    public static final String ERROR_READ_NEWS = "Error read News in DB ";
+    public static final String ERROR_READ_REDACTOR = "Error read Redactor in DB ";
 }
