@@ -12,6 +12,7 @@ import by.andreiblinets.web.constant.Message;
 import by.andreiblinets.web.constant.Page;
 import by.andreiblinets.web.constant.Parameters;
 import by.andreiblinets.web.mamager.PagePathManager;
+import by.andreiblinets.web.util.Coding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -53,15 +54,15 @@ public class AccountController {
                 pagePath = pagePathManager.getProperty(Page.REGISTRATION);
             }
             else {
+                String hashPassword = Coding.md5Apache(registration.getHashpassword());
                 Account account = new Account();
                 account.setLogin(registration.getLogin());
-                account.setHashpassword(registration.getHashpassword());
+                account.setHashpassword(hashPassword);
                 User user = new User();
                 user.setName(registration.getName());
                 user.setSurname(registration.getSurname());
                 user.setUserRole(String.valueOf(UserRole.READER));
                 user.setAccount(account);
-               // accountService.create(account);
                 userService.create(user);
                 pagePath = pagePathManager.getProperty(Page.INDEX);
             }

@@ -14,19 +14,19 @@
 	<table>
 		<tr>
 			<td>Имя:</td>
-			<td><input type="text" name="name" value="" size="20" th:field="*{name}"/></td>
+			<td><input type="text" name="name" th:field="*{name}"/></td>
 		</tr>
 		<tr>
 			<td>Фамилия:</td>
-			<td><input type="text" name="surname" value="" size="20" th:field="*{surname}"/></td>
+			<td><input type="text" name="surname" th:field="*{surname}"/></td>
 		</tr>
 		<tr>
 			<td>Логин:</td>
-			<td><input type="text" name="login" value="" size="20" th:field="*{login}"/></td>
+			<td><input type="text" name="login" th:field="*{login}"/></td>
 		</tr>
 		<tr>
 			<td>Пароль:</td>
-			<td><input type="text" name="hashpassword" value="" size="20" th:field="*{hashpassword}"/></td>
+			<td><input type="password" name="hashpassword" th:field="*{hashpassword}"/></td>
 		</tr>
 	</table>
 	${operationMessage}
