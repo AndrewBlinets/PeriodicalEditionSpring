@@ -11,4 +11,5 @@ public class Message {
     public static final String ERROR_USER_LOGIN_OR_PASSWORD = "Error in login or password";
     public static final String ERROR = "Error in work service";
     public static final String ERROR_CAMELCASE_EXISTENCE = "CameCase is existence";
+    public static final String EMPYTY_FIELD = "Enter login and password";
 }

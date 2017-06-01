@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -32,35 +33,97 @@ public class UserController {
     private PagePathManager pagePathManager;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public String aitification(ModelMap model, @ModelAttribute("registration") Account account) {
+    public String aitification(HttpServletRequest request, ModelMap model, @ModelAttribute("registration") Account account) {
         String pagePath = null;
-        try {
-            pagePath = chekingUser(model, account);
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+        HttpSession httpSession  = request.getSession();
+        User user = (User) httpSession.getAttribute(Parameters.USER);
+        if(user != null)
+        {
+            pagePath = backPage(user, model);
+        }
+        else {
+            if(chekingField(account)) {
+                try {
+                    pagePath = chekingUser(model, account, httpSession);
+                } catch (ServiceException e) {
+                    model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+                    pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+                }
+            }
+            else {
+                model.addAttribute(Parameters.EROR_LOGIN_OR_PASSWORD, Message.EMPYTY_FIELD);
+                pagePath = pagePathManager.getProperty(Page.INDEX);
+            }
         }
         return pagePath;
     }
 
-    private String chekingUser(ModelMap model, Account account) throws ServiceException {
+    private boolean chekingField(Account account) {
+        try{
+            if (!account.getLogin().isEmpty()
+                    & !account.getHashpassword().isEmpty())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (NullPointerException e)
+        {
+            return false;
+        }
+    }
+
+    private String backPage(User user, ModelMap model) {
+        switch (user.getUserRole())
+        {
+            case "ADMINISTRATOR":
+            {
+                model.addAttribute(Parameters.USER, user);
+                return pagePathManager.getProperty(Page.ADMIN_MAIN);
+            }
+            case "READER":
+            {
+                model.addAttribute(Parameters.USER, user);
+                return pagePathManager.getProperty(Page.READER_MAIN);
+            }
+            case "REDACTOR":
+            {
+                model.addAttribute(Parameters.USER, user);
+                return pagePathManager.getProperty(Page.REDACTOR_MAIN);
+            }
+            default:
+            {
+                model.addAttribute(Parameters.EROR_LOGIN_OR_PASSWORD, Message.ERROR);
+                return pagePathManager.getProperty(Page.INDEX);
+            }
+        }
+    }
+
+    private String chekingUser(ModelMap model, Account account, HttpSession httpSession) throws ServiceException {
         String pagePath = null;
         User user = accountService.getUser(account.getLogin(), Coding.md5Apache(account.getHashpassword()));
         if (user != null) {
+            httpSession.setAttribute(Parameters.USER, user);
             switch (user.getUserRole())
             {
                 case "ADMINISTRATOR":
                 {
+                    model.addAttribute(Parameters.USER, user);
                     pagePath = pagePathManager.getProperty(Page.ADMIN_MAIN);
                     break;
                 }
                 case "READER":
                 {
+                    model.addAttribute(Parameters.USER, user);
                     pagePath = pagePathManager.getProperty(Page.READER_MAIN);
                     break;
                 }
                 case "REDACTOR":
                 {
+                    model.addAttribute(Parameters.USER, user);
                     pagePath = pagePathManager.getProperty(Page.REDACTOR_MAIN);
                     break;
                 }
