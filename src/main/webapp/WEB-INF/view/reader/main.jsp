@@ -9,9 +9,10 @@
 		<h2>${user.name} </h2>
 		<h3>Вы вошли в систему как пользватель</h3>
 		<h4>Выберите операцию:</h4>
+		${operationMessage}
 		<a href="/camelcases">Показать список всех изданий</a> <br/>
-		<a href="controller?command=editions">Новости</a> <br/>
-		<a href="controller?command=editions">Подписки</a> <br/>
+		<a href="/myNews">Новости</a> <br/>
+		<!--<a href="controller?command=editions">Подписки</a> <br/>-->
 		<a href="/index">Выйти из системы</a> <br/>
 	</body>
 </html>

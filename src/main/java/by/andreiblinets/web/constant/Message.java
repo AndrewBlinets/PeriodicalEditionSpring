@@ -13,4 +13,5 @@ public class Message {
     public static final String ERROR_CAMELCASE_EXISTENCE = "CameCase is existence";
     public static final String EMPYTY_FIELD = "Enter login and password";
     public static final String NEWS_CREATE_SUCSEC = "News create successfully.";
+    public static final String SUBSCRIPTION_SUCSECC = "Subscription is successfully";
 }

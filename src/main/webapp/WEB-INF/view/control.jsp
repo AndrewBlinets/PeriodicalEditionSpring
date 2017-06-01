@@ -12,6 +12,6 @@
 </head>
 <body>
 <h2>Страница не доступна</h2>
-<a href="index">Главная</a>
+<a href="/index">Главная</a>
 </body>
 </html>

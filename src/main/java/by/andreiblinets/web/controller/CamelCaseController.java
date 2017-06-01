@@ -41,12 +41,9 @@ public class CamelCaseController {
     @RequestMapping(value = "/camelcases", method = RequestMethod.GET)
     public String getAllCamelCase(ModelMap model, HttpServletRequest request) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
-        if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR)))
+        String pagePath;
+        if(user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR)))
         {
-            return pagePathManager.getProperty(Page.CONTROL);
-        }
-        else {
-            String pagePath;
             try {
                 model.addAttribute(Parameters.CAMELCASE_LIST, camelCaseService.readAll());
                 pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
@@ -55,6 +52,21 @@ public class CamelCaseController {
                 pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
             }
             return pagePath;
+        }
+        if(user.getUserRole().equals(String.valueOf(UserRole.READER)))
+        {
+            try {
+                model.addAttribute(Parameters.CAMELCASE_LIST, camelCaseService.readAll());
+                pagePath = pagePathManager.getProperty(Page.READER_SHOW_CAMEL_CASE_PAGE);
+            } catch (ServiceException e) {
+                model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+                pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+            }
+            return pagePath;
+        }
+        else
+        {
+            return pagePathManager.getProperty(Page.CONTROL);
         }
     }
 
