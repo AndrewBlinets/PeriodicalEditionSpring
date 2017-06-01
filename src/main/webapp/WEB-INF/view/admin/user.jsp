@@ -20,8 +20,11 @@
             <td><c:out value="${ reader.id }" /></td>
             <td><c:out value="${ reader.name }" /></td>
             <td><c:out value="${ reader.surname }" /></td>
+            <td><c:out value="${ reader.userRole }" /></td>
+            <td><a href="<c:url value='/user/remove/${user.id}' />" >Delete</a></td></td>
         </tr>
     </c:forEach>
 </table>
+<a href="/main">Назад</a>
 </body>
 </html>

@@ -21,6 +21,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class CamelCaseController {
 
@@ -37,16 +39,23 @@ public class CamelCaseController {
     private PagePathManager pagePathManager;
 
     @RequestMapping(value = "/camelcases", method = RequestMethod.GET)
-    public String getAllCamelCase(ModelMap model) {
-        String pagePath;
-        try {
-            model.addAttribute(Parameters.CAMELCASE_LIST, camelCaseService.readAll());
-            pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+    public String getAllCamelCase(ModelMap model, HttpServletRequest request) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR)))
+        {
+            return pagePathManager.getProperty(Page.CONTROL);
         }
-        return pagePath;
+        else {
+            String pagePath;
+            try {
+                model.addAttribute(Parameters.CAMELCASE_LIST, camelCaseService.readAll());
+                pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
+            } catch (ServiceException e) {
+                model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+                pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+            }
+            return pagePath;
+        }
     }
 
     @RequestMapping(value = "/camelcase", method = RequestMethod.POST)

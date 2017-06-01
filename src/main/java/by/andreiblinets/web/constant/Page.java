@@ -24,4 +24,5 @@ public final class Page {
     public static final String SUBSCRIPTION = "path.subscription";
     public static final String PAYMENT = "path.payment";
 
+    public static final String CONTROL = "path.control";
 }

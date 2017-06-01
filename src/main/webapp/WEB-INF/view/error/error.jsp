@@ -7,6 +7,6 @@
 	<body>
 		Извините, но в данный момент сервис не доступен: <br/>
 		${errorDatabase} <br/>
-		<a href="controller?command=logout">Назад</a>
+		<a href="/index">Назад</a>
 	</body>
 </html>

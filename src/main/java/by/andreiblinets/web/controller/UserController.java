@@ -2,6 +2,7 @@ package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.Account;
 import by.andreiblinets.entity.User;
+import by.andreiblinets.entity.enums.UserRole;
 import by.andreiblinets.service.AccountService;
 import by.andreiblinets.service.UserService;
 import by.andreiblinets.service.exceptions.ServiceException;
@@ -144,16 +145,23 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String getAllUsers(ModelMap model) {
-        String pagePath;
-        try {
-            model.addAttribute(Parameters.USER_LIST, userService.readAll());
-            pagePath = pagePathManager.getProperty(Page.USER);
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+    public String getAllUsers(ModelMap model, HttpServletRequest request) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR)))
+        {
+            return pagePathManager.getProperty(Page.CONTROL);
         }
-        return pagePath;
+        else {
+            String pagePath;
+            try {
+                model.addAttribute(Parameters.USER_LIST, userService.readAll());
+                pagePath = pagePathManager.getProperty(Page.USER);
+            } catch (ServiceException e) {
+                model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+                pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+            }
+            return pagePath;
+        }
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)

@@ -39,6 +39,7 @@
     ${operationMessage}
     ${errorCamelCaseExists} <br />
     <input type="submit" value="Добавить" />
+    <a href="/main">Назад</a>
 </form>
 
 
