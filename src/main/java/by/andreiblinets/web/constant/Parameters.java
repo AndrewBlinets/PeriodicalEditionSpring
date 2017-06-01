@@ -14,4 +14,6 @@ public class Parameters {
     public static final String SUBSCRIPTION = "subscription";
     public static final String PAYMENT_LIST = "payments";
     public static final String PAYMENT = "payment";
+    public static final String OPERATION_MESSAGE = "operationMessage";
+    public static final String EROR_LOGIN_OR_PASSWORD = "errorLoginOrPassword";
 }

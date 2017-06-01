@@ -36,7 +36,13 @@ public class AccountServiceImpl extends BaseServiceImpl<Account> implements Acco
     @Override
     public User getUser(String login, String password) throws ServiceException {
         try {
-            return userBaseDAO.readById(accountDAO.getAccountByLoginAndPassword(login, password).getId());
+            User user = null;
+            List<Integer> list_Id = accountDAO.getAccountByLoginAndPassword(login, password);
+            if(list_Id.size() != 0)
+            {
+                user = userBaseDAO.readById((long) list_Id.get(0));
+            }
+            return user;
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
             throw new ServiceException(ConstantsService.TRANSACTION_FAIL);

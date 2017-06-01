@@ -19,6 +19,7 @@ import java.util.List;
 public class AccountDAOImpl extends BaseDAOImpl<Account> implements AccountDAO {
 
     private static final String PARAMETER_USER_LOGIN = "login";
+    private static final String PARAMETER_USER_PASSWORD = "password";
     private static Logger logger = Logger.getLogger(AccountDAOImpl.class.getName());
 
     @Autowired
@@ -40,10 +41,12 @@ public class AccountDAOImpl extends BaseDAOImpl<Account> implements AccountDAO {
     }
 
     @Override
-    public Account getAccountByLoginAndPassword(String login, String password) throws DaoException {
+    public List<Integer> getAccountByLoginAndPassword(String login, String password) throws DaoException {
         try {
-            return (Account) getEntityManager()
-                    .createStoredProcedureQuery(MyQuery.GET_USER_BY_LOGIN_AND_PASSWORD,login,password).getResultList();
+            Query query= getEntityManager().createNativeQuery(MyQuery.GET_USER_BY_LOGIN_AND_PASSWORD);
+            query.setParameter(PARAMETER_USER_LOGIN, login);
+            query.setParameter(PARAMETER_USER_PASSWORD, password);
+            return query.getResultList();
         }
         catch (HibernateException e)
         {

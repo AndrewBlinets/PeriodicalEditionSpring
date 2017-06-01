@@ -8,7 +8,7 @@
 	<title>Регистрация</title>
 </head>
 <body>
-<form name="registrationForm" method="Post" action="/createAccount" th:object="${registration} ">
+<form name="registrationForm" method="Post" action="/createAccount" th:object="${registration}">
 	<input type="hidden" name="command" value="registration" />
 	Введите ваши данные:<br/>
 	<table>

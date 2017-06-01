@@ -12,4 +12,7 @@ public final class Page {
     public static final String ACCOUNT = "path.account";
     public static final String SUBSCRIPTION = "path.subscription";
     public static final String PAYMENT = "path.payment";
+    public static final String ADMIN_MAIN = "path.admin.main";
+    public static final String READER_MAIN = "path.reader.main";
+    public static final String REDACTOR_MAIN = "path.redactor.main";
 }

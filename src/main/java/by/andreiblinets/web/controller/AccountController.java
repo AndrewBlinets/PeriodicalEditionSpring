@@ -64,7 +64,8 @@ public class AccountController {
                 user.setUserRole(String.valueOf(UserRole.READER));
                 user.setAccount(account);
                 userService.create(user);
-                pagePath = pagePathManager.getProperty(Page.INDEX);
+                model.addAttribute(Parameters.OPERATION_MESSAGE,Message.USER_CREATE);
+                pagePath = pagePathManager.getProperty(Page.REGISTRATION);
             }
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
