@@ -33,7 +33,7 @@ public class UserController {
     @Autowired
     private PagePathManager pagePathManager;
 
-    @RequestMapping(value = "/main", method = RequestMethod.POST)
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String aitification(HttpServletRequest request, ModelMap model, @ModelAttribute("registration") Account account) {
         String pagePath = null;
         HttpSession httpSession  = request.getSession();
