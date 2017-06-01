@@ -1,6 +1,10 @@
 package by.andreiblinets.service;
 
 import by.andreiblinets.entity.News;
+import by.andreiblinets.service.exceptions.ServiceException;
+
+import java.util.List;
 
 public interface NewsService extends BaseService<News> {
+    List<News> getNewsByIdCamelCase(long idCamelCase) throws ServiceException;
 }

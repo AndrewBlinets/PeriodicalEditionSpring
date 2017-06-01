@@ -30,7 +30,7 @@ public class AccountController {
     @Autowired
     private PagePathManager pagePathManager;
 
-    @RequestMapping(value = "/account", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/account", method = RequestMethod.GET)
     public String getAllAccount(ModelMap model) {
         String pagePath = null;
         try {
@@ -42,7 +42,7 @@ public class AccountController {
             pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
         }
         return pagePath;
-    }
+    }*/
 
     @RequestMapping(value = "/createAccount", method = RequestMethod.POST)
     public String createAccount(ModelMap model, @ModelAttribute("registration") Registration registration) {
@@ -74,53 +74,53 @@ public class AccountController {
         return pagePath;
     }
 
-    @RequestMapping(value = "/account/{id}", method = RequestMethod.GET)
-    public String getAccount(ModelMap model, @PathVariable("id") long id) {
-        String pagePath;
-        try {
-            model.addAttribute(Parameters.ACCOUNT, accountService.readById(id));
-            pagePath = pagePathManager.getProperty(Page.ACCOUNT);
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
-        }
-        return pagePath;
-    }
-
-    @RequestMapping(value = "/account/{id}", method = RequestMethod.PUT)
-    public String updateAccount(ModelMap model, @PathVariable("id") long id, @RequestBody Account account) {
-        String pagePath;
-        try {
-            accountService.update(account);
-            model.addAttribute(Parameters.ACCOUNT, accountService.readById(id));
-            pagePath = pagePathManager.getProperty(Page.ACCOUNT);
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
-        }
-        return pagePath;
-    }
-
-    @RequestMapping(value = "/account/{id}", method = RequestMethod.DELETE)
-    public String deleteAccount(ModelMap model, @PathVariable long id) {
-        String pagePath;
-        try {
-            accountService.delete(accountService.readById(id));
-            if (accountService.readById(id) == null)
-            {
-                model.addAttribute(Parameters.MESSAGE, Message.DELETE_ACCOUNT);
-                pagePath = pagePathManager.getProperty(Page.ACCOUNT);
-            }
-            else
-            {
-                model.addAttribute(Parameters.MESSAGE, Message.NOT_DELETE_ACCOUNT);
-                pagePath = pagePathManager.getProperty(Page.ACCOUNT);
-            }
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
-        }
-        return pagePath;
-    }
+//    @RequestMapping(value = "/account/{id}", method = RequestMethod.GET)
+//    public String getAccount(ModelMap model, @PathVariable("id") long id) {
+//        String pagePath;
+//        try {
+//            model.addAttribute(Parameters.ACCOUNT, accountService.readById(id));
+//            pagePath = pagePathManager.getProperty(Page.ACCOUNT);
+//        } catch (ServiceException e) {
+//            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+//            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+//        }
+//        return pagePath;
+//    }
+//
+//    @RequestMapping(value = "/account/{id}", method = RequestMethod.PUT)
+//    public String updateAccount(ModelMap model, @PathVariable("id") long id, @RequestBody Account account) {
+//        String pagePath;
+//        try {
+//            accountService.update(account);
+//            model.addAttribute(Parameters.ACCOUNT, accountService.readById(id));
+//            pagePath = pagePathManager.getProperty(Page.ACCOUNT);
+//        } catch (ServiceException e) {
+//            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+//            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+//        }
+//        return pagePath;
+//    }
+//
+//    @RequestMapping(value = "/account/{id}", method = RequestMethod.DELETE)
+//    public String deleteAccount(ModelMap model, @PathVariable long id) {
+//        String pagePath;
+//        try {
+//            accountService.delete(accountService.readById(id));
+//            if (accountService.readById(id) == null)
+//            {
+//                model.addAttribute(Parameters.MESSAGE, Message.DELETE_ACCOUNT);
+//                pagePath = pagePathManager.getProperty(Page.ACCOUNT);
+//            }
+//            else
+//            {
+//                model.addAttribute(Parameters.MESSAGE, Message.NOT_DELETE_ACCOUNT);
+//                pagePath = pagePathManager.getProperty(Page.ACCOUNT);
+//            }
+//        } catch (ServiceException e) {
+//            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+//            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+//        }
+//        return pagePath;
+//    }
 
 }

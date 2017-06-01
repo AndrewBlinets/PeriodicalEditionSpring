@@ -12,4 +12,6 @@ public final class MyQuery {
     public static final String CHEKING_CAMELCASE =  "select * from CamelCase where name = :name";
     public static final String GET_ALL_NEWS = "from News";
     public static final String GET_ALL_REDACTOR = "from Redactor";
+    public static final String GET_ID_CAMELCASE = "select Redactor.camelcase from Redactor where user = :id";
+    public static final String GET_NEWS_BY_ID_CAMEL_CASE = GET_ALL_NEWS + " where camelcase = :id";
 }

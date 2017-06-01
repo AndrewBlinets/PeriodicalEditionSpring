@@ -9,7 +9,9 @@
 		<h2>${user.name} </h2>
 		<h3>Вы вошли в систему как редактор</h3>
 		<h4>Выберите операцию:</h4>
-		<a href="controller?command=editions">Добавить новость</a> <br/>
-		<a href="controller?command=logout">Выйти из системы</a> <br/>
+		${operationMessage}
+		<a href="/addNewsPage">Добавить новость</a> <br/>
+		<a href="/news">Новости</a> <br/>
+		<a href="/index">Выйти из системы</a> <br/>
 	</body>
 </html>

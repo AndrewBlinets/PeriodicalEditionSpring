@@ -33,7 +33,7 @@ public class UserController {
     @Autowired
     private PagePathManager pagePathManager;
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequestMapping(value = "/main", method = RequestMethod.POST)
     public String aitification(HttpServletRequest request, ModelMap model, @ModelAttribute("registration") Account account) {
         String pagePath = null;
         HttpSession httpSession  = request.getSession();
@@ -164,45 +164,45 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public String getUserById(ModelMap model, @PathVariable("id") long id) {
-        String pagePath;
-        try {
-            model.addAttribute(Parameters.USER, userService.readById(id));
-            pagePath = pagePathManager.getProperty(Page.USER);
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
-        }
-        return pagePath;
-    }
+//    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+//    public String getUserById(ModelMap model, @PathVariable("id") long id) {
+//        String pagePath;
+//        try {
+//            model.addAttribute(Parameters.USER, userService.readById(id));
+//            pagePath = pagePathManager.getProperty(Page.USER);
+//        } catch (ServiceException e) {
+//            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+//            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+//        }
+//        return pagePath;
+//    }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-    public String deleteUser(ModelMap model, @PathVariable("id") long id) {
-        String pagePath;
-        try {
-            userService.delete(userService.readById(id));
-            model.addAttribute(Parameters.USER, userService.readById(id));
-            pagePath = pagePathManager.getProperty(Page.USER);
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
-        }
-        return pagePath;
-    }
-
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
-    public String updateUser(ModelMap model, @PathVariable("id") long id, @RequestBody User user) {
-        String pagePath;
-        try {
-            userService.update(user);
-            model.addAttribute(Parameters.USER, userService.readById(id));
-            pagePath = pagePathManager.getProperty(Page.USER);
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
-        }
-        return pagePath;
-    }
+//    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+//    public String deleteUser(ModelMap model, @PathVariable("id") long id) {
+//        String pagePath;
+//        try {
+//            userService.delete(userService.readById(id));
+//            model.addAttribute(Parameters.USER, userService.readById(id));
+//            pagePath = pagePathManager.getProperty(Page.USER);
+//        } catch (ServiceException e) {
+//            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+//            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+//        }
+//        return pagePath;
+//    }
+//
+//    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+//    public String updateUser(ModelMap model, @PathVariable("id") long id, @RequestBody User user) {
+//        String pagePath;
+//        try {
+//            userService.update(user);
+//            model.addAttribute(Parameters.USER, userService.readById(id));
+//            pagePath = pagePathManager.getProperty(Page.USER);
+//        } catch (ServiceException e) {
+//            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+//            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+//        }
+//        return pagePath;
+//    }
 
 }

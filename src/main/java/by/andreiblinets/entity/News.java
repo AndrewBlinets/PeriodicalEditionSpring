@@ -15,7 +15,7 @@ public class News extends AbstractEntity {
     @Column(name = "author", nullable = false)
     private String author;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn (name = "camelcase")
     private CamelCase camelCase;
 
