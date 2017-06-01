@@ -28,4 +28,5 @@ public final class Page {
     public static final String ADD_NEWS = "path.addnews";
     public static final String REDACTOR_NEWS = "path.redactor.news";
     public static final String READER_SHOW_CAMEL_CASE_PAGE = "path.reader.camelcase";
+    public static final String REDADER_NEWS = "path.reader.news";
 }

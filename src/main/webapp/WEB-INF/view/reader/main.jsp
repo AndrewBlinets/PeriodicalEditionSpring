@@ -11,7 +11,7 @@
 		<h4>Выберите операцию:</h4>
 		${operationMessage}
 		<a href="/camelcases">Показать список всех изданий</a> <br/>
-		<a href="/myNews">Новости</a> <br/>
+		<a href="/news">Новости</a> <br/>
 		<!--<a href="controller?command=editions">Подписки</a> <br/>-->
 		<a href="/index">Выйти из системы</a> <br/>
 	</body>

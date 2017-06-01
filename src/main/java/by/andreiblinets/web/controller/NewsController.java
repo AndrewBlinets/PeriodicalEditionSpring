@@ -2,12 +2,10 @@ package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.News;
 import by.andreiblinets.entity.Redactor;
+import by.andreiblinets.entity.Subscription;
 import by.andreiblinets.entity.User;
 import by.andreiblinets.entity.enums.UserRole;
-import by.andreiblinets.service.CamelCaseService;
-import by.andreiblinets.service.NewsService;
-import by.andreiblinets.service.RedactorService;
-import by.andreiblinets.service.UserService;
+import by.andreiblinets.service.*;
 import by.andreiblinets.service.exceptions.ServiceException;
 import by.andreiblinets.web.constant.Message;
 import by.andreiblinets.web.constant.Page;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import by.andreiblinets.web.constant.Error;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,6 +28,9 @@ public class NewsController {
 
     @Autowired
     private RedactorService redactorService;
+
+    @Autowired
+    private SubscriptionService subscriptionService;
 
     @Autowired
     private NewsService newsService;
@@ -41,14 +43,10 @@ public class NewsController {
 
     @RequestMapping(value = "/news", method = RequestMethod.GET)
     public String getAllAccount(ModelMap model, HttpServletRequest request) {
+        String pagePath = null;
         User user = (User) request.getSession().getAttribute(Parameters.USER);
-        if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.REDACTOR)))
+        if(user.getUserRole().equals(String.valueOf(UserRole.REDACTOR)))
         {
-            return pagePathManager.getProperty(Page.CONTROL);
-        }
-        else
-        {
-            String pagePath = null;
             try {
                 long idCamelCase = redactorService.getCamelCase(user.getId());
                 List<News> newsList = newsService.getNewsByIdCamelCase(idCamelCase);
@@ -59,6 +57,26 @@ public class NewsController {
                 pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
             }
             return pagePath;
+        }
+        if(user.getUserRole().equals(String.valueOf(UserRole.READER)))
+        {
+            try {
+                List<News> newsList = new ArrayList<>();
+                List<Subscription> subscriptions = subscriptionService.getSubscribtionByIdUser(user.getId());
+                for (Subscription sub :subscriptions) {
+                    newsList.addAll(newsService.getNewsByIdCamelCase(sub.getCamelCase().getId()));
+                }
+                model.addAttribute(Parameters.NEWS, newsList);
+                pagePath = pagePathManager.getProperty(Page.REDADER_NEWS);
+            } catch (ServiceException e) {
+                model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+                pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+            }
+            return pagePath;
+        }
+        else
+        {
+            return pagePathManager.getProperty(Page.CONTROL);
         }
     }
 
