@@ -27,7 +27,7 @@ public class AdminController {
     @Autowired
     private PagePathManager pagePathManager;
 
-    @RequestMapping(value = "/readers", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/readers", method = RequestMethod.GET)
     public String showReaders(ModelMap model) {
         String pagePath;
         try {

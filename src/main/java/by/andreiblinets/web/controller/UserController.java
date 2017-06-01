@@ -35,35 +35,47 @@ public class UserController {
     public String aitification(ModelMap model, @ModelAttribute("registration") Account account) {
         String pagePath = null;
         try {
-           User user = accountService.getUser(account.getLogin(), Coding.md5Apache(account.getHashpassword()));
-           if (user != null) {
-               switch (user.getUserRole())
-               {
-                   case "ADMINISTRATOR":
-                   {
-                       pagePath = pagePathManager.getProperty(Page.ADMIN_MAIN);
-                       break;
-                   }
-                   case "READER":
-                   {
-                       pagePath = pagePathManager.getProperty(Page.READER_MAIN);
-                       break;
-                   }
-                   case "REDACTOR":
-                   {
-                       pagePath = pagePathManager.getProperty(Page.REDACTOR_MAIN);
-                       break;
-                   }
-               }
-           }
-           else
-           {
-               model.addAttribute(Parameters.EROR_LOGIN_OR_PASSWORD, Message.ERROR_USER_LOGIN_OR_PASSWORD);
-               pagePath = pagePathManager.getProperty(Page.INDEX);
-           }
+            pagePath = chekingUser(model, account);
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
             pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+        }
+        return pagePath;
+    }
+
+    private String chekingUser(ModelMap model, Account account) throws ServiceException {
+        String pagePath = null;
+        User user = accountService.getUser(account.getLogin(), Coding.md5Apache(account.getHashpassword()));
+        if (user != null) {
+            switch (user.getUserRole())
+            {
+                case "ADMINISTRATOR":
+                {
+                    pagePath = pagePathManager.getProperty(Page.ADMIN_MAIN);
+                    break;
+                }
+                case "READER":
+                {
+                    pagePath = pagePathManager.getProperty(Page.READER_MAIN);
+                    break;
+                }
+                case "REDACTOR":
+                {
+                    pagePath = pagePathManager.getProperty(Page.REDACTOR_MAIN);
+                    break;
+                }
+                default:
+                {
+                    model.addAttribute(Parameters.EROR_LOGIN_OR_PASSWORD, Message.ERROR);
+                    pagePath = pagePathManager.getProperty(Page.INDEX);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            model.addAttribute(Parameters.EROR_LOGIN_OR_PASSWORD, Message.ERROR_USER_LOGIN_OR_PASSWORD);
+            pagePath = pagePathManager.getProperty(Page.INDEX);
         }
         return pagePath;
     }

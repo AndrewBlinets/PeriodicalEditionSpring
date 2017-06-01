@@ -6,11 +6,11 @@ import javax.persistence.*;
 @Table (name = "redactor")
 public class Redactor extends AbstractEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn (name = "camelcase")
     private CamelCase camelCase;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn (name = "user")
     private User user;
 

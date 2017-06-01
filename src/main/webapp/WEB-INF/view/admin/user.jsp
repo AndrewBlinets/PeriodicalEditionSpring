@@ -23,8 +23,5 @@
         </tr>
     </c:forEach>
 </table>
-    <p><a href="/registration">Добавить пользователя</a></p>
-    <!--<p><a href="/registration">Удалить пользователя</a></p>
-    <p><a href="/user">Обновить пользователя</a></p> -->
 </body>
 </html>

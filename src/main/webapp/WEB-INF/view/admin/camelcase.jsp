@@ -16,9 +16,11 @@
 				<tr>
 					<td><c:out value="${ edition.name }" /></td>
 					<td><c:out value="${ edition.price }" /></td>
+					<td><a href="<c:url value='/camelcase/remove/${edition.id}' />" >Delete</a></td></td>
 				</tr>
 			</c:forEach>
 		</table>
 		<a href="/addcamelcase">Добавить периодическое издание</a>
+		<a href="/main">Назад</a>
 	</body>
 </html>

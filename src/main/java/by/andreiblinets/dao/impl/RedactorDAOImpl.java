@@ -16,7 +16,7 @@ public class RedactorDAOImpl  extends BaseDAOImpl<Redactor> implements RedactorD
     private static Logger logger = Logger.getLogger(RedactorDAOImpl.class.getName());
 
     public RedactorDAOImpl() {
-        super(RedactorDAOImpl.class, logger);
+        super(Redactor.class, logger);
     }
 
     @Override

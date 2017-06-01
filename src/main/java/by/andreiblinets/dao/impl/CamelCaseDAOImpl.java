@@ -10,12 +10,14 @@ import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
 @Transactional
 public class CamelCaseDAOImpl extends BaseDAOImpl<CamelCase> implements CamelCaseDAO {
 
+    private static final String PARAMETER_CAMELCASE_NAME = "name";
     private static Logger logger = Logger.getLogger(CamelCaseDAOImpl.class.getName());
 
     public CamelCaseDAOImpl() {
@@ -31,6 +33,28 @@ public class CamelCaseDAOImpl extends BaseDAOImpl<CamelCase> implements CamelCas
         {
             logger.error(ErrorDAO.ERROR_READ_CAMEL_CASE + e.getMessage());
             throw new DaoException(ErrorDAO.ERROR_READ_CAMEL_CASE + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean chekingNameCamelCase(String name) throws DaoException {
+        try {
+            Query query= getEntityManager().createNativeQuery(MyQuery.CHEKING_CAMELCASE);
+            query.setParameter(PARAMETER_CAMELCASE_NAME, name);
+
+            if(query.getResultList().size() != 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        catch (HibernateException e)
+        {
+            logger.error(ErrorDAO.ERROR_CHEKING_LOGIN + e.getMessage());
+            throw new DaoException(ErrorDAO.ERROR_CHEKING_LOGIN + e.getMessage());
         }
     }
 }
