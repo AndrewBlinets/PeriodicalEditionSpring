@@ -1,22 +1,20 @@
 package by.andreiblinets.web.controller;
 
-import by.andreiblinets.entity.CamelCase;
 import by.andreiblinets.entity.Subscription;
 import by.andreiblinets.entity.User;
 import by.andreiblinets.entity.enums.UserRole;
-import by.andreiblinets.service.CamelCaseService;
+import by.andreiblinets.service.PeriodicalEditionService;
 import by.andreiblinets.service.SubscriptionService;
-import by.andreiblinets.service.exceptions.ServiceException;
-import by.andreiblinets.web.constant.Error;
-import by.andreiblinets.web.constant.Message;
-import by.andreiblinets.web.constant.Page;
-import by.andreiblinets.web.constant.Parameters;
+import by.andreiblinets.exceptions.ServiceException;
+import by.andreiblinets.constant.Error;
+import by.andreiblinets.constant.Message;
+import by.andreiblinets.constant.Page;
+import by.andreiblinets.constant.Parameters;
 import by.andreiblinets.web.mamager.PagePathManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,7 +27,7 @@ public class SubscriptionController {
     private SubscriptionService subscriptionService;
 
     @Autowired
-    private CamelCaseService camelCaseService;
+    private PeriodicalEditionService periodicalEditionService;
 
     @Autowired
     private PagePathManager pagePathManager;
@@ -45,7 +43,7 @@ public class SubscriptionController {
             String pagePath;
             try {
                 Subscription subscription = new Subscription();
-                subscription.setCamelCase(camelCaseService.readById(id));
+                subscription.setPeriodicalEdittion(periodicalEditionService.readById(id));
                 subscription.setUser(user);
                 subscriptionService.create(subscription);
                 model.addAttribute(Parameters.OPERATION_MESSAGE, Message.SUBSCRIPTION_SUCSECC);

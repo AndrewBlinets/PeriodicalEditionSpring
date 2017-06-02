@@ -1,1 +1,89 @@
 CREATE SCHEMA `periodicaledition` DEFAULT CHARACTER SET utf8 ;
+
+CREATE TABLE `periodicaledition`.`account` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `login` VARCHAR(45) NULL,
+  `hashpassword` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `periodicaledition`.`user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `surname` VARCHAR(45) NULL,
+  `userRole` VARCHAR(45) NULL,
+  `idAccount` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `account_idx` (`idAccount` ASC),
+  CONSTRAINT `account`
+    FOREIGN KEY (`idAccount`)
+    REFERENCES `periodicaledition`.`account` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `periodicaledition`.`camelcase` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `price` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `periodicaledition`.`editor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `camelcase` INT NOT NULL,
+  `user` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_idx` (`user` ASC),
+  INDEX `camelcse_idx` (`camelcase` ASC),
+  CONSTRAINT `user-editor`
+    FOREIGN KEY (`user`)
+    REFERENCES `periodicaledition`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `camelcse-editor`
+    FOREIGN KEY (`camelcase`)
+    REFERENCES `periodicaledition`.`camelcase` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `periodicaledition`.`payment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `iduser` INT NULL,
+  `summa` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_idx` (`iduser` ASC),
+  CONSTRAINT `user`
+    FOREIGN KEY (`iduser`)
+    REFERENCES `periodicaledition`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `periodicaledition`.`subscription` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `iduser` INT NULL,
+  `idcamelcase` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_idx` (`iduser` ASC),
+  INDEX `camelcase_idx` (`idcamelcase` ASC),
+  CONSTRAINT `usersubscription`
+    FOREIGN KEY (`iduser`)
+    REFERENCES `periodicaledition`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `camelcasesubscription`
+    FOREIGN KEY (`idcamelcase`)
+    REFERENCES `periodicaledition`.`camelcase` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `periodicaledition`.`news` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NOT NULL,
+  `body` VARCHAR(255) NOT NULL,
+  `author` VARCHAR(45) NOT NULL,
+  `camelcase` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `idcamelcase_idx` (`camelcase` ASC),
+  CONSTRAINT `idcamelcase`
+    FOREIGN KEY (`camelcase`)
+    REFERENCES `periodicaledition`.`camelcase` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

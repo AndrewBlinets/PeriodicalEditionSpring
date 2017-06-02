@@ -1,15 +1,18 @@
 package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.News;
-import by.andreiblinets.entity.Redactor;
 import by.andreiblinets.entity.Subscription;
 import by.andreiblinets.entity.User;
 import by.andreiblinets.entity.enums.UserRole;
-import by.andreiblinets.service.*;
-import by.andreiblinets.service.exceptions.ServiceException;
-import by.andreiblinets.web.constant.Message;
-import by.andreiblinets.web.constant.Page;
-import by.andreiblinets.web.constant.Parameters;
+import by.andreiblinets.service.PeriodicalEditionService;
+import by.andreiblinets.service.NewsService;
+import by.andreiblinets.service.EditorService;
+import by.andreiblinets.service.SubscriptionService;
+import by.andreiblinets.exceptions.ServiceException;
+import by.andreiblinets.constant.Error;
+import by.andreiblinets.constant.Message;
+import by.andreiblinets.constant.Page;
+import by.andreiblinets.constant.Parameters;
 import by.andreiblinets.web.mamager.PagePathManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +20,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import by.andreiblinets.web.constant.Error;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.List;
 public class NewsController {
 
     @Autowired
-    private RedactorService redactorService;
+    private EditorService editorService;
 
     @Autowired
     private SubscriptionService subscriptionService;
@@ -36,7 +38,7 @@ public class NewsController {
     private NewsService newsService;
 
     @Autowired
-    private CamelCaseService camelCaseService;
+    private PeriodicalEditionService periodicalEditionService;
 
     @Autowired
     private PagePathManager pagePathManager;
@@ -48,7 +50,7 @@ public class NewsController {
         if(user.getUserRole().equals(String.valueOf(UserRole.REDACTOR)))
         {
             try {
-                long idCamelCase = redactorService.getCamelCase(user.getId());
+                long idCamelCase = editorService.getCamelCase(user.getId());
                 List<News> newsList = newsService.getNewsByIdCamelCase(idCamelCase);
                  model.addAttribute(Parameters.NEWS, newsList);
                 pagePath = pagePathManager.getProperty(Page.REDACTOR_NEWS);
@@ -64,7 +66,7 @@ public class NewsController {
                 List<News> newsList = new ArrayList<>();
                 List<Subscription> subscriptions = subscriptionService.getSubscribtionByIdUser(user.getId());
                 for (Subscription sub :subscriptions) {
-                    newsList.addAll(newsService.getNewsByIdCamelCase(sub.getCamelCase().getId()));
+                    newsList.addAll(newsService.getNewsByIdCamelCase(sub.getPeriodicalEdittion().getId()));
                 }
                 model.addAttribute(Parameters.NEWS, newsList);
                 pagePath = pagePathManager.getProperty(Page.REDADER_NEWS);
@@ -102,7 +104,7 @@ public class NewsController {
         else {
             String pagePath = null;
             try {
-                news.setCamelCase(camelCaseService.readById(redactorService.getCamelCase(user.getId())));
+                news.setPeriodicalEdittion(periodicalEditionService.readById(editorService.getCamelCase(user.getId())));
                 newsService.create(news);
                 model.addAttribute(Parameters.OPERATION_MESSAGE,Message.NEWS_CREATE_SUCSEC);
                 pagePath = pagePathManager.getProperty(Page.REDACTOR_MAIN);

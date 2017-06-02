@@ -7,7 +7,7 @@
     <title>Добавления</title>
 </head>
 <body>
-<form name="camelcaseForm" method="POST" action="/camelcase" th:object="${camelCaseDTO}">
+<form name="camelcaseForm" method="POST" action="/camelcase" th:object="${periodicalEditionDTO}">
     <input type="hidden" value="camelcase" />
     Введите ваши данные:<br/>
     <table>

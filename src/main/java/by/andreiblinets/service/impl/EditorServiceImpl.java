@@ -1,11 +1,11 @@
 package by.andreiblinets.service.impl;
 
-import by.andreiblinets.dao.RedactorDAO;
-import by.andreiblinets.dao.exceptions.DaoException;
-import by.andreiblinets.entity.Redactor;
-import by.andreiblinets.service.RedactorService;
-import by.andreiblinets.service.constant.ConstantsService;
-import by.andreiblinets.service.exceptions.ServiceException;
+import by.andreiblinets.dao.EditorDAO;
+import by.andreiblinets.exceptions.DaoException;
+import by.andreiblinets.entity.Editor;
+import by.andreiblinets.constant.ConstantsService;
+import by.andreiblinets.exceptions.ServiceException;
+import by.andreiblinets.service.EditorService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,23 +15,23 @@ import java.util.List;
 
 @Service
 @Transactional
-public class RedactServiceImpl extends BaseServiceImpl<Redactor> implements RedactorService {
+public class EditorServiceImpl extends BaseServiceImpl<Editor> implements EditorService {
 
     private static Logger logger = Logger.getLogger(SubscriptionServiceImpl.class.getName());
 
     @Autowired
-    private RedactorDAO redactorDAO;
+    private EditorDAO editorDAO;
 
     @Autowired
-    public RedactServiceImpl(RedactorDAO redactorDAO)
+    public EditorServiceImpl(EditorDAO editorDAO)
     {
-        super(redactorDAO,logger);
+        super(editorDAO,logger);
     }
 
     @Override
     public Long getCamelCase(long id) throws ServiceException {
        try{
-           List<Integer> idCamelCase = redactorDAO.getCamelCase(id);
+           List<Integer> idCamelCase = editorDAO.getCamelCase(id);
            return Long.valueOf(idCamelCase.get(0));
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());

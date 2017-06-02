@@ -1,4 +1,4 @@
-package by.andreiblinets.web.constant;
+package by.andreiblinets.constant;
 
 public class Parameters {
 

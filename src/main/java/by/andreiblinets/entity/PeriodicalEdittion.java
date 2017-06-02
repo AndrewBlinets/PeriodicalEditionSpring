@@ -1,14 +1,10 @@
 package by.andreiblinets.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "camelcase")
-public class CamelCase extends AbstractEntity {
+public class PeriodicalEdittion extends AbstractEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -17,7 +13,7 @@ public class CamelCase extends AbstractEntity {
     private long price;
 
 
-    public CamelCase() {
+    public PeriodicalEdittion() {
     }
 
     public String getName() {
@@ -41,19 +37,19 @@ public class CamelCase extends AbstractEntity {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CamelCase)){
+        if (!(o instanceof PeriodicalEdittion)){
             return false;
         }
         if (!super.equals(o)){
             return false;
         }
 
-        CamelCase camelCase = (CamelCase) o;
+        PeriodicalEdittion periodicalEdittion = (PeriodicalEdittion) o;
 
-        if (getPrice() != camelCase.getPrice()){
+        if (getPrice() != periodicalEdittion.getPrice()){
             return false;
         }
-        return getName() != null ? getName().equals(camelCase.getName()) : camelCase.getName() == null;
+        return getName() != null ? getName().equals(periodicalEdittion.getName()) : periodicalEdittion.getName() == null;
     }
 
     @Override
@@ -66,7 +62,7 @@ public class CamelCase extends AbstractEntity {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("CamelCase{");
+        final StringBuilder sb = new StringBuilder("PeriodicalEdittion{");
         sb.append("name='").append(name).append('\'');
         sb.append(", price=").append(price);
         sb.append(", id=").append(id);

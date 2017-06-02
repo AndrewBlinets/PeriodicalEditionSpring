@@ -1,6 +1,6 @@
 package by.andreiblinets.entity.dto;
 
-public class CamelCaseDTO {
+public class PeriodicalEditionDTO {
     private String nameCamelCase;
     private long price;
     private String login;
@@ -8,7 +8,7 @@ public class CamelCaseDTO {
     private String name;
     private String surname;
 
-    public CamelCaseDTO() {
+    public PeriodicalEditionDTO() {
     }
 
     public String getNameCamelCase() {
@@ -64,11 +64,11 @@ public class CamelCaseDTO {
         if (this == o){
             return true;
         }
-        if (!(o instanceof CamelCaseDTO)){
+        if (!(o instanceof PeriodicalEditionDTO)){
             return false;
         }
 
-        CamelCaseDTO that = (CamelCaseDTO) o;
+        PeriodicalEditionDTO that = (PeriodicalEditionDTO) o;
 
         if (getPrice() != that.getPrice()){
             return false;
@@ -103,7 +103,7 @@ public class CamelCaseDTO {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("CamelCaseDTO{");
+        final StringBuilder sb = new StringBuilder("PeriodicalEditionDTO{");
         sb.append("nameCamelCase='").append(nameCamelCase).append('\'');
         sb.append(", price=").append(price);
         sb.append(", login='").append(login).append('\'');

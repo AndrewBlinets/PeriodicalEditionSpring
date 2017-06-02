@@ -1,13 +1,12 @@
 package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.Payment;
-import by.andreiblinets.entity.Subscription;
 import by.andreiblinets.service.PaymentService;
-import by.andreiblinets.service.exceptions.ServiceException;
-import by.andreiblinets.web.constant.Error;
-import by.andreiblinets.web.constant.Message;
-import by.andreiblinets.web.constant.Page;
-import by.andreiblinets.web.constant.Parameters;
+import by.andreiblinets.exceptions.ServiceException;
+import by.andreiblinets.constant.Error;
+import by.andreiblinets.constant.Message;
+import by.andreiblinets.constant.Page;
+import by.andreiblinets.constant.Parameters;
 import by.andreiblinets.web.mamager.PagePathManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,19 +1,19 @@
 package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.Account;
-import by.andreiblinets.entity.CamelCase;
-import by.andreiblinets.entity.Redactor;
+import by.andreiblinets.entity.PeriodicalEdittion;
+import by.andreiblinets.entity.Editor;
 import by.andreiblinets.entity.User;
-import by.andreiblinets.entity.dto.CamelCaseDTO;
+import by.andreiblinets.entity.dto.PeriodicalEditionDTO;
 import by.andreiblinets.entity.enums.UserRole;
 import by.andreiblinets.service.AccountService;
-import by.andreiblinets.service.CamelCaseService;
-import by.andreiblinets.service.RedactorService;
-import by.andreiblinets.service.exceptions.ServiceException;
-import by.andreiblinets.web.constant.Error;
-import by.andreiblinets.web.constant.Message;
-import by.andreiblinets.web.constant.Page;
-import by.andreiblinets.web.constant.Parameters;
+import by.andreiblinets.service.PeriodicalEditionService;
+import by.andreiblinets.service.EditorService;
+import by.andreiblinets.exceptions.ServiceException;
+import by.andreiblinets.constant.Error;
+import by.andreiblinets.constant.Message;
+import by.andreiblinets.constant.Page;
+import by.andreiblinets.constant.Parameters;
 import by.andreiblinets.web.mamager.PagePathManager;
 import by.andreiblinets.web.util.Coding;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +24,16 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class CamelCaseController {
+public class PeriodicalEditionController {
 
     @Autowired
-    private CamelCaseService camelCaseService;
+    private PeriodicalEditionService periodicalEditionService;
 
     @Autowired
     private AccountService accountService;
 
     @Autowired
-    private RedactorService redactorService;
+    private EditorService editorService;
 
     @Autowired
     private PagePathManager pagePathManager;
@@ -45,7 +45,7 @@ public class CamelCaseController {
         if(user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR)))
         {
             try {
-                model.addAttribute(Parameters.CAMELCASE_LIST, camelCaseService.readAll());
+                model.addAttribute(Parameters.CAMELCASE_LIST, periodicalEditionService.readAll());
                 pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
             } catch (ServiceException e) {
                 model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
@@ -56,7 +56,7 @@ public class CamelCaseController {
         if(user.getUserRole().equals(String.valueOf(UserRole.READER)))
         {
             try {
-                model.addAttribute(Parameters.CAMELCASE_LIST, camelCaseService.readAll());
+                model.addAttribute(Parameters.CAMELCASE_LIST, periodicalEditionService.readAll());
                 pagePath = pagePathManager.getProperty(Page.READER_SHOW_CAMEL_CASE_PAGE);
             } catch (ServiceException e) {
                 model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
@@ -71,29 +71,29 @@ public class CamelCaseController {
     }
 
     @RequestMapping(value = "/camelcase", method = RequestMethod.POST)
-    public String createCamelCase(ModelMap model, @ModelAttribute CamelCaseDTO camelCaseDTO) {
+    public String createCamelCase(ModelMap model, @ModelAttribute PeriodicalEditionDTO periodicalEditionDTO) {
         String pagePath;
         try {
-            if(camelCaseService.chekingNameCamelCase(camelCaseDTO.getName()))
+            if(periodicalEditionService.chekingNameCamelCase(periodicalEditionDTO.getName()))
             {
-                if(accountService.chekingLogin(camelCaseDTO.getLogin()))
+                if(accountService.chekingLogin(periodicalEditionDTO.getLogin()))
                 {
-                    Redactor redactor = new Redactor();
+                    Editor editor = new Editor();
                     Account account = new Account();
-                    account.setLogin(camelCaseDTO.getLogin());
-                    account.setHashpassword(Coding.md5Apache(camelCaseDTO.getPassword()));
+                    account.setLogin(periodicalEditionDTO.getLogin());
+                    account.setHashpassword(Coding.md5Apache(periodicalEditionDTO.getPassword()));
                     User user = new User();
                     user.setAccount(account);
-                    user.setSurname(camelCaseDTO.getSurname());
-                    user.setName(camelCaseDTO.getName());
+                    user.setSurname(periodicalEditionDTO.getSurname());
+                    user.setName(periodicalEditionDTO.getName());
                     user.setUserRole(String.valueOf(UserRole.REDACTOR));
-                    CamelCase camelCase = new CamelCase();
-                    camelCase.setPrice(camelCaseDTO.getPrice());
-                    camelCase.setName(camelCaseDTO.getNameCamelCase());
-                    redactor.setCamelCase(camelCase);
-                    redactor.setUser(user);
-                    redactorService.create(redactor);
-                    model.addAttribute(Parameters.CAMELCASE_LIST, camelCaseService.readAll());
+                    PeriodicalEdittion periodicalEdittion = new PeriodicalEdittion();
+                    periodicalEdittion.setPrice(periodicalEditionDTO.getPrice());
+                    periodicalEdittion.setName(periodicalEditionDTO.getNameCamelCase());
+                    editor.setPeriodicalEdittion(periodicalEdittion);
+                    editor.setUser(user);
+                    editorService.create(editor);
+                    model.addAttribute(Parameters.CAMELCASE_LIST, periodicalEditionService.readAll());
                     pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
                 }
                 else
@@ -118,7 +118,7 @@ public class CamelCaseController {
     public String getCamelCase(ModelMap model, @PathVariable("id") long id) {
         String pagePath = null;
         try {
-            camelCaseService.readById(id);
+            periodicalEditionService.readById(id);
             //pagePath = pagePathManager.getProperty(Page.)
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
@@ -128,11 +128,11 @@ public class CamelCaseController {
     }
 
     @RequestMapping(value = "/camelcas/{id}", method = RequestMethod.PUT)
-    public String updateCamelCase(ModelMap model, @PathVariable("id") long id, @RequestBody CamelCase camelCase) {
+    public String updateCamelCase(ModelMap model, @PathVariable("id") long id, @RequestBody PeriodicalEdittion periodicalEdittion) {
        String pagePath = null;
         try {
-            camelCaseService.update(camelCase);
-            model.addAttribute(Parameters.CAMEL_CASE,camelCaseService.readById(id));
+            periodicalEditionService.update(periodicalEdittion);
+            model.addAttribute(Parameters.CAMEL_CASE, periodicalEditionService.readById(id));
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
             pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
@@ -145,8 +145,8 @@ public class CamelCaseController {
     public String delete(ModelMap model, @PathVariable long id) {
         String pagePath = null;
         try {
-            redactorService.delete(redactorService.readById(id));
-            if(redactorService.readById(id) == null)
+            editorService.delete(editorService.readById(id));
+            if(editorService.readById(id) == null)
             {
                 model.addAttribute(Parameters.MESSAGE, Message.DELETE_CAMELCASE);
                 pagePath = pagePathManager.getProperty(Page.ACCOUNT);

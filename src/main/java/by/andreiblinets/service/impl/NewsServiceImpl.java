@@ -1,11 +1,11 @@
 package by.andreiblinets.service.impl;
 
 import by.andreiblinets.dao.NewsDAO;
-import by.andreiblinets.dao.exceptions.DaoException;
+import by.andreiblinets.exceptions.DaoException;
 import by.andreiblinets.entity.News;
 import by.andreiblinets.service.NewsService;
-import by.andreiblinets.service.constant.ConstantsService;
-import by.andreiblinets.service.exceptions.ServiceException;
+import by.andreiblinets.constant.ConstantsService;
+import by.andreiblinets.exceptions.ServiceException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package by.andreiblinets.dao.exceptions;
+package by.andreiblinets.exceptions;
 
 public class DaoException extends Exception {
 

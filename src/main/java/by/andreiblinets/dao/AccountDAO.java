@@ -1,6 +1,6 @@
 package by.andreiblinets.dao;
 
-import by.andreiblinets.dao.exceptions.DaoException;
+import by.andreiblinets.exceptions.DaoException;
 import by.andreiblinets.entity.Account;
 
 import java.util.List;

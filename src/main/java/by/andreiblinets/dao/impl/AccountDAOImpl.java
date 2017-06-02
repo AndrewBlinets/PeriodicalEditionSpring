@@ -1,17 +1,15 @@
 package by.andreiblinets.dao.impl;
 
 import by.andreiblinets.dao.AccountDAO;
-import by.andreiblinets.dao.constant.ErrorDAO;
-import by.andreiblinets.dao.constant.MyQuery;
-import by.andreiblinets.dao.exceptions.DaoException;
+import by.andreiblinets.constant.Error;
+import by.andreiblinets.constant.MyQuery;
+import by.andreiblinets.exceptions.DaoException;
 import by.andreiblinets.entity.Account;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -35,8 +33,8 @@ public class AccountDAOImpl extends BaseDAOImpl<Account> implements AccountDAO {
         }
         catch (HibernateException e)
         {
-            logger.error(ErrorDAO.ERROR_READ_ACCOUNT + e.getMessage());
-            throw new DaoException(ErrorDAO.ERROR_READ_ACCOUNT + e.getMessage());
+            logger.error(Error.ERROR_READ_ACCOUNT + e.getMessage());
+            throw new DaoException(Error.ERROR_READ_ACCOUNT + e.getMessage());
         }
     }
 
@@ -50,8 +48,8 @@ public class AccountDAOImpl extends BaseDAOImpl<Account> implements AccountDAO {
         }
         catch (HibernateException e)
         {
-        logger.error(ErrorDAO.ERROR_GET_ACCOUNT_BY_LOGIN_AND_PASSWORD + e.getMessage());
-        throw new DaoException(ErrorDAO.ERROR_GET_ACCOUNT_BY_LOGIN_AND_PASSWORD + e.getMessage());
+        logger.error(Error.ERROR_GET_ACCOUNT_BY_LOGIN_AND_PASSWORD + e.getMessage());
+        throw new DaoException(Error.ERROR_GET_ACCOUNT_BY_LOGIN_AND_PASSWORD + e.getMessage());
         }
     }
 
@@ -72,8 +70,8 @@ public class AccountDAOImpl extends BaseDAOImpl<Account> implements AccountDAO {
         }
         catch (HibernateException e)
         {
-        logger.error(ErrorDAO.ERROR_CHEKING_LOGIN + e.getMessage());
-        throw new DaoException(ErrorDAO.ERROR_CHEKING_LOGIN + e.getMessage());
+        logger.error(Error.ERROR_CHEKING_LOGIN + e.getMessage());
+        throw new DaoException(Error.ERROR_CHEKING_LOGIN + e.getMessage());
         }
     }
 }

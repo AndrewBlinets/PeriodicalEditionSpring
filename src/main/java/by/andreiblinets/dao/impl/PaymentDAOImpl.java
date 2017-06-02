@@ -1,9 +1,9 @@
 package by.andreiblinets.dao.impl;
 
 import by.andreiblinets.dao.PaymentDAO;
-import by.andreiblinets.dao.constant.ErrorDAO;
-import by.andreiblinets.dao.constant.MyQuery;
-import by.andreiblinets.dao.exceptions.DaoException;
+import by.andreiblinets.constant.Error;
+import by.andreiblinets.constant.MyQuery;
+import by.andreiblinets.exceptions.DaoException;
 import by.andreiblinets.entity.Payment;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -27,8 +27,8 @@ public class PaymentDAOImpl extends BaseDAOImpl<Payment> implements PaymentDAO {
         }
         catch (HibernateException e)
         {
-            logger.error(ErrorDAO.ERROR_READ_PAYMENT + e.getMessage());
-            throw new DaoException(ErrorDAO.ERROR_READ_PAYMENT + e.getMessage());
+            logger.error(Error.ERROR_READ_PAYMENT + e.getMessage());
+            throw new DaoException(Error.ERROR_READ_PAYMENT + e.getMessage());
         }
     }
 }

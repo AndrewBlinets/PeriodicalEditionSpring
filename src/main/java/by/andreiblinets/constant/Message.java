@@ -1,4 +1,4 @@
-package by.andreiblinets.web.constant;
+package by.andreiblinets.constant;
 
 public class Message {
     public static final String ERROR_DB = "error db";

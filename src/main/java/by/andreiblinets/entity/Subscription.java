@@ -12,7 +12,7 @@ public class Subscription extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn (name = "camelcase")
-    private CamelCase camelCase;
+    private PeriodicalEdittion periodicalEdittion;
 
 
     public Subscription() {
@@ -26,12 +26,12 @@ public class Subscription extends AbstractEntity {
         this.user = user;
     }
 
-    public CamelCase getCamelCase() {
-        return camelCase;
+    public PeriodicalEdittion getPeriodicalEdittion() {
+        return periodicalEdittion;
     }
 
-    public void setCamelCase(CamelCase camelCase) {
-        this.camelCase = camelCase;
+    public void setPeriodicalEdittion(PeriodicalEdittion periodicalEdittion) {
+        this.periodicalEdittion = periodicalEdittion;
     }
 
     @Override
@@ -51,14 +51,14 @@ public class Subscription extends AbstractEntity {
         if (getUser() != null ? !getUser().equals(that.getUser()) : that.getUser() != null){
             return false;
         }
-        return getCamelCase() != null ? getCamelCase().equals(that.getCamelCase()) : that.getCamelCase() == null;
+        return getPeriodicalEdittion() != null ? getPeriodicalEdittion().equals(that.getPeriodicalEdittion()) : that.getPeriodicalEdittion() == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (getId() ^ (getId() >>> 32));
         result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
-        result = 31 * result + (getCamelCase() != null ? getCamelCase().hashCode() : 0);
+        result = 31 * result + (getPeriodicalEdittion() != null ? getPeriodicalEdittion().hashCode() : 0);
         return result;
     }
 
@@ -67,7 +67,7 @@ public class Subscription extends AbstractEntity {
         final StringBuilder sb = new StringBuilder("Subscription{");
         sb.append("id=").append(id);
         sb.append(", user=").append(user);
-        sb.append(", camelCase=").append(camelCase);
+        sb.append(", periodicalEdittion=").append(periodicalEdittion);
         sb.append('}');
         return sb.toString();
     }

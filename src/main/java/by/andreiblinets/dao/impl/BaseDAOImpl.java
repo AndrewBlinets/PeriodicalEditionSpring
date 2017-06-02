@@ -2,9 +2,8 @@ package by.andreiblinets.dao.impl;
 
 
 import by.andreiblinets.dao.BaseDAO;
-import by.andreiblinets.dao.constant.ErrorDAO;
-import by.andreiblinets.dao.constant.MyQuery;
-import by.andreiblinets.dao.exceptions.DaoException;
+import by.andreiblinets.constant.Error;
+import by.andreiblinets.exceptions.DaoException;
 import by.andreiblinets.entity.AbstractEntity;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -34,8 +33,8 @@ public abstract class BaseDAOImpl <T extends AbstractEntity> implements BaseDAO<
         }
         catch (HibernateException e)
         {
-            logger.error(ErrorDAO.ERROR_ADD + aClass.getName() + ErrorDAO.IN_DB + e.getMessage());
-            throw new DaoException(ErrorDAO.ERROR_ADD + aClass.getName() + ErrorDAO.IN_DB + e.getMessage());
+            logger.error(Error.ERROR_ADD + aClass.getName() + Error.IN_DB + e.getMessage());
+            throw new DaoException(Error.ERROR_ADD + aClass.getName() + Error.IN_DB + e.getMessage());
         }
     }
 
@@ -46,8 +45,8 @@ public abstract class BaseDAOImpl <T extends AbstractEntity> implements BaseDAO<
         }
         catch (HibernateException e)
         {
-            logger.error(ErrorDAO.ERROR_UPDATE + aClass.getName() + ErrorDAO.IN_DB + e.getMessage());
-            throw new DaoException(ErrorDAO.ERROR_UPDATE + aClass.getName() + ErrorDAO.IN_DB + e.getMessage());
+            logger.error(Error.ERROR_UPDATE + aClass.getName() + Error.IN_DB + e.getMessage());
+            throw new DaoException(Error.ERROR_UPDATE + aClass.getName() + Error.IN_DB + e.getMessage());
         }
     }
 
@@ -63,8 +62,8 @@ public abstract class BaseDAOImpl <T extends AbstractEntity> implements BaseDAO<
         }
         catch (HibernateException e)
         {
-            logger.error(ErrorDAO.ERROR_READ + aClass.getName() + ErrorDAO.IN_DB + e.getMessage());
-            throw new DaoException(ErrorDAO.ERROR_READ + aClass.getName() + ErrorDAO.IN_DB + e.getMessage());
+            logger.error(Error.ERROR_READ + aClass.getName() + Error.IN_DB + e.getMessage());
+            throw new DaoException(Error.ERROR_READ + aClass.getName() + Error.IN_DB + e.getMessage());
         }
     }
 
@@ -75,8 +74,8 @@ public abstract class BaseDAOImpl <T extends AbstractEntity> implements BaseDAO<
         }
         catch (HibernateException e)
         {
-            logger.error(ErrorDAO.ERROR_DELETE + aClass.getName() + ErrorDAO.IN_DB + e.getMessage());
-            throw new DaoException(ErrorDAO.ERROR_DELETE + aClass.getName() + ErrorDAO.IN_DB + e.getMessage());
+            logger.error(Error.ERROR_DELETE + aClass.getName() + Error.IN_DB + e.getMessage());
+            throw new DaoException(Error.ERROR_DELETE + aClass.getName() + Error.IN_DB + e.getMessage());
         }
     }
 

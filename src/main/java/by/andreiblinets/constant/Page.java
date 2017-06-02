@@ -1,4 +1,4 @@
-package by.andreiblinets.web.constant;
+package by.andreiblinets.constant;
 
 public final class Page {
     public static final String INDEX = "path.page.index";

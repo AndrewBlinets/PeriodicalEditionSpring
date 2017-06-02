@@ -1,4 +1,4 @@
-package by.andreiblinets.service.exceptions;
+package by.andreiblinets.exceptions;
 
 public class ServiceException extends Exception {
 

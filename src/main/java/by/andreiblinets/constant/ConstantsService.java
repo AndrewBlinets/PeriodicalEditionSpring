@@ -1,4 +1,4 @@
-package by.andreiblinets.service.constant;
+package by.andreiblinets.constant;
 
 public final class ConstantsService {
 

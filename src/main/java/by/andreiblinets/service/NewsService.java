@@ -1,7 +1,7 @@
 package by.andreiblinets.service;
 
 import by.andreiblinets.entity.News;
-import by.andreiblinets.service.exceptions.ServiceException;
+import by.andreiblinets.exceptions.ServiceException;
 
 import java.util.List;
 

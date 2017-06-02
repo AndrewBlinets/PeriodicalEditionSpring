@@ -4,25 +4,25 @@ import javax.persistence.*;
 
 @Entity
 @Table (name = "redactor")
-public class Redactor extends AbstractEntity {
+public class Editor extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn (name = "camelcase")
-    private CamelCase camelCase;
+    private PeriodicalEdittion periodicalEdittion;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn (name = "user")
     private User user;
 
-    public Redactor() {
+    public Editor() {
     }
 
-    public CamelCase getCamelCase() {
-        return camelCase;
+    public PeriodicalEdittion getPeriodicalEdittion() {
+        return periodicalEdittion;
     }
 
-    public void setCamelCase(CamelCase camelCase) {
-        this.camelCase = camelCase;
+    public void setPeriodicalEdittion(PeriodicalEdittion periodicalEdittion) {
+        this.periodicalEdittion = periodicalEdittion;
     }
 
     public User getUser() {
@@ -38,34 +38,34 @@ public class Redactor extends AbstractEntity {
         if (this == o){
             return true;
         }
-        if (!(o instanceof Redactor)){
+        if (!(o instanceof Editor)){
             return false;
         }
         if (!super.equals(o)){
             return false;
         }
 
-        Redactor redactor = (Redactor) o;
+        Editor editor = (Editor) o;
 
-        if (getCamelCase() != null ? !getCamelCase().equals(redactor.getCamelCase()) : redactor.getCamelCase() != null)
+        if (getPeriodicalEdittion() != null ? !getPeriodicalEdittion().equals(editor.getPeriodicalEdittion()) : editor.getPeriodicalEdittion() != null)
         {
             return false;
         }
-        return getUser() != null ? getUser().equals(redactor.getUser()) : redactor.getUser() == null;
+        return getUser() != null ? getUser().equals(editor.getUser()) : editor.getUser() == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (getCamelCase() != null ? getCamelCase().hashCode() : 0);
+        result = 31 * result + (getPeriodicalEdittion() != null ? getPeriodicalEdittion().hashCode() : 0);
         result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Redactor{");
-        sb.append("camelCase=").append(camelCase);
+        final StringBuilder sb = new StringBuilder("Editor{");
+        sb.append("periodicalEdittion=").append(periodicalEdittion);
         sb.append(", id=").append(id);
         sb.append(", user=").append(user);
         sb.append('}');

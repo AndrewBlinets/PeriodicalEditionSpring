@@ -17,7 +17,7 @@ public class News extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn (name = "camelcase")
-    private CamelCase camelCase;
+    private PeriodicalEdittion periodicalEdittion;
 
     public News() {
     }
@@ -46,12 +46,12 @@ public class News extends AbstractEntity {
         this.author = author;
     }
 
-    public CamelCase getCamelCase() {
-        return camelCase;
+    public PeriodicalEdittion getPeriodicalEdittion() {
+        return periodicalEdittion;
     }
 
-    public void setCamelCase(CamelCase camelCase) {
-        this.camelCase = camelCase;
+    public void setPeriodicalEdittion(PeriodicalEdittion periodicalEdittion) {
+        this.periodicalEdittion = periodicalEdittion;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class News extends AbstractEntity {
         if (getAuthor() != null ? !getAuthor().equals(news.getAuthor()) : news.getAuthor() != null){
             return false;
         }
-        return getCamelCase() != null ? getCamelCase().equals(news.getCamelCase()) : news.getCamelCase() == null;
+        return getPeriodicalEdittion() != null ? getPeriodicalEdittion().equals(news.getPeriodicalEdittion()) : news.getPeriodicalEdittion() == null;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class News extends AbstractEntity {
         result = 31 * result + (getTitle() != null ? getTitle().hashCode() : 0);
         result = 31 * result + (getBody() != null ? getBody().hashCode() : 0);
         result = 31 * result + (getAuthor() != null ? getAuthor().hashCode() : 0);
-        result = 31 * result + (getCamelCase() != null ? getCamelCase().hashCode() : 0);
+        result = 31 * result + (getPeriodicalEdittion() != null ? getPeriodicalEdittion().hashCode() : 0);
         return result;
     }
 
@@ -96,7 +96,7 @@ public class News extends AbstractEntity {
         sb.append("title='").append(title).append('\'');
         sb.append(", body='").append(body).append('\'');
         sb.append(", author='").append(author).append('\'');
-        sb.append(", camelCase=").append(camelCase);
+        sb.append(", periodicalEdittion=").append(periodicalEdittion);
         sb.append(", id=").append(id);
         sb.append('}');
         return sb.toString();

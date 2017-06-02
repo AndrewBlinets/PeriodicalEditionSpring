@@ -1,6 +1,6 @@
 package by.andreiblinets.web.mamager;
 
-import by.andreiblinets.web.constant.Parameters;
+import by.andreiblinets.constant.Parameters;
 import org.springframework.stereotype.Component;
 
 import java.util.ResourceBundle;

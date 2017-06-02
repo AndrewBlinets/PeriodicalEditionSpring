@@ -1,5 +1,0 @@
-CREATE TABLE `periodicaledition`.`account` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `login` VARCHAR(45) NULL,
-  `hashpassword` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`));
