@@ -43,7 +43,7 @@ public class SubscriptionController {
             String pagePath;
             try {
                 Subscription subscription = new Subscription();
-                subscription.setPeriodicalEdittion(periodicalEditionService.readById(id));
+                subscription.setPeriodicalEdition(periodicalEditionService.readById(id));
                 subscription.setUser(user);
                 subscriptionService.create(subscription);
                 model.addAttribute(Parameters.OPERATION_MESSAGE, Message.SUBSCRIPTION_SUCSECC);

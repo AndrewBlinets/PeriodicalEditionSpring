@@ -1,7 +1,7 @@
 package by.andreiblinets.service.impl;
 
 import by.andreiblinets.dao.PeriodicalEditionDAO;
-import by.andreiblinets.entity.PeriodicalEdittion;
+import by.andreiblinets.entity.PeriodicalEdition;
 import by.andreiblinets.exceptions.DaoException;
 import by.andreiblinets.service.PeriodicalEditionService;
 import by.andreiblinets.constant.ConstantsService;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class PeriodicalEditionServiceImpl extends BaseServiceImpl<PeriodicalEdittion> implements PeriodicalEditionService {
+public class PeriodicalEditionServiceImpl extends BaseServiceImpl<PeriodicalEdition> implements PeriodicalEditionService {
 
     private static Logger logger = Logger.getLogger(PeriodicalEditionServiceImpl.class.getName());
 

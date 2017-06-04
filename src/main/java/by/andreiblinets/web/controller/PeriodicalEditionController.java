@@ -1,7 +1,7 @@
 package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.Account;
-import by.andreiblinets.entity.PeriodicalEdittion;
+import by.andreiblinets.entity.PeriodicalEdition;
 import by.andreiblinets.entity.Editor;
 import by.andreiblinets.entity.User;
 import by.andreiblinets.entity.dto.PeriodicalEditionDTO;
@@ -87,10 +87,10 @@ public class PeriodicalEditionController {
                     user.setSurname(periodicalEditionDTO.getSurname());
                     user.setName(periodicalEditionDTO.getName());
                     user.setUserRole(String.valueOf(UserRole.REDACTOR));
-                    PeriodicalEdittion periodicalEdittion = new PeriodicalEdittion();
-                    periodicalEdittion.setPrice(periodicalEditionDTO.getPrice());
-                    periodicalEdittion.setName(periodicalEditionDTO.getNameCamelCase());
-                    editor.setPeriodicalEdittion(periodicalEdittion);
+                    PeriodicalEdition periodicalEdition = new PeriodicalEdition();
+                    periodicalEdition.setPrice(periodicalEditionDTO.getPrice());
+                    periodicalEdition.setName(periodicalEditionDTO.getNameCamelCase());
+                    editor.setPeriodicalEdition(periodicalEdition);
                     editor.setUser(user);
                     editorService.create(editor);
                     model.addAttribute(Parameters.CAMELCASE_LIST, periodicalEditionService.readAll());
@@ -128,10 +128,10 @@ public class PeriodicalEditionController {
     }
 
     @RequestMapping(value = "/camelcas/{id}", method = RequestMethod.PUT)
-    public String updateCamelCase(ModelMap model, @PathVariable("id") long id, @RequestBody PeriodicalEdittion periodicalEdittion) {
+    public String updateCamelCase(ModelMap model, @PathVariable("id") long id, @RequestBody PeriodicalEdition periodicalEdition) {
        String pagePath = null;
         try {
-            periodicalEditionService.update(periodicalEdittion);
+            periodicalEditionService.update(periodicalEdition);
             model.addAttribute(Parameters.CAMEL_CASE, periodicalEditionService.readById(id));
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);

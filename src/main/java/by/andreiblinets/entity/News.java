@@ -16,8 +16,8 @@ public class News extends AbstractEntity {
     private String author;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
-    @JoinColumn (name = "camelcase")
-    private PeriodicalEdittion periodicalEdittion;
+    @JoinColumn (name = "periodicaledition")
+    private PeriodicalEdition periodicalEdition;
 
     public News() {
     }
@@ -46,12 +46,12 @@ public class News extends AbstractEntity {
         this.author = author;
     }
 
-    public PeriodicalEdittion getPeriodicalEdittion() {
-        return periodicalEdittion;
+    public PeriodicalEdition getPeriodicalEdition() {
+        return periodicalEdition;
     }
 
-    public void setPeriodicalEdittion(PeriodicalEdittion periodicalEdittion) {
-        this.periodicalEdittion = periodicalEdittion;
+    public void setPeriodicalEdition(PeriodicalEdition periodicalEdition) {
+        this.periodicalEdition = periodicalEdition;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class News extends AbstractEntity {
         if (getAuthor() != null ? !getAuthor().equals(news.getAuthor()) : news.getAuthor() != null){
             return false;
         }
-        return getPeriodicalEdittion() != null ? getPeriodicalEdittion().equals(news.getPeriodicalEdittion()) : news.getPeriodicalEdittion() == null;
+        return getPeriodicalEdition() != null ? getPeriodicalEdition().equals(news.getPeriodicalEdition()) : news.getPeriodicalEdition() == null;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class News extends AbstractEntity {
         result = 31 * result + (getTitle() != null ? getTitle().hashCode() : 0);
         result = 31 * result + (getBody() != null ? getBody().hashCode() : 0);
         result = 31 * result + (getAuthor() != null ? getAuthor().hashCode() : 0);
-        result = 31 * result + (getPeriodicalEdittion() != null ? getPeriodicalEdittion().hashCode() : 0);
+        result = 31 * result + (getPeriodicalEdition() != null ? getPeriodicalEdition().hashCode() : 0);
         return result;
     }
 
@@ -96,7 +96,7 @@ public class News extends AbstractEntity {
         sb.append("title='").append(title).append('\'');
         sb.append(", body='").append(body).append('\'');
         sb.append(", author='").append(author).append('\'');
-        sb.append(", periodicalEdittion=").append(periodicalEdittion);
+        sb.append(", periodicalEdition=").append(periodicalEdition);
         sb.append(", id=").append(id);
         sb.append('}');
         return sb.toString();

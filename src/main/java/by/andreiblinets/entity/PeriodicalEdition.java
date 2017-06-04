@@ -3,8 +3,8 @@ package by.andreiblinets.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "camelcase")
-public class PeriodicalEdittion extends AbstractEntity {
+@Table(name = "periodicaledition")
+public class PeriodicalEdition extends AbstractEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -13,7 +13,7 @@ public class PeriodicalEdittion extends AbstractEntity {
     private long price;
 
 
-    public PeriodicalEdittion() {
+    public PeriodicalEdition() {
     }
 
     public String getName() {
@@ -37,19 +37,19 @@ public class PeriodicalEdittion extends AbstractEntity {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof PeriodicalEdittion)){
+        if (!(o instanceof PeriodicalEdition)){
             return false;
         }
         if (!super.equals(o)){
             return false;
         }
 
-        PeriodicalEdittion periodicalEdittion = (PeriodicalEdittion) o;
+        PeriodicalEdition periodicalEdition = (PeriodicalEdition) o;
 
-        if (getPrice() != periodicalEdittion.getPrice()){
+        if (getPrice() != periodicalEdition.getPrice()){
             return false;
         }
-        return getName() != null ? getName().equals(periodicalEdittion.getName()) : periodicalEdittion.getName() == null;
+        return getName() != null ? getName().equals(periodicalEdition.getName()) : periodicalEdition.getName() == null;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class PeriodicalEdittion extends AbstractEntity {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("PeriodicalEdittion{");
+        final StringBuilder sb = new StringBuilder("PeriodicalEdition{");
         sb.append("name='").append(name).append('\'');
         sb.append(", price=").append(price);
         sb.append(", id=").append(id);

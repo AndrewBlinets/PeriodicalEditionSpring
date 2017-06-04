@@ -7,12 +7,12 @@ import javax.persistence.*;
 public class Subscription extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
-    @JoinColumn (name = "user")
+    @JoinColumn (name = "iduser")
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
-    @JoinColumn (name = "camelcase")
-    private PeriodicalEdittion periodicalEdittion;
+    @JoinColumn (name = "idperiodicaledition")
+    private PeriodicalEdition periodicalEdition;
 
 
     public Subscription() {
@@ -26,12 +26,12 @@ public class Subscription extends AbstractEntity {
         this.user = user;
     }
 
-    public PeriodicalEdittion getPeriodicalEdittion() {
-        return periodicalEdittion;
+    public PeriodicalEdition getPeriodicalEdition() {
+        return periodicalEdition;
     }
 
-    public void setPeriodicalEdittion(PeriodicalEdittion periodicalEdittion) {
-        this.periodicalEdittion = periodicalEdittion;
+    public void setPeriodicalEdition(PeriodicalEdition periodicalEdition) {
+        this.periodicalEdition = periodicalEdition;
     }
 
     @Override
@@ -51,14 +51,14 @@ public class Subscription extends AbstractEntity {
         if (getUser() != null ? !getUser().equals(that.getUser()) : that.getUser() != null){
             return false;
         }
-        return getPeriodicalEdittion() != null ? getPeriodicalEdittion().equals(that.getPeriodicalEdittion()) : that.getPeriodicalEdittion() == null;
+        return getPeriodicalEdition() != null ? getPeriodicalEdition().equals(that.getPeriodicalEdition()) : that.getPeriodicalEdition() == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (getId() ^ (getId() >>> 32));
         result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
-        result = 31 * result + (getPeriodicalEdittion() != null ? getPeriodicalEdittion().hashCode() : 0);
+        result = 31 * result + (getPeriodicalEdition() != null ? getPeriodicalEdition().hashCode() : 0);
         return result;
     }
 
@@ -67,7 +67,7 @@ public class Subscription extends AbstractEntity {
         final StringBuilder sb = new StringBuilder("Subscription{");
         sb.append("id=").append(id);
         sb.append(", user=").append(user);
-        sb.append(", periodicalEdittion=").append(periodicalEdittion);
+        sb.append(", periodicalEdition=").append(periodicalEdition);
         sb.append('}');
         return sb.toString();
     }

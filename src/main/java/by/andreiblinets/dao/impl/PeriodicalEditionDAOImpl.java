@@ -3,8 +3,8 @@ package by.andreiblinets.dao.impl;
 import by.andreiblinets.dao.PeriodicalEditionDAO;
 import by.andreiblinets.constant.Error;
 import by.andreiblinets.constant.MyQuery;
+import by.andreiblinets.entity.PeriodicalEdition;
 import by.andreiblinets.exceptions.DaoException;
-import by.andreiblinets.entity.PeriodicalEdittion;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
@@ -15,17 +15,17 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class PeriodicalEditionDAOImpl extends BaseDAOImpl<PeriodicalEdittion> implements PeriodicalEditionDAO {
+public class PeriodicalEditionDAOImpl extends BaseDAOImpl<PeriodicalEdition> implements PeriodicalEditionDAO {
 
     private static final String PARAMETER_CAMELCASE_NAME = "name";
     private static Logger logger = Logger.getLogger(PeriodicalEditionDAOImpl.class.getName());
 
     public PeriodicalEditionDAOImpl() {
-        super(PeriodicalEdittion.class, logger);
+        super(PeriodicalEdition.class, logger);
     }
 
     @Override
-    public List<PeriodicalEdittion> readAll() throws DaoException {
+    public List<PeriodicalEdition> readAll() throws DaoException {
         try {
             return getEntityManager().createQuery(MyQuery.GET_ALL_CAMEL_CASE).getResultList();
         }

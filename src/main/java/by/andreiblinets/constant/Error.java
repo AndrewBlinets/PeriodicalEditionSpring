@@ -13,7 +13,7 @@ public class Error {
 
     public static final String ERROR_READ_PAYMENT = "Error read Payment in DB ";
 
-    public static final String ERROR_READ_CAMEL_CASE = "Error read PeriodicalEdittion in DB ";
+    public static final String ERROR_READ_CAMEL_CASE = "Error read PeriodicalEdition in DB ";
 
     public static final String ERROR_READ_USER = "Error read in db";
 

@@ -16,7 +16,7 @@ public class User extends AbstractEntity {
     @Column (name = "userRole", nullable = false)
     private String userRole;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn (name = "idAccount")
     private Account account;
 

@@ -66,7 +66,7 @@ public class NewsController {
                 List<News> newsList = new ArrayList<>();
                 List<Subscription> subscriptions = subscriptionService.getSubscribtionByIdUser(user.getId());
                 for (Subscription sub :subscriptions) {
-                    newsList.addAll(newsService.getNewsByIdCamelCase(sub.getPeriodicalEdittion().getId()));
+                    newsList.addAll(newsService.getNewsByIdCamelCase(sub.getPeriodicalEdition().getId()));
                 }
                 model.addAttribute(Parameters.NEWS, newsList);
                 pagePath = pagePathManager.getProperty(Page.REDADER_NEWS);
@@ -104,7 +104,7 @@ public class NewsController {
         else {
             String pagePath = null;
             try {
-                news.setPeriodicalEdittion(periodicalEditionService.readById(editorService.getCamelCase(user.getId())));
+                news.setPeriodicalEdition(periodicalEditionService.readById(editorService.getCamelCase(user.getId())));
                 newsService.create(news);
                 model.addAttribute(Parameters.OPERATION_MESSAGE,Message.NEWS_CREATE_SUCSEC);
                 pagePath = pagePathManager.getProperty(Page.REDACTOR_MAIN);

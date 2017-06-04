@@ -3,26 +3,26 @@ package by.andreiblinets.entity;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "redactor")
+@Table (name = "editor")
 public class Editor extends AbstractEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn (name = "camelcase")
-    private PeriodicalEdittion periodicalEdittion;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn (name = "periodicaledition")
+    private PeriodicalEdition periodicalEdition;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn (name = "user")
     private User user;
 
     public Editor() {
     }
 
-    public PeriodicalEdittion getPeriodicalEdittion() {
-        return periodicalEdittion;
+    public PeriodicalEdition getPeriodicalEdition() {
+        return periodicalEdition;
     }
 
-    public void setPeriodicalEdittion(PeriodicalEdittion periodicalEdittion) {
-        this.periodicalEdittion = periodicalEdittion;
+    public void setPeriodicalEdition(PeriodicalEdition periodicalEdition) {
+        this.periodicalEdition = periodicalEdition;
     }
 
     public User getUser() {
@@ -47,7 +47,7 @@ public class Editor extends AbstractEntity {
 
         Editor editor = (Editor) o;
 
-        if (getPeriodicalEdittion() != null ? !getPeriodicalEdittion().equals(editor.getPeriodicalEdittion()) : editor.getPeriodicalEdittion() != null)
+        if (getPeriodicalEdition() != null ? !getPeriodicalEdition().equals(editor.getPeriodicalEdition()) : editor.getPeriodicalEdition() != null)
         {
             return false;
         }
@@ -57,7 +57,7 @@ public class Editor extends AbstractEntity {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (getPeriodicalEdittion() != null ? getPeriodicalEdittion().hashCode() : 0);
+        result = 31 * result + (getPeriodicalEdition() != null ? getPeriodicalEdition().hashCode() : 0);
         result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
         return result;
     }
@@ -65,7 +65,7 @@ public class Editor extends AbstractEntity {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Editor{");
-        sb.append("periodicalEdittion=").append(periodicalEdittion);
+        sb.append("periodicalEdition=").append(periodicalEdition);
         sb.append(", id=").append(id);
         sb.append(", user=").append(user);
         sb.append('}');
