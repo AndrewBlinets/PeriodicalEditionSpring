@@ -20,6 +20,7 @@
 				</tr>
 			</c:forEach>
 		</table>
+		${operationMessage}
 		<a href="/addcamelcase">Добавить периодическое издание</a>
 		<a href="/main">Назад</a>
 	</body>

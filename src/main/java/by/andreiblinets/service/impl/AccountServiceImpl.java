@@ -36,10 +36,10 @@ public class AccountServiceImpl extends BaseServiceImpl<Account> implements Acco
     public User getUser(String login, String password) throws ServiceException {
         try {
             User user = null;
-            List<Integer> list_Id = accountDAO.getAccountByLoginAndPassword(login, password);
-            if(list_Id.size() != 0)
+            List<Account> accounts = accountDAO.getAccountByLoginAndPassword(login, password);
+            if(accounts.size() != 0)
             {
-                user = userBaseDAO.readById((long) list_Id.get(0));
+                user = userBaseDAO.readById(accounts.get(0).getId());
             }
             return user;
         } catch (DaoException e) {

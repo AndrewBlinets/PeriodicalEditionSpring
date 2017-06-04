@@ -6,6 +6,6 @@ import by.andreiblinets.entity.Account;
 import java.util.List;
 
 public interface AccountDAO extends BaseDAO<Account> {
-    List<Integer> getAccountByLoginAndPassword(String login, String password) throws DaoException;
+    List<Account> getAccountByLoginAndPassword(String login, String password) throws DaoException;
     boolean chekingLogin(String login) throws DaoException;
 }

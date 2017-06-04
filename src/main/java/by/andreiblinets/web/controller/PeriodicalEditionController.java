@@ -148,13 +148,13 @@ public class PeriodicalEditionController {
             editorService.delete(editorService.readById(id));
             if(editorService.readById(id) == null)
             {
-                model.addAttribute(Parameters.MESSAGE, Message.DELETE_CAMELCASE);
-                pagePath = pagePathManager.getProperty(Page.ACCOUNT);
+                model.addAttribute(Parameters.OPERATION_MESSAGE, Message.DELETE_CAMELCASE);
+                pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
             }
             else
             {
-                model.addAttribute(Parameters.MESSAGE, Message.NOT_DELETE_CAMELCASE);
-                pagePath = pagePathManager.getProperty(Page.ACCOUNT);
+                model.addAttribute(Parameters.OPERATION_MESSAGE, Message.NOT_DELETE_CAMELCASE);
+                pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
             }
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);

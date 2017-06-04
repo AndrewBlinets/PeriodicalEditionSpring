@@ -39,12 +39,12 @@ public class AccountDAOImpl extends BaseDAOImpl<Account> implements AccountDAO {
     }
 
     @Override
-    public List<Integer> getAccountByLoginAndPassword(String login, String password) throws DaoException {
+    public List<Account> getAccountByLoginAndPassword(String login, String password) throws DaoException {
         try {
-            Query query= getEntityManager().createNativeQuery(MyQuery.GET_USER_BY_LOGIN_AND_PASSWORD);
+            Query query= getEntityManager().createQuery(MyQuery.GET_USER_BY_LOGIN_AND_PASSWORD);
             query.setParameter(PARAMETER_USER_LOGIN, login);
             query.setParameter(PARAMETER_USER_PASSWORD, password);
-            return query.getResultList();
+            return (List<Account>) query.getResultList();
         }
         catch (HibernateException e)
         {
