@@ -15,6 +15,7 @@ import java.util.List;
 @Repository
 public class SubscriptionDAOImpl extends BaseDAOImpl<Subscription> implements SubscriptionDAO {
 
+    private static final String PARAMETER_ID_USER = "idUser";
     private static Logger logger = Logger.getLogger(SubscriptionDAOImpl.class.getName());
 
     public SubscriptionDAOImpl() {
@@ -37,7 +38,7 @@ public class SubscriptionDAOImpl extends BaseDAOImpl<Subscription> implements Su
     public List<Subscription> getSubscriptionByIdUser(long idUser) throws DaoException {
         try {
             Query query = getEntityManager().createQuery(MyQuery.GET_SUBSCRIPTION_BY_ID_USER);
-            query.setParameter("idUser", idUser)
+            query.setParameter(PARAMETER_ID_USER, idUser);
             return query.getResultList();
         }
         catch (HibernateException e)

@@ -30,7 +30,7 @@ public class NewsServiceImpl extends BaseServiceImpl<News> implements NewsServic
     @Override
     public List<News> getNewsByIdCamelCase(long idCamelCase) throws ServiceException {
         try {
-            return newsDAO.getNewsByIdCamelCase(idCamelCase);
+            return newsDAO.getNewsByIdPeriodicalEdition(idCamelCase);
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
             throw new ServiceException(ConstantsService.TRANSACTION_FAIL);

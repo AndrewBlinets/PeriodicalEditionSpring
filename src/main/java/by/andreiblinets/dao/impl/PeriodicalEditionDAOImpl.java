@@ -17,7 +17,7 @@ import java.util.List;
 @Transactional
 public class PeriodicalEditionDAOImpl extends BaseDAOImpl<PeriodicalEdition> implements PeriodicalEditionDAO {
 
-    private static final String PARAMETER_CAMELCASE_NAME = "name";
+    private static final String PARAMETER_PERIODICAL_EDITION_NAME = "name";
     private static Logger logger = Logger.getLogger(PeriodicalEditionDAOImpl.class.getName());
 
     public PeriodicalEditionDAOImpl() {
@@ -27,7 +27,7 @@ public class PeriodicalEditionDAOImpl extends BaseDAOImpl<PeriodicalEdition> imp
     @Override
     public List<PeriodicalEdition> readAll() throws DaoException {
         try {
-            return getEntityManager().createQuery(MyQuery.GET_ALL_CAMEL_CASE).getResultList();
+            return getEntityManager().createQuery(MyQuery.GET_ALL_PERIODICAL_EDITION).getResultList();
         }
         catch (HibernateException e)
         {
@@ -40,7 +40,7 @@ public class PeriodicalEditionDAOImpl extends BaseDAOImpl<PeriodicalEdition> imp
     public boolean chekingNameCamelCase(String name) throws DaoException {
         try {
             Query query= getEntityManager().createNativeQuery(MyQuery.CHEKING_CAMELCASE);
-            query.setParameter(PARAMETER_CAMELCASE_NAME, name);
+            query.setParameter(PARAMETER_PERIODICAL_EDITION_NAME, name);
 
             if(query.getResultList().size() != 0)
             {

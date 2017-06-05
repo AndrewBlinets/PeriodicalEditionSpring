@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 public class NewsDAOImpl  extends BaseDAOImpl<News> implements NewsDAO {
 
+    private static final String PARAMETER_PERODICAL_EDITION_ID = "id";
     private static Logger logger = Logger.getLogger(NewsDAOImpl.class.getName());
 
     public NewsDAOImpl() {
@@ -33,10 +34,10 @@ public class NewsDAOImpl  extends BaseDAOImpl<News> implements NewsDAO {
     }
 
     @Override
-    public List<News> getNewsByIdCamelCase(long idCamelCase) throws DaoException {
+    public List<News> getNewsByIdPeriodicalEdition(long id) throws DaoException {
         try {
-            Query query = getEntityManager().createQuery(MyQuery.GET_NEWS_BY_ID_CAMEL_CASE);
-            query.setParameter("id",idCamelCase);
+            Query query = getEntityManager().createQuery(MyQuery.GET_NEWS_BY_ID_PREIODICAL_EDITION);
+            query.setParameter(PARAMETER_PERODICAL_EDITION_ID,id);
             return query.getResultList();
         }
         catch (HibernateException e)
