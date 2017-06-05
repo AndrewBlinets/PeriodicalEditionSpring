@@ -34,9 +34,9 @@ public class EditorDAOImpl extends BaseDAOImpl<Editor> implements EditorDAO {
     }
 
     @Override
-    public List<Integer> getCamelCase(long id) throws DaoException {
+    public List<Editor> getPeriodicalEdition(long id) throws DaoException {
         try {
-            Query query= getEntityManager().createNativeQuery(MyQuery.GET_ID_CAMELCASE);
+            Query query= getEntityManager().createQuery(MyQuery.GET_ID_CAMELCASE);
             query.setParameter(PARAMETER_USER_ID, id);
             return query.getResultList();
         }

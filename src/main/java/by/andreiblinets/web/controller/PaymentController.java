@@ -54,7 +54,7 @@ public class PaymentController {
     public String deletePayment(ModelMap model, @PathVariable("id") long id) {
         String pagePath;
         try {
-            paymentService.delete(paymentService.readById(id));
+            paymentService.delete(id);
             model.addAttribute(Parameters.PAYMENT, paymentService.readById(id));
             pagePath = pagePathManager.getProperty(Page.PAYMENT);
         } catch (ServiceException e) {

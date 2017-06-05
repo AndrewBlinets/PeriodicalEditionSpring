@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class EditorServiceImpl extends BaseServiceImpl<Editor> implements EditorService {
@@ -31,8 +29,7 @@ public class EditorServiceImpl extends BaseServiceImpl<Editor> implements Editor
     @Override
     public Long getCamelCase(long id) throws ServiceException {
        try{
-           List<Integer> idCamelCase = editorDAO.getCamelCase(id);
-           return Long.valueOf(idCamelCase.get(0));
+           return Long.valueOf(editorDAO.getPeriodicalEdition(id).get(0).getPeriodicalEdition().getId());
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
             throw new ServiceException(ConstantsService.TRANSACTION_FAIL);

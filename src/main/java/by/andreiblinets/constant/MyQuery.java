@@ -12,7 +12,7 @@ public final class MyQuery {
     public static final String CHEKING_CAMELCASE =  "select * from PeriodicalEdition where name = :name";
     public static final String GET_ALL_NEWS = "from News";
     public static final String GET_ALL_REDACTOR = "from Editor";
-    public static final String GET_ID_CAMELCASE = "select Editor.periodicalEdition from Editor where user = :id";
-    public static final String GET_NEWS_BY_ID_CAMEL_CASE = GET_ALL_NEWS + " where periodicalEdition = :id";
+    public static final String GET_ID_CAMELCASE = "from Editor where user.id = :id";
+    public static final String GET_NEWS_BY_ID_CAMEL_CASE = GET_ALL_NEWS + " where periodicalEdition.id = :id";
     public static final String GET_SUBSCRIPTION_BY_ID_USER = GET_ALL_SUBSCRIPTION + " where user.id = :idUser";
 }

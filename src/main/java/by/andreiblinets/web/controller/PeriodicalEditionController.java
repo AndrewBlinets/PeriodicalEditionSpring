@@ -38,7 +38,7 @@ public class PeriodicalEditionController {
     @Autowired
     private PagePathManager pagePathManager;
 
-    @RequestMapping(value = "/camelcases", method = RequestMethod.GET)
+    @RequestMapping(value = "/periodicalEditions", method = RequestMethod.GET)
     public String getAllCamelCase(ModelMap model, HttpServletRequest request) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
         String pagePath;
@@ -46,7 +46,7 @@ public class PeriodicalEditionController {
         {
             try {
                 model.addAttribute(Parameters.CAMELCASE_LIST, periodicalEditionService.readAll());
-                pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
+                pagePath = pagePathManager.getProperty(Page.PATH_ADMIN_PERIODICAL_EDITION);
             } catch (ServiceException e) {
                 model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
                 pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
@@ -70,7 +70,7 @@ public class PeriodicalEditionController {
         }
     }
 
-    @RequestMapping(value = "/camelcase", method = RequestMethod.POST)
+    @RequestMapping(value = "/periodicalEdition", method = RequestMethod.POST)
     public String createCamelCase(ModelMap model, @ModelAttribute PeriodicalEditionDTO periodicalEditionDTO) {
         String pagePath;
         try {
@@ -89,23 +89,23 @@ public class PeriodicalEditionController {
                     user.setUserRole(String.valueOf(UserRole.REDACTOR));
                     PeriodicalEdition periodicalEdition = new PeriodicalEdition();
                     periodicalEdition.setPrice(periodicalEditionDTO.getPrice());
-                    periodicalEdition.setName(periodicalEditionDTO.getNameCamelCase());
+                    periodicalEdition.setName(periodicalEditionDTO.getNamePeriodicalEdition());
                     editor.setPeriodicalEdition(periodicalEdition);
                     editor.setUser(user);
                     editorService.create(editor);
                     model.addAttribute(Parameters.CAMELCASE_LIST, periodicalEditionService.readAll());
-                    pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
+                    pagePath = pagePathManager.getProperty(Page.PATH_ADMIN_PERIODICAL_EDITION);
                 }
                 else
                     {
                         model.addAttribute(Error.ERROR_EXISTENCE_CAMELCASE, Message.ERROR_LOGIN_EXISTENCE);
-                        pagePath = pagePathManager.getProperty(Page.ADD_CAMEL_CASE);
+                        pagePath = pagePathManager.getProperty(Page.PATH_ADD_PERIODICAL_EDITION);
                 }
             }
             else
             {
                 model.addAttribute(Error.ERROR_EXISTENCE_CAMELCASE, Message.ERROR_CAMELCASE_EXISTENCE);
-                pagePath = pagePathManager.getProperty(Page.ADD_CAMEL_CASE);
+                pagePath = pagePathManager.getProperty(Page.PATH_ADD_PERIODICAL_EDITION);
             }
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
@@ -114,7 +114,7 @@ public class PeriodicalEditionController {
         return pagePath;
     }
 
-    @RequestMapping(value = "/camelcase/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/periodicalEdition/{id}", method = RequestMethod.GET)
     public String getCamelCase(ModelMap model, @PathVariable("id") long id) {
         String pagePath = null;
         try {
@@ -127,7 +127,7 @@ public class PeriodicalEditionController {
         return pagePath;
     }
 
-    @RequestMapping(value = "/camelcas/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/periodicalEdition/{id}", method = RequestMethod.PUT)
     public String updateCamelCase(ModelMap model, @PathVariable("id") long id, @RequestBody PeriodicalEdition periodicalEdition) {
        String pagePath = null;
         try {
@@ -141,20 +141,20 @@ public class PeriodicalEditionController {
     }
 
    // @RequestMapping(value = "/camelcase/{id}", method = RequestMethod.DELETE)
-    @RequestMapping(value = "/camelcase/remove/{id}")
+    @RequestMapping(value = "/periodicalEdition/remove/{id}")
     public String delete(ModelMap model, @PathVariable long id) {
         String pagePath = null;
         try {
-            editorService.delete(editorService.readById(id));
+            editorService.delete(id);
             if(editorService.readById(id) == null)
             {
                 model.addAttribute(Parameters.OPERATION_MESSAGE, Message.DELETE_CAMELCASE);
-                pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
+                pagePath = pagePathManager.getProperty(Page.PATH_ADMIN_PERIODICAL_EDITION);
             }
             else
             {
                 model.addAttribute(Parameters.OPERATION_MESSAGE, Message.NOT_DELETE_CAMELCASE);
-                pagePath = pagePathManager.getProperty(Page.ADMIN_SHOW_CAMEL_CASE_PAGE);
+                pagePath = pagePathManager.getProperty(Page.PATH_ADMIN_PERIODICAL_EDITION);
             }
         } catch (ServiceException e) {
             model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);

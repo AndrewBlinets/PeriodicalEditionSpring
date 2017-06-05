@@ -70,9 +70,9 @@ public abstract class BaseServiceImpl<T extends AbstractEntity> implements BaseS
     }
 
     @Override
-    public boolean delete(T t) throws ServiceException {
+    public boolean delete(Long id) throws ServiceException {
         try {
-            baseDAO.delete(t);
+            baseDAO.delete(id);
             logger.info(ConstantsService.TRANSACTION_SUCCESS);
             return true;
         } catch (DaoException e) {

@@ -11,22 +11,22 @@ public final class Page {
     public static final String READER_MAIN = "path.reader.main";
 
 
-    public static final String REDACTOR_MAIN = "path.redactor.main";
+    public static final String PATH_EDITOR_MAIN = "path.editor.main";
 
 
 
     public static final String ADMIN_DELETE_READER_PAGE = "path.page.deleteuser";
-    public static final String ADMIN_SHOW_CAMEL_CASE_PAGE = "path.admin.camelcase";
+    public static final String PATH_ADMIN_PERIODICAL_EDITION = "path.admin.periodicalEdition";
 
 
-    public static final String ADD_CAMEL_CASE = "path.add.camelcase";
+    public static final String PATH_ADD_PERIODICAL_EDITION = "path.add.periodicalEdition";
     public static final String ACCOUNT = "path.account";
     public static final String SUBSCRIPTION = "path.subscription";
     public static final String PAYMENT = "path.payment";
 
     public static final String CONTROL = "path.control";
     public static final String ADD_NEWS = "path.addnews";
-    public static final String REDACTOR_NEWS = "path.redactor.news";
-    public static final String READER_SHOW_CAMEL_CASE_PAGE = "path.reader.camelcase";
-    public static final String REDADER_NEWS = "path.reader.news";
+    public static final String PATH_EDITOR_NEWS = "path.editor.news";
+    public static final String READER_SHOW_CAMEL_CASE_PAGE = "path.reader.periodicalEdition";
+    public static final String READER_NEWS = "path.reader.news";
 }

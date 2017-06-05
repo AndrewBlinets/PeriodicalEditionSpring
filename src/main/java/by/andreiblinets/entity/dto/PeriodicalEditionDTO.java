@@ -1,7 +1,7 @@
 package by.andreiblinets.entity.dto;
 
 public class PeriodicalEditionDTO {
-    private String nameCamelCase;
+    private String namePeriodicalEdition;
     private long price;
     private String login;
     private String password;
@@ -11,12 +11,12 @@ public class PeriodicalEditionDTO {
     public PeriodicalEditionDTO() {
     }
 
-    public String getNameCamelCase() {
-        return nameCamelCase;
+    public String getNamePeriodicalEdition() {
+        return namePeriodicalEdition;
     }
 
-    public void setNameCamelCase(String nameCamelCase) {
-        this.nameCamelCase = nameCamelCase;
+    public void setNamePeriodicalEdition(String namePeriodicalEdition) {
+        this.namePeriodicalEdition = namePeriodicalEdition;
     }
 
     public long getPrice() {
@@ -73,7 +73,7 @@ public class PeriodicalEditionDTO {
         if (getPrice() != that.getPrice()){
             return false;
         }
-        if (getNameCamelCase() != null ? !getNameCamelCase().equals(that.getNameCamelCase()) : that.getNameCamelCase() != null)
+        if (getNamePeriodicalEdition() != null ? !getNamePeriodicalEdition().equals(that.getNamePeriodicalEdition()) : that.getNamePeriodicalEdition() != null)
         {
             return false;
         }
@@ -92,7 +92,7 @@ public class PeriodicalEditionDTO {
 
     @Override
     public int hashCode() {
-        int result = getNameCamelCase() != null ? getNameCamelCase().hashCode() : 0;
+        int result = getNamePeriodicalEdition() != null ? getNamePeriodicalEdition().hashCode() : 0;
         result = 31 * result + (int) (getPrice() ^ (getPrice() >>> 32));
         result = 31 * result + (getLogin() != null ? getLogin().hashCode() : 0);
         result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
@@ -104,7 +104,7 @@ public class PeriodicalEditionDTO {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("PeriodicalEditionDTO{");
-        sb.append("nameCamelCase='").append(nameCamelCase).append('\'');
+        sb.append("namePeriodicalEdition='").append(namePeriodicalEdition).append('\'');
         sb.append(", price=").append(price);
         sb.append(", login='").append(login).append('\'');
         sb.append(", password='").append(password).append('\'');

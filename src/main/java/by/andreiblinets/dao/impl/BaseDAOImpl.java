@@ -58,7 +58,6 @@ public abstract class BaseDAOImpl <T extends AbstractEntity> implements BaseDAO<
     @Override
     public T readById(Long id) throws DaoException {
         try {
-            //entityManager.
             return (T) entityManager.find(aClass, id);
         }
         catch (HibernateException e)
@@ -69,9 +68,9 @@ public abstract class BaseDAOImpl <T extends AbstractEntity> implements BaseDAO<
     }
 
     @Override
-    public void delete(T t) throws DaoException {
+    public void delete(Long id) throws DaoException {
         try {
-            entityManager.remove(entityManager.find(aClass,t.getId()));
+            entityManager.remove(entityManager.find(aClass,id));
         }
         catch (HibernateException e)
         {

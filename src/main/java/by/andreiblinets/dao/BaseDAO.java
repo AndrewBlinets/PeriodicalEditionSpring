@@ -10,5 +10,5 @@ public interface BaseDAO<T extends AbstractEntity> {
     void update(T t) throws DaoException;
     List<T> readAll() throws DaoException;
     T readById(Long id) throws DaoException;
-    void delete(T t) throws DaoException;
+    void delete(Long id) throws DaoException;
 }

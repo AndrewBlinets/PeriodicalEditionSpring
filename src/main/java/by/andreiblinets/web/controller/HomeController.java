@@ -29,7 +29,7 @@ public class HomeController {
         return pagePathManager.getProperty(Page.REGISTRATION);
     }
 
-    @RequestMapping (value = "/addcamelcase", method = RequestMethod.GET)
+    @RequestMapping (value = "/addperiodicalEdition", method = RequestMethod.GET)
     public String goAddCamelCase(HttpServletRequest request) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
         if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR)))
@@ -37,7 +37,7 @@ public class HomeController {
             return pagePathManager.getProperty(Page.CONTROL);
         }
         else {
-            return pagePathManager.getProperty(Page.ADD_CAMEL_CASE);
+            return pagePathManager.getProperty(Page.PATH_ADD_PERIODICAL_EDITION);
         }
     }
 }

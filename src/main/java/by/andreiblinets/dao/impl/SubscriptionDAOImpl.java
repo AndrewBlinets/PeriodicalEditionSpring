@@ -37,7 +37,7 @@ public class SubscriptionDAOImpl extends BaseDAOImpl<Subscription> implements Su
     public List<Subscription> getSubscriptionByIdUser(long idUser) throws DaoException {
         try {
             Query query = getEntityManager().createQuery(MyQuery.GET_SUBSCRIPTION_BY_ID_USER);
-            query.setParameter("idUser",idUser);
+            query.setParameter("idUser", idUser)
             return query.getResultList();
         }
         catch (HibernateException e)

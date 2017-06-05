@@ -92,7 +92,7 @@ public class UserController {
             case "REDACTOR":
             {
                 model.addAttribute(Parameters.USER, user);
-                return pagePathManager.getProperty(Page.REDACTOR_MAIN);
+                return pagePathManager.getProperty(Page.PATH_EDITOR_MAIN);
             }
             default:
             {
@@ -124,7 +124,7 @@ public class UserController {
                 case "REDACTOR":
                 {
                     model.addAttribute(Parameters.USER, user);
-                    pagePath = pagePathManager.getProperty(Page.REDACTOR_MAIN);
+                    pagePath = pagePathManager.getProperty(Page.PATH_EDITOR_MAIN);
                     break;
                 }
                 default:

@@ -47,36 +47,38 @@ public class NewsController {
     public String getAllAccount(ModelMap model, HttpServletRequest request) {
         String pagePath = null;
         User user = (User) request.getSession().getAttribute(Parameters.USER);
-        if(user.getUserRole().equals(String.valueOf(UserRole.REDACTOR)))
-        {
-            try {
-                long idCamelCase = editorService.getCamelCase(user.getId());
-                List<News> newsList = newsService.getNewsByIdCamelCase(idCamelCase);
-                 model.addAttribute(Parameters.NEWS, newsList);
-                pagePath = pagePathManager.getProperty(Page.REDACTOR_NEWS);
-            } catch (ServiceException e) {
-                model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-                pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
-            }
-            return pagePath;
-        }
-        if(user.getUserRole().equals(String.valueOf(UserRole.READER)))
-        {
-            try {
-                List<News> newsList = new ArrayList<>();
-                List<Subscription> subscriptions = subscriptionService.getSubscribtionByIdUser(user.getId());
-                for (Subscription sub :subscriptions) {
-                    newsList.addAll(newsService.getNewsByIdCamelCase(sub.getPeriodicalEdition().getId()));
+        try {
+            if (user.getUserRole().equals(String.valueOf(UserRole.REDACTOR))) {
+                try {
+                    long idCamelCase = editorService.getCamelCase(user.getId());
+                    List<News> newsList = newsService.getNewsByIdCamelCase(idCamelCase);
+                    model.addAttribute(Parameters.NEWS, newsList);
+                    pagePath = pagePathManager.getProperty(Page.PATH_EDITOR_NEWS);
+                } catch (ServiceException e) {
+                    model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+                    pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
                 }
-                model.addAttribute(Parameters.NEWS, newsList);
-                pagePath = pagePathManager.getProperty(Page.REDADER_NEWS);
-            } catch (ServiceException e) {
-                model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-                pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+                return pagePath;
             }
-            return pagePath;
+            if (user.getUserRole().equals(String.valueOf(UserRole.READER))) {
+                try {
+                    List<News> newsList = new ArrayList<>();
+                    List<Subscription> subscriptions = subscriptionService.getSubscribtionByIdUser(user.getId());
+                    for (Subscription sub : subscriptions) {
+                        newsList.addAll(newsService.getNewsByIdCamelCase(sub.getPeriodicalEdition().getId()));
+                    }
+                    model.addAttribute(Parameters.NEWS, newsList);
+                    pagePath = pagePathManager.getProperty(Page.READER_NEWS);
+                } catch (ServiceException e) {
+                    model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+                    pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+                }
+                return pagePath;
+            } else {
+                return pagePathManager.getProperty(Page.CONTROL);
+            }
         }
-        else
+        catch (NullPointerException e)
         {
             return pagePathManager.getProperty(Page.CONTROL);
         }
@@ -107,7 +109,7 @@ public class NewsController {
                 news.setPeriodicalEdition(periodicalEditionService.readById(editorService.getCamelCase(user.getId())));
                 newsService.create(news);
                 model.addAttribute(Parameters.OPERATION_MESSAGE,Message.NEWS_CREATE_SUCSEC);
-                pagePath = pagePathManager.getProperty(Page.REDACTOR_MAIN);
+                pagePath = pagePathManager.getProperty(Page.PATH_EDITOR_MAIN);
             } catch (ServiceException e) {
                 model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
                 pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);

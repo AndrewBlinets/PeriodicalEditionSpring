@@ -11,6 +11,6 @@ public interface BaseService<T extends AbstractEntity> {
     boolean update(T t) throws ServiceException;
     List<T> readAll() throws ServiceException;
     T readById(Long id) throws ServiceException;
-    boolean delete(T t) throws ServiceException;
+    boolean delete(Long id) throws ServiceException;
 
 }
