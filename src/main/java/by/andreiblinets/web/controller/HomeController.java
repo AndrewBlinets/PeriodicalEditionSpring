@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,8 +26,8 @@ public class HomeController {
     }
 
     @RequestMapping (value = "/registration", method = RequestMethod.GET)
-    public String goReegistration() {
-        return pagePathManager.getProperty(Page.REGISTRATION);
+    public ModelAndView goRegistration() {
+        return pagePathManager.getPage(null,null,Page.REGISTRATION);
     }
 
     @RequestMapping (value = "/addperiodicalEdition", method = RequestMethod.GET)

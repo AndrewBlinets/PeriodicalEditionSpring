@@ -2,7 +2,7 @@ package by.andreiblinets.constant;
 
 public final class Page {
     public static final String INDEX = "path.page.index";
-    public static final String REGISTRATION = "path.page.registration";
+    public static final String REGISTRATION = "registration";
     public static final String ERROR_PAGE_PATH = "path.page.error";
 
     public static final String ADMIN_MAIN = "path.admin.main";

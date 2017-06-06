@@ -3,7 +3,7 @@ CREATE SCHEMA `periodicaledition` DEFAULT CHARACTER SET utf8 ;
 CREATE TABLE `periodicaledition`.`account` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(45) NULL,
-  `hashpassword` VARCHAR(45) NULL,
+  `hashpassword` VARCHAR(32) NULL,
   PRIMARY KEY (`id`));
 
 CREATE TABLE `periodicaledition`.`user` (

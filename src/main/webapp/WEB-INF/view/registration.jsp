@@ -9,7 +9,7 @@
 </head>
 <body>
 <form name="registrationForm" method="Post" action="/createAccount" th:object="${registration}">
-	<input type="hidden" name="command" value="registration" />
+	<input type="hidden" />
 	Введите ваши данные:<br/>
 	<table>
 		<tr>
