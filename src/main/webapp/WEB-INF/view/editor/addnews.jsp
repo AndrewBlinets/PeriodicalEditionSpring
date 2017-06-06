@@ -14,7 +14,8 @@
         </tr>
         <tr>
             <td>Текст:</td>
-            <td><input type="text" name="body" value="" size="20" th:field="*{body}"/></td>
+            <td><textarea name="body" cols="20" value="" rows="5" th:field="*{body}" ></textarea> </td>
+           <!-- <td><input type="" name="body" value="" size="20" th:field="*{body}"/></td>-->
         </tr>
         <tr>
             <td>Автор:</td>

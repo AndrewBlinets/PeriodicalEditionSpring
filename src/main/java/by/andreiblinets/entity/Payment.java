@@ -1,20 +1,17 @@
 package by.andreiblinets.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "payment")
 public class Payment extends AbstractEntity {
 
     @ManyToOne
-    @JoinColumn (name = "user")
+    @JoinColumn (name = "iduser")
     private User user;
 
-    @Column (name = "summa")
-    private double summa;
+    @Column (name = "quittance")
+    private String quittance;
 
     public Payment() {
         super();
@@ -28,12 +25,12 @@ public class Payment extends AbstractEntity {
         this.user = user;
     }
 
-    public double getSumma() {
-        return summa;
+    public String getQuittance() {
+        return quittance;
     }
 
-    public void setSumma(double summa) {
-        this.summa = summa;
+    public void setQuittance(String quittance) {
+        this.quittance = quittance;
     }
 
     @Override
@@ -44,31 +41,32 @@ public class Payment extends AbstractEntity {
         if (!(o instanceof Payment)){
             return false;
         }
+        if (!super.equals(o)){
+            return false;
+        }
 
         Payment payment = (Payment) o;
 
-        if (getId() != payment.getId()){
+        if (getUser() != null ? !getUser().equals(payment.getUser()) : payment.getUser() != null){
             return false;
         }
-        if (Double.compare(payment.getSumma(), getSumma()) != 0){
-            return false;
-        }
-        return getUser() != null ? getUser().equals(payment.getUser()) : payment.getUser() == null;
+        return getQuittance() != null ? getQuittance().equals(payment.getQuittance()) : payment.getQuittance() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = 0;
-        result = (int) this.getId() + 2;
+        int result = super.hashCode();
+        result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
+        result = 31 * result + (getQuittance() != null ? getQuittance().hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Payment{");
-        sb.append("id=").append(id);
-        sb.append(", user=").append(user);
-        sb.append(", summa=").append(summa);
+        sb.append("user=").append(user);
+        sb.append(", quittance='").append(quittance).append('\'');
+        sb.append(", id=").append(id);
         sb.append('}');
         return sb.toString();
     }

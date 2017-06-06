@@ -47,7 +47,7 @@ CREATE TABLE `periodicaledition`.`editor` (
 CREATE TABLE `periodicaledition`.`payment` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `iduser` BIGINT NULL,
-  `summa` DOUBLE NULL,
+  `quittance` VARCHAR(10) NULL,
   PRIMARY KEY (`id`),
   INDEX `user_idx` (`iduser` ASC),
   CONSTRAINT `user`

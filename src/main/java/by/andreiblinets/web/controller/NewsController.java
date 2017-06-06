@@ -50,8 +50,7 @@ public class NewsController {
         try {
             if (user.getUserRole().equals(String.valueOf(UserRole.REDACTOR))) {
                 try {
-                    long idCamelCase = editorService.getCamelCase(user.getId());
-                    List<News> newsList = newsService.getNewsByIdCamelCase(idCamelCase);
+                    List<News> newsList = newsService.getNewsByIdCamelCase(editorService.getCamelCase(user.getId()));
                     model.addAttribute(Parameters.NEWS, newsList);
                     pagePath = pagePathManager.getProperty(Page.PATH_EDITOR_NEWS);
                 } catch (ServiceException e) {
