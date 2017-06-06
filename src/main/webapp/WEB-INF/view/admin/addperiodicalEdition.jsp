@@ -37,7 +37,7 @@
         </tr>
     </table>
     ${operationMessage}
-    ${errorCamelCaseExists} <br />
+    ${errorPeriodicalEditionExists} <br />
     <input type="submit" value="Добавить" />
     <a href="/main">Назад</a>
 </form>

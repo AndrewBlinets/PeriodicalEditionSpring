@@ -18,8 +18,8 @@ import by.andreiblinets.web.mamager.PagePathManager;
 import by.andreiblinets.web.util.Coding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,128 +39,115 @@ public class PeriodicalEditionController {
     private PagePathManager pagePathManager;
 
     @RequestMapping(value = "/periodicalEditions", method = RequestMethod.GET)
-    public String getAllCamelCase(ModelMap model, HttpServletRequest request) {
+    public ModelAndView getAllCamelCase(HttpServletRequest request) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
-        String pagePath;
         if(user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR)))
         {
             try {
-                model.addAttribute(Parameters.CAMELCASE_LIST, periodicalEditionService.readAll());
-                pagePath = pagePathManager.getProperty(Page.PATH_ADMIN_PERIODICAL_EDITION);
+                return pagePathManager.getPage(Parameters.PERIODICAL_EDITION_LIST, periodicalEditionService.readAll(),
+                        Page.PATH_ADMIN_PERIODICAL_EDITION);
             } catch (ServiceException e) {
-                model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-                pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
-            return pagePath;
         }
         if(user.getUserRole().equals(String.valueOf(UserRole.READER)))
         {
             try {
-                model.addAttribute(Parameters.CAMELCASE_LIST, periodicalEditionService.readAll());
-                pagePath = pagePathManager.getProperty(Page.READER_SHOW_CAMEL_CASE_PAGE);
+                return pagePathManager.getPage(Parameters.PERIODICAL_EDITION_LIST, periodicalEditionService.readAll(),
+                        Page.READER_SHOW_PERIODICAL_EDITION_PAGE);
             } catch (ServiceException e) {
-                model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-                pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
-            return pagePath;
         }
         else
         {
-            return pagePathManager.getProperty(Page.CONTROL);
+            return pagePathManager.getPage(null, null, Page.CONTROL);
         }
     }
 
     @RequestMapping(value = "/periodicalEdition", method = RequestMethod.POST)
-    public String createCamelCase(ModelMap model, @ModelAttribute PeriodicalEditionDTO periodicalEditionDTO) {
-        String pagePath;
-        try {
-            if(periodicalEditionService.chekingNameCamelCase(periodicalEditionDTO.getName()))
-            {
-                if(accountService.chekingLogin(periodicalEditionDTO.getLogin()))
+    public ModelAndView createCamelCase(HttpServletRequest request, @ModelAttribute PeriodicalEditionDTO periodicalEditionDTO) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR)))
+        {
+            try {
+                if(periodicalEditionService.chekingNamePeriodicalEdition(periodicalEditionDTO.getName()))
                 {
-                    Editor editor = new Editor();
-                    Account account = new Account();
-                    account.setLogin(periodicalEditionDTO.getLogin());
-                    account.setHashpassword(Coding.md5Apache(periodicalEditionDTO.getPassword()));
-                    User user = new User();
-                    user.setAccount(account);
-                    user.setSurname(periodicalEditionDTO.getSurname());
-                    user.setName(periodicalEditionDTO.getName());
-                    user.setUserRole(String.valueOf(UserRole.REDACTOR));
-                    PeriodicalEdition periodicalEdition = new PeriodicalEdition();
-                    periodicalEdition.setPrice(periodicalEditionDTO.getPrice());
-                    periodicalEdition.setName(periodicalEditionDTO.getNamePeriodicalEdition());
-                    editor.setPeriodicalEdition(periodicalEdition);
-                    editor.setUser(user);
-                    editorService.create(editor);
-                    model.addAttribute(Parameters.CAMELCASE_LIST, periodicalEditionService.readAll());
-                    pagePath = pagePathManager.getProperty(Page.PATH_ADMIN_PERIODICAL_EDITION);
+                    if(accountService.chekingLogin(periodicalEditionDTO.getLogin()))
+                    {
+                        Editor editor = new Editor();
+                        Account account = new Account();
+                        account.setLogin(periodicalEditionDTO.getLogin());
+                        account.setHashpassword(Coding.md5Apache(periodicalEditionDTO.getPassword()));
+                        User userEditor = new User();
+                        userEditor.setAccount(account);
+                        userEditor.setSurname(periodicalEditionDTO.getSurname());
+                        userEditor.setName(periodicalEditionDTO.getName());
+                        userEditor.setUserRole(String.valueOf(UserRole.REDACTOR));
+                        PeriodicalEdition periodicalEdition = new PeriodicalEdition();
+                        periodicalEdition.setPrice(periodicalEditionDTO.getPrice());
+                        periodicalEdition.setName(periodicalEditionDTO.getNamePeriodicalEdition());
+                        editor.setPeriodicalEdition(periodicalEdition);
+                        editor.setUser(userEditor);
+                        editorService.create(editor);
+                        return pagePathManager.getPage(Parameters.PERIODICAL_EDITION_LIST, periodicalEditionService.readAll(),
+                                Page.PATH_ADMIN_PERIODICAL_EDITION);
+                    }
+                    else
+                    {
+                        return pagePathManager.getPage(Error.ERROR_EXISTENCE_PERIODICAL_EDITION, Message.ERROR_LOGIN_EXISTENCE,
+                                Page.PATH_ADD_PERIODICAL_EDITION);
+                    }
                 }
                 else
-                    {
-                        model.addAttribute(Error.ERROR_EXISTENCE_CAMELCASE, Message.ERROR_LOGIN_EXISTENCE);
-                        pagePath = pagePathManager.getProperty(Page.PATH_ADD_PERIODICAL_EDITION);
+                {
+                    return pagePathManager.getPage(Error.ERROR_EXISTENCE_PERIODICAL_EDITION, Message.ERROR_PERIODICAL_EDITION_EXISTENCE,
+                            Page.PATH_ADD_PERIODICAL_EDITION);
                 }
+            } catch (ServiceException e) {
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
-            else
-            {
-                model.addAttribute(Error.ERROR_EXISTENCE_CAMELCASE, Message.ERROR_CAMELCASE_EXISTENCE);
-                pagePath = pagePathManager.getProperty(Page.PATH_ADD_PERIODICAL_EDITION);
-            }
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
         }
-        return pagePath;
+        else
+        {
+            return pagePathManager.getPage(null, null, Page.CONTROL);
+        }
     }
 
-    @RequestMapping(value = "/periodicalEdition/{id}", method = RequestMethod.GET)
-    public String getCamelCase(ModelMap model, @PathVariable("id") long id) {
-        String pagePath = null;
-        try {
-            periodicalEditionService.readById(id);
-            //pagePath = pagePathManager.getProperty(Page.)
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
-        }
-        return pagePath;
-    }
-
-    @RequestMapping(value = "/periodicalEdition/{id}", method = RequestMethod.PUT)
-    public String updateCamelCase(ModelMap model, @PathVariable("id") long id, @RequestBody PeriodicalEdition periodicalEdition) {
-       String pagePath = null;
-        try {
-            periodicalEditionService.update(periodicalEdition);
-            model.addAttribute(Parameters.CAMEL_CASE, periodicalEditionService.readById(id));
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
-        }
-        return pagePath;
-    }
+//    @RequestMapping(value = "/periodicalEdition/{id}", method = RequestMethod.PUT)
+//    public String updateCamelCase(ModelMap model, @PathVariable("id") long id, @RequestBody PeriodicalEdition periodicalEdition) {
+//       String pagePath = null;
+//        try {
+//            periodicalEditionService.update(periodicalEdition);
+//            model.addAttribute(Parameters.CAMEL_CASE, periodicalEditionService.readById(id));
+//        } catch (ServiceException e) {
+//            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
+//            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+//        }
+//        return pagePath;
+//    }
 
    // @RequestMapping(value = "/camelcase/{id}", method = RequestMethod.DELETE)
     @RequestMapping(value = "/periodicalEdition/remove/{id}")
-    public String delete(ModelMap model, @PathVariable long id) {
-        String pagePath = null;
-        try {
-            editorService.delete(id);
-            if(editorService.readById(id) == null)
-            {
-                model.addAttribute(Parameters.OPERATION_MESSAGE, Message.DELETE_CAMELCASE);
-                pagePath = pagePathManager.getProperty(Page.PATH_ADMIN_PERIODICAL_EDITION);
+    public ModelAndView delete(HttpServletRequest request, @PathVariable long id) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR))) {
+            try {
+                editorService.delete(id);
+                if (editorService.readById(id) == null) {
+                    return pagePathManager.getPage(Parameters.PERIODICAL_EDITION_LIST, periodicalEditionService.readAll(),
+                            Page.PATH_ADMIN_PERIODICAL_EDITION);
+                } else {
+                    return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.NOT_DELETE_PERIODICAL_EDITION,
+                            Page.PATH_ADMIN_PERIODICAL_EDITION);
+                }
+            } catch (ServiceException e) {
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
-            else
-            {
-                model.addAttribute(Parameters.OPERATION_MESSAGE, Message.NOT_DELETE_CAMELCASE);
-                pagePath = pagePathManager.getProperty(Page.PATH_ADMIN_PERIODICAL_EDITION);
-            }
-        } catch (ServiceException e) {
-            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
         }
-        return pagePath;
+        else
+        {
+            return pagePathManager.getPage(null, null, Page.CONTROL);
+        }
     }
-
 }

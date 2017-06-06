@@ -20,6 +20,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -44,20 +45,17 @@ public class NewsController {
     private PagePathManager pagePathManager;
 
     @RequestMapping(value = "/news", method = RequestMethod.GET)
-    public String getAllAccount(ModelMap model, HttpServletRequest request) {
-        String pagePath = null;
+    public ModelAndView getAllAccount(ModelMap model, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(Parameters.USER);
         try {
             if (user.getUserRole().equals(String.valueOf(UserRole.REDACTOR))) {
                 try {
-                    List<News> newsList = newsService.getNewsByIdCamelCase(editorService.getCamelCase(user.getId()));
-                    model.addAttribute(Parameters.NEWS, newsList);
-                    pagePath = pagePathManager.getProperty(Page.PATH_EDITOR_NEWS);
+                    return pagePathManager.getPage(Parameters.NEWS,
+                            newsService.getNewsByIdCamelCase(editorService.getCamelCase(user.getId())),
+                            Page.PATH_EDITOR_NEWS);
                 } catch (ServiceException e) {
-                    model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-                    pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+                    return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
                 }
-                return pagePath;
             }
             if (user.getUserRole().equals(String.valueOf(UserRole.READER))) {
                 try {
@@ -66,54 +64,48 @@ public class NewsController {
                     for (Subscription sub : subscriptions) {
                         newsList.addAll(newsService.getNewsByIdCamelCase(sub.getPeriodicalEdition().getId()));
                     }
-                    model.addAttribute(Parameters.NEWS, newsList);
-                    pagePath = pagePathManager.getProperty(Page.READER_NEWS);
+                    return pagePathManager.getPage(Parameters.NEWS, newsList, Page.PATH_READER_NEWS);
                 } catch (ServiceException e) {
-                    model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-                    pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+                    return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
                 }
-                return pagePath;
             } else {
-                return pagePathManager.getProperty(Page.CONTROL);
+                return pagePathManager.getPage(null, null, Page.CONTROL);
             }
         }
         catch (NullPointerException e)
         {
-            return pagePathManager.getProperty(Page.CONTROL);
+            return pagePathManager.getPage(null, null, Page.CONTROL);
         }
     }
 
     @RequestMapping(value = "/addNewsPage", method = RequestMethod.GET)
-    public String getPageWithAddNews(ModelMap model, HttpServletRequest request) {
+    public ModelAndView getPageWithAddNews(HttpServletRequest request) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
         if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.REDACTOR)))
         {
-            return pagePathManager.getProperty(Page.CONTROL);
+            return pagePathManager.getPage(null, null, Page.CONTROL);
         }
-        else {
-            return pagePathManager.getProperty(Page.ADD_NEWS);
+        else
+        {
+            return pagePathManager.getPage(null, null, Page.ADD_NEWS);
         }
     }
 
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
-    public String addNews(ModelMap model, HttpServletRequest request, @ModelAttribute("news") News news) {
+    public ModelAndView addNews(ModelMap model, HttpServletRequest request, @ModelAttribute("news") News news) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
         if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.REDACTOR)))
         {
-            return pagePathManager.getProperty(Page.CONTROL);
+            return pagePathManager.getPage(null, null, Page.CONTROL);
         }
         else {
-            String pagePath = null;
             try {
                 news.setPeriodicalEdition(periodicalEditionService.readById(editorService.getCamelCase(user.getId())));
                 newsService.create(news);
-                model.addAttribute(Parameters.OPERATION_MESSAGE,Message.NEWS_CREATE_SUCSEC);
-                pagePath = pagePathManager.getProperty(Page.PATH_EDITOR_MAIN);
+                return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.NEWS_CREATE_SUCSEC, Page.PATH_EDITOR_MAIN);
             } catch (ServiceException e) {
-                model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-                pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
-            return pagePath;
         }
     }
 }

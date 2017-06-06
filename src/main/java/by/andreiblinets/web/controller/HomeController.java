@@ -20,9 +20,9 @@ public class HomeController {
     private PagePathManager pagePathManager;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String getIndex(HttpServletRequest request) {
+    public ModelAndView getIndex(HttpServletRequest request) {
         request.getSession().invalidate();
-        return pagePathManager.getProperty(Page.INDEX);
+        return pagePathManager.getPage(null, null, Page.INDEX);
     }
 
     @RequestMapping (value = "/registration", method = RequestMethod.GET)
@@ -31,14 +31,14 @@ public class HomeController {
     }
 
     @RequestMapping (value = "/addperiodicalEdition", method = RequestMethod.GET)
-    public String goAddCamelCase(HttpServletRequest request) {
+    public ModelAndView goAddPeriodicalEdition(HttpServletRequest request) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
         if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR)))
         {
-            return pagePathManager.getProperty(Page.CONTROL);
+            return pagePathManager.getPage(null, null, Page.CONTROL);
         }
         else {
-            return pagePathManager.getProperty(Page.PATH_ADD_PERIODICAL_EDITION);
+            return pagePathManager.getPage(null, null, Page.PATH_ADD_PERIODICAL_EDITION);
         }
     }
 }

@@ -7,11 +7,13 @@ import by.andreiblinets.exceptions.DaoException;
 import by.andreiblinets.entity.AbstractEntity;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Repository
 public abstract class BaseDAOImpl <T extends AbstractEntity> implements BaseDAO<T> {
 
     private static Logger logger;

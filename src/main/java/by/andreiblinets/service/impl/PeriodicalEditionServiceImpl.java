@@ -26,7 +26,7 @@ public class PeriodicalEditionServiceImpl extends BaseServiceImpl<PeriodicalEdit
     }
 
     @Override
-    public boolean chekingNameCamelCase(String name) throws ServiceException {
+    public boolean chekingNamePeriodicalEdition(String name) throws ServiceException {
         try {
             return periodicalEditionDAO.chekingNameCamelCase(name);
         } catch (DaoException e) {

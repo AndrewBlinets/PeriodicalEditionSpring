@@ -99,7 +99,6 @@ public class User extends AbstractEntity {
         sb.append(", surname='").append(surname).append('\'');
         sb.append(", userRole='").append(userRole).append('\'');
         sb.append(", id=").append(id);
-        sb.append(", account=").append(account);
         sb.append('}');
         return sb.toString();
     }
