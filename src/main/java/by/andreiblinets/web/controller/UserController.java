@@ -6,6 +6,7 @@ import by.andreiblinets.constant.Page;
 import by.andreiblinets.constant.Parameters;
 import by.andreiblinets.entity.Account;
 import by.andreiblinets.entity.User;
+import by.andreiblinets.entity.dto.UserAndAccount;
 import by.andreiblinets.entity.enums.UserRole;
 import by.andreiblinets.exceptions.ServiceException;
 import by.andreiblinets.service.AccountService;
@@ -35,7 +36,7 @@ public class UserController {
     private PagePathManager pagePathManager;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public ModelAndView aitification(HttpServletRequest request, @ModelAttribute("registration") Account account) {
+    public ModelAndView authorization(HttpServletRequest request, @ModelAttribute("authorization") Account account) {
         HttpSession httpSession  = request.getSession();
         User user = (User) httpSession.getAttribute(Parameters.USER);
         if(user != null)
@@ -122,6 +123,46 @@ public class UserController {
             try {
                 return pagePathManager.getPage(Parameters.USER_LIST, userService.readAll(), Page.USER);
             } catch (ServiceException e) {
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
+            }
+        }
+    }
+
+    @RequestMapping(value = "/userupdate", method = RequestMethod.POST)
+    public ModelAndView updatePayment(HttpServletRequest request, @ModelAttribute UserAndAccount update) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user == null)
+        {
+            return pagePathManager.getPage(null, null, Page.CONTROL);
+        }
+        else
+            {
+            try {
+                if (!user.getName().equals(update.getName()) || !user.getSurname().equals(update.getSurname())) {
+                    user.setName(update.getName());
+                    user.setSurname(update.getSurname());
+                    userService.update(user);
+                }
+                if (!user.getAccount().getLogin().equals(update.getLogin()) || update.getPassword() != null) {
+                    if (user.getAccount().getHashpassword().equals(Coding.md5Apache(update.getOldPassword()))) {
+                        if (!user.getAccount().getLogin().equals(update.getLogin())) {
+                            if (accountService.chekingLogin(update.getLogin())) {
+                                return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.ERROR_LOGIN_EXISTENCE, Page.PERSONAL_AREA);
+                            }
+                        }
+                        Account account = new Account();
+                        account.setHashpassword(Coding.md5Apache(update.getPassword()));
+                        account.setLogin(update.getLogin());
+                        account.setId(user.getAccount().getId());
+                        accountService.update(account);
+                    } else {
+                        return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.PASSWORD_OLD,
+                                Page.PERSONAL_AREA);
+                    }
+                }
+                return backPage(user);
+            }
+            catch (ServiceException e) {
                 return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
         }

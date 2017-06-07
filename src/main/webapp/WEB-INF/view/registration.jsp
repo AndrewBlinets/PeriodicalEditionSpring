@@ -8,8 +8,7 @@
 	<title>Регистрация</title>
 </head>
 <body>
-<form name="registrationForm" method="Post" action="/createAccount" th:object="${registration}">
-	<input type="hidden" />
+<form name="registrationForm" method="Post" action="/createAccount" th:object="${userAndAccount}">
 	Введите ваши данные:<br/>
 	<table>
 		<tr>
@@ -26,7 +25,7 @@
 		</tr>
 		<tr>
 			<td>Пароль:</td>
-			<td><input type="password" name="hashpassword" th:field="*{hashpassword}"/></td>
+			<td><input type="password" name="password" th:field="*{password}"/></td>
 		</tr>
 	</table>
 	${operationMessage}

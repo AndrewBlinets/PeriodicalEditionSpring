@@ -20,4 +20,5 @@ public class Message {
     public static final String LOGIN_MUST_LENGHT = "Login must lenght > 3 and < 45";
     public static final String PASSWORD_MUST_LENGHT = "Password must > 6";
     public static final String LOGIN_MUST_WITHOUT = "Login without space";
+    public static final String PASSWORD_OLD = "Old Password incorrect";
 }

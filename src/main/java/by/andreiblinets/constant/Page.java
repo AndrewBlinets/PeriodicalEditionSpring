@@ -26,4 +26,5 @@ public final class Page {
     public static final String PATH_EDITOR_NEWS = "editor/news";
     public static final String READER_SHOW_PERIODICAL_EDITION_PAGE = "reader/periodicalEdition";
     public static final String PATH_READER_NEWS = "reader/news";
+    public static final String PERSONAL_AREA = "personalArea";
 }

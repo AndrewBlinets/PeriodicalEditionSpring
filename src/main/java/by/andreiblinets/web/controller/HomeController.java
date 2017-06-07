@@ -1,6 +1,7 @@
 package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.User;
+import by.andreiblinets.entity.dto.UserAndAccount;
 import by.andreiblinets.entity.enums.UserRole;
 import by.andreiblinets.constant.Page;
 import by.andreiblinets.constant.Parameters;
@@ -39,6 +40,22 @@ public class HomeController {
         }
         else {
             return pagePathManager.getPage(null, null, Page.PATH_ADD_PERIODICAL_EDITION);
+        }
+    }
+    @RequestMapping(value = "/personalArea", method = RequestMethod.GET)
+    public ModelAndView personalArea(HttpServletRequest request) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user == null)
+        {
+            return pagePathManager.getPage(null, null, Page.CONTROL);
+        }
+        else
+        {
+            UserAndAccount userAndAccount = new UserAndAccount();
+            userAndAccount.setLogin(user.getAccount().getLogin());
+            userAndAccount.setName(user.getName());
+            userAndAccount.setSurname(user.getSurname());
+            return pagePathManager.getPage(Parameters.USER, userAndAccount,Page.PERSONAL_AREA);
         }
     }
 }

@@ -8,6 +8,7 @@
 	<body>
 		<h2>${user.name} </h2>
 		<h3>Вы вошли в систему как редактор</h3>
+		<a href="/personalArea">Личный кабинет</a> <br/>
 		<h4>Выберите операцию:</h4>
 		${operationMessage}
 		<a href="/addNewsPage">Добавить новость</a> <br/>

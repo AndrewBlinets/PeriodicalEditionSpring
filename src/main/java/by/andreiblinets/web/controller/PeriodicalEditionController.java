@@ -85,7 +85,7 @@ public class PeriodicalEditionController {
                         userEditor.setName(periodicalEditionDTO.getName());
                         userEditor.setUserRole(String.valueOf(UserRole.REDACTOR));
                         PeriodicalEdition periodicalEdition = new PeriodicalEdition();
-                        periodicalEdition.setPrice(periodicalEditionDTO.getPrice());
+                        periodicalEdition.setPrice(Long.parseLong(periodicalEditionDTO.getPrice()));
                         periodicalEdition.setName(periodicalEditionDTO.getNamePeriodicalEdition());
                         editor.setPeriodicalEdition(periodicalEdition);
                         editor.setUser(userEditor);

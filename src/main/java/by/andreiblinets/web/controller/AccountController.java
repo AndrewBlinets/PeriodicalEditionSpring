@@ -2,7 +2,7 @@ package by.andreiblinets.web.controller;
 
 import by.andreiblinets.entity.Account;
 import by.andreiblinets.entity.User;
-import by.andreiblinets.entity.dto.Registration;
+import by.andreiblinets.entity.dto.UserAndAccount;
 import by.andreiblinets.entity.enums.UserRole;
 import by.andreiblinets.service.AccountService;
 import by.andreiblinets.service.UserService;
@@ -15,7 +15,6 @@ import by.andreiblinets.web.mamager.PagePathManager;
 import by.andreiblinets.web.util.Coding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,33 +31,33 @@ public class AccountController {
     private PagePathManager pagePathManager;
 
     @RequestMapping(value = "/createAccount", method = RequestMethod.POST)
-    public ModelAndView createAccount(@ModelAttribute("registration") Registration registration) {
+    public ModelAndView createAccount(@ModelAttribute("registration") UserAndAccount userAndAccount) {
         try {
-            if (chekingIsNull(registration)) {
-                if(registration.getSurname().length() < 3 || registration.getSurname().length() > 45)
+            if (chekingIsNull(userAndAccount)) {
+                if(userAndAccount.getSurname().length() < 3 || userAndAccount.getSurname().length() > 45)
                 {
                     return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.SURNAME_MUST_LENGHT, Page.REGISTRATION);
                 }
-                if(registration.getName().length() < 3 || registration.getName().length() > 45)
+                if(userAndAccount.getName().length() < 3 || userAndAccount.getName().length() > 45)
                 {
                     return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.NAME_MUST_LENGHT, Page.REGISTRATION);
                 }
-                if(registration.getLogin().length() < 3 || registration.getLogin().length() > 45)
+                if(userAndAccount.getLogin().length() < 3 || userAndAccount.getLogin().length() > 45)
                 {
                     return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.LOGIN_MUST_LENGHT, Page.REGISTRATION);
                 }
-                if (registration.getLogin().indexOf(' ') != -1)
+                if (userAndAccount.getLogin().indexOf(' ') != -1)
                 {
                     return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.LOGIN_MUST_WITHOUT, Page.REGISTRATION);
                 }
-                if(registration.getHashpassword().length() < 6)
+                if(userAndAccount.getPassword().length() < 6)
                 {
                     return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.PASSWORD_MUST_LENGHT, Page.REGISTRATION);
                 }
-                if (!accountService.chekingLogin(registration.getLogin())) {
+                if (!accountService.chekingLogin(userAndAccount.getLogin())) {
                     return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.ERROR_LOGIN_EXISTENCE, Page.REGISTRATION);
                 } else {
-                    userService.create(createUser(registration));
+                    userService.create(createUser(userAndAccount));
                     return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.USER_CREATE, Page.REGISTRATION);
                 }
             } else {
@@ -70,25 +69,25 @@ public class AccountController {
     }
 
 
-    private User createUser(Registration registration) {
-        String hashPassword = Coding.md5Apache(registration.getHashpassword());
+    private User createUser(UserAndAccount userAndAccount) {
+        String hashPassword = Coding.md5Apache(userAndAccount.getPassword());
         Account account = new Account();
-        account.setLogin(registration.getLogin());
+        account.setLogin(userAndAccount.getLogin());
         account.setHashpassword(hashPassword);
         User user = new User();
-        user.setName(registration.getName());
-        user.setSurname(registration.getSurname());
+        user.setName(userAndAccount.getName());
+        user.setSurname(userAndAccount.getSurname());
         user.setUserRole(String.valueOf(UserRole.READER));
         user.setAccount(account);
         return user;
     }
 
-    private boolean chekingIsNull(Registration registration) {
+    private boolean chekingIsNull(UserAndAccount userAndAccount) {
         try {
-            if (!registration.getLogin().isEmpty()
-                    & !registration.getHashpassword().isEmpty()
-                    & !registration.getName().isEmpty()
-                    & !registration.getSurname().isEmpty()) {
+            if (!userAndAccount.getLogin().isEmpty()
+                    & !userAndAccount.getPassword().isEmpty()
+                    & !userAndAccount.getName().isEmpty()
+                    & !userAndAccount.getSurname().isEmpty()) {
                 return true;
             } else {
                 return false;
