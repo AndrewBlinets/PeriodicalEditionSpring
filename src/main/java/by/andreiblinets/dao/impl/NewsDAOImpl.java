@@ -18,7 +18,7 @@ public class NewsDAOImpl  extends BaseDAOImpl<News> implements NewsDAO {
     private static Logger logger = Logger.getLogger(NewsDAOImpl.class.getName());
 
     public NewsDAOImpl() {
-        super(NewsDAOImpl.class, logger);
+        super(News.class, logger);
     }
 
     @Override

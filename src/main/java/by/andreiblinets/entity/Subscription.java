@@ -6,11 +6,11 @@ import javax.persistence.*;
 @Table(name = "subscription")
 public class Subscription extends AbstractEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn (name = "iduser")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn (name = "idperiodicaledition")
     private PeriodicalEdition periodicalEdition;
 
@@ -66,8 +66,8 @@ public class Subscription extends AbstractEntity {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Subscription{");
         sb.append("id=").append(id);
-        sb.append(", user=").append(user);
-        sb.append(", periodicalEdition=").append(periodicalEdition);
+        sb.append(", user=").append(user.getId()).append('\'');
+        sb.append(", periodicalEdition=").append(periodicalEdition.getId()).append('\'');
         sb.append('}');
         return sb.toString();
     }

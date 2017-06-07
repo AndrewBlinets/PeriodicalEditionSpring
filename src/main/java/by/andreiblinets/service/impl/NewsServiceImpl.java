@@ -28,7 +28,7 @@ public class NewsServiceImpl extends BaseServiceImpl<News> implements NewsServic
     }
 
     @Override
-    public List<News> getNewsByIdCamelCase(long idCamelCase) throws ServiceException {
+    public List<News> getNewsByIdPeriodicalEdition(long idCamelCase) throws ServiceException {
         try {
             return newsDAO.getNewsByIdPeriodicalEdition(idCamelCase);
         } catch (DaoException e) {

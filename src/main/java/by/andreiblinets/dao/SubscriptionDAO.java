@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface SubscriptionDAO extends BaseDAO<Subscription> {
     List<Subscription> getSubscriptionByIdUser(long id) throws DaoException;
+    List<Subscription> getSubscriptionByIdPeriodicalEdition(long id) throws DaoException;
 }

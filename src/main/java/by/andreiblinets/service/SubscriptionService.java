@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface SubscriptionService extends BaseService<Subscription> {
     List<Subscription> getSubscribtionByIdUser(long id) throws ServiceException;
+    List<Subscription> getSubscribtionByIdPeriodicalEdition(long id) throws ServiceException;
 }

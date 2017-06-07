@@ -6,5 +6,5 @@ import by.andreiblinets.exceptions.ServiceException;
 import java.util.List;
 
 public interface NewsService extends BaseService<News> {
-    List<News> getNewsByIdCamelCase(long idCamelCase) throws ServiceException;
+    List<News> getNewsByIdPeriodicalEdition(long idCamelCase) throws ServiceException;
 }

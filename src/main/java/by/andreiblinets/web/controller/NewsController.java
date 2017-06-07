@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,7 +52,7 @@ public class NewsController {
             if (user.getUserRole().equals(String.valueOf(UserRole.REDACTOR))) {
                 try {
                     return pagePathManager.getPage(Parameters.NEWS,
-                            newsService.getNewsByIdCamelCase(editorService.getCamelCase(user.getId())),
+                            newsService.getNewsByIdPeriodicalEdition(editorService.getCamelCase(user.getId())),
                             Page.PATH_EDITOR_NEWS);
                 } catch (ServiceException e) {
                     return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
@@ -62,7 +63,7 @@ public class NewsController {
                     List<News> newsList = new ArrayList<>();
                     List<Subscription> subscriptions = subscriptionService.getSubscribtionByIdUser(user.getId());
                     for (Subscription sub : subscriptions) {
-                        newsList.addAll(newsService.getNewsByIdCamelCase(sub.getPeriodicalEdition().getId()));
+                        newsList.addAll(newsService.getNewsByIdPeriodicalEdition(sub.getPeriodicalEdition().getId()));
                     }
                     return pagePathManager.getPage(Parameters.NEWS, newsList, Page.PATH_READER_NEWS);
                 } catch (ServiceException e) {
@@ -106,6 +107,30 @@ public class NewsController {
             } catch (ServiceException e) {
                 return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
+        }
+    }
+
+    // @RequestMapping(value = "/news/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/news/remove/{id}")
+    public ModelAndView delete(HttpServletRequest request, @PathVariable long id) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user.getUserRole().equals(String.valueOf(UserRole.REDACTOR))) {
+            try {
+                newsService.delete(id);
+                if (newsService.readById(id) == null) {
+                    return pagePathManager.getPage(Parameters.NEWS, newsService.readAll(),
+                            Page.PATH_EDITOR_NEWS);
+                } else {
+                    return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.NOT_DELETE_NEWS,
+                            Page.PATH_EDITOR_NEWS);
+                }
+            } catch (ServiceException e) {
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
+            }
+        }
+        else
+        {
+            return pagePathManager.getPage(null, null, Page.CONTROL);
         }
     }
 }

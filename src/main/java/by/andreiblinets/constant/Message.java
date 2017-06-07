@@ -21,4 +21,5 @@ public class Message {
     public static final String PASSWORD_MUST_LENGHT = "Password must > 6";
     public static final String LOGIN_MUST_WITHOUT = "Login without space";
     public static final String PASSWORD_OLD = "Old Password incorrect";
+    public static final String NOT_DELETE_NEWS = "Sorre we don't delete news";
 }

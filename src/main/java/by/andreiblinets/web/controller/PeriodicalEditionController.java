@@ -1,14 +1,9 @@
 package by.andreiblinets.web.controller;
 
-import by.andreiblinets.entity.Account;
-import by.andreiblinets.entity.PeriodicalEdition;
-import by.andreiblinets.entity.Editor;
-import by.andreiblinets.entity.User;
+import by.andreiblinets.entity.*;
 import by.andreiblinets.entity.dto.PeriodicalEditionDTO;
 import by.andreiblinets.entity.enums.UserRole;
-import by.andreiblinets.service.AccountService;
-import by.andreiblinets.service.PeriodicalEditionService;
-import by.andreiblinets.service.EditorService;
+import by.andreiblinets.service.*;
 import by.andreiblinets.exceptions.ServiceException;
 import by.andreiblinets.constant.Error;
 import by.andreiblinets.constant.Message;
@@ -16,6 +11,7 @@ import by.andreiblinets.constant.Page;
 import by.andreiblinets.constant.Parameters;
 import by.andreiblinets.web.mamager.PagePathManager;
 import by.andreiblinets.web.util.Coding;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +29,16 @@ public class PeriodicalEditionController {
     private AccountService accountService;
 
     @Autowired
+    private NewsService newsService;
+
+    @Autowired
     private EditorService editorService;
 
     @Autowired
     private PagePathManager pagePathManager;
+
+    @Autowired
+    private SubscriptionService subscriptionService;
 
     @RequestMapping(value = "/periodicalEditions", method = RequestMethod.GET)
     public ModelAndView getAllCamelCase(HttpServletRequest request) {
@@ -127,12 +129,20 @@ public class PeriodicalEditionController {
 //        return pagePath;
 //    }
 
-   // @RequestMapping(value = "/camelcase/{id}", method = RequestMethod.DELETE)
+   // @RequestMapping(value = "/periodicalEdition/{id}", method = RequestMethod.DELETE)
     @RequestMapping(value = "/periodicalEdition/remove/{id}")
     public ModelAndView delete(HttpServletRequest request, @PathVariable long id) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
         if(user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR))) {
             try {
+                java.util.List<News> newsList =  newsService.getNewsByIdPeriodicalEdition(id);
+                for (News news: newsList) {
+                    newsService.delete(news.getId());
+                }
+                java.util.List<Subscription> subscriptions = subscriptionService.getSubscribtionByIdPeriodicalEdition(id);
+                for (Subscription subscription: subscriptions) {
+                    subscriptionService.delete(subscription.getId());
+                }
                 editorService.delete(id);
                 if (editorService.readById(id) == null) {
                     return pagePathManager.getPage(Parameters.PERIODICAL_EDITION_LIST, periodicalEditionService.readAll(),

@@ -15,7 +15,7 @@ public class News extends AbstractEntity {
     @Column(name = "author", nullable = false)
     private String author;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn (name = "periodicaledition")
     private PeriodicalEdition periodicalEdition;
 
@@ -96,7 +96,6 @@ public class News extends AbstractEntity {
         sb.append("title='").append(title).append('\'');
         sb.append(", body='").append(body).append('\'');
         sb.append(", author='").append(author).append('\'');
-        sb.append(", periodicalEdition=").append(periodicalEdition);
         sb.append(", id=").append(id);
         sb.append('}');
         return sb.toString();

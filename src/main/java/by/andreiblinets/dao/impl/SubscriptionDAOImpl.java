@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public class SubscriptionDAOImpl extends BaseDAOImpl<Subscription> implements SubscriptionDAO {
 
-    private static final String PARAMETER_ID_USER = "idUser";
+    private static final String PARAMETER_ID = "id";
     private static Logger logger = Logger.getLogger(SubscriptionDAOImpl.class.getName());
 
     public SubscriptionDAOImpl() {
@@ -38,7 +38,21 @@ public class SubscriptionDAOImpl extends BaseDAOImpl<Subscription> implements Su
     public List<Subscription> getSubscriptionByIdUser(long idUser) throws DaoException {
         try {
             Query query = getEntityManager().createQuery(MyQuery.GET_SUBSCRIPTION_BY_ID_USER);
-            query.setParameter(PARAMETER_ID_USER, idUser);
+            query.setParameter(PARAMETER_ID, idUser);
+            return query.getResultList();
+        }
+        catch (HibernateException e)
+        {
+            logger.error(Error.ERROR_READ_NEWS + e.getMessage());
+            throw new DaoException(Error.ERROR_READ_NEWS + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Subscription> getSubscriptionByIdPeriodicalEdition(long id) throws DaoException {
+        try {
+            Query query = getEntityManager().createQuery(MyQuery.GET_SUBSCRIPTION_BY_ID_PERIODICAL_EDITION);
+            query.setParameter(PARAMETER_ID, id);
             return query.getResultList();
         }
         catch (HibernateException e)

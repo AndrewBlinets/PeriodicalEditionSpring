@@ -37,4 +37,16 @@ public class SubscriptionServiceImpl extends BaseServiceImpl<Subscription> imple
             throw new ServiceException(ConstantsService.TRANSACTION_FAIL);
         }
     }
+
+    @Override
+    public List<Subscription> getSubscribtionByIdPeriodicalEdition(long id) throws ServiceException {
+        try {
+            return subscriptionDAO.getSubscriptionByIdPeriodicalEdition(id);
+        }
+        catch (DaoException e)
+        {
+            logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
+            throw new ServiceException(ConstantsService.TRANSACTION_FAIL);
+        }
+    }
 }

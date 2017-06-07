@@ -16,6 +16,7 @@
             </tr>
         </c:forEach>
     </table>
+    ${operationMessage}
     <a href="/addNewsPage">Добавить новость</a>
     <a href="/main">Назад</a>
 </body>
