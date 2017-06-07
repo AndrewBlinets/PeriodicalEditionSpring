@@ -16,4 +16,5 @@ public final class MyQuery {
     public static final String GET_NEWS_BY_ID_PREIODICAL_EDITION = GET_ALL_NEWS + " where periodicalEdition.id = :id";
     public static final String GET_SUBSCRIPTION_BY_ID_USER = GET_ALL_SUBSCRIPTION + " where user.id = :id";
     public static final String GET_SUBSCRIPTION_BY_ID_PERIODICAL_EDITION = GET_ALL_SUBSCRIPTION + " where idperiodicaledition = :id";
+    public static final String GET_USERS_READER = GET_ALL_USERS + " where userRole = 'READER'";
 }

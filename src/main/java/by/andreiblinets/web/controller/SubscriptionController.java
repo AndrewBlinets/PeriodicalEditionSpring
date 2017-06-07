@@ -1,5 +1,7 @@
 package by.andreiblinets.web.controller;
 
+import by.andreiblinets.entity.News;
+import by.andreiblinets.entity.PeriodicalEdition;
 import by.andreiblinets.entity.Subscription;
 import by.andreiblinets.entity.User;
 import by.andreiblinets.entity.enums.UserRole;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class SubscriptionController {
@@ -48,6 +52,46 @@ public class SubscriptionController {
                 subscriptionService.create(subscription);
                 return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.SUBSCRIPTION_SUCSECC,
                         Page.READER_MAIN);
+            } catch (ServiceException e) {
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
+            }
+        }
+    }
+
+    @RequestMapping(value = "/subscription/remove/{id}", method = RequestMethod.GET)
+    public ModelAndView removeSubscription(HttpServletRequest request, @PathVariable("id") long id ) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.READER)))
+        {
+            return pagePathManager.getPage(null, null, Page.CONTROL);
+        }
+        else {
+            try {
+                subscriptionService.delete(id);
+                return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.SUBSCRIPTION_DELETE,
+                        Page.READER_MAIN);
+            } catch (ServiceException e) {
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
+            }
+        }
+    }
+
+    @RequestMapping(value = "/subscription", method = RequestMethod.GET)
+    public ModelAndView mySubscription(HttpServletRequest request) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.READER)))
+        {
+            return pagePathManager.getPage(null, null, Page.CONTROL);
+        }
+        else {
+            try {
+                List<PeriodicalEdition> periodicalEditions = new ArrayList<>();
+                List<Subscription> subscriptions = subscriptionService.getSubscribtionByIdUser(user.getId());
+                for (Subscription sub : subscriptions) {
+                    periodicalEditions.add(periodicalEditionService.readById(sub.getPeriodicalEdition().getId()));
+                }
+                return pagePathManager.getPage(Parameters.PERIODICAL_EDITION_LIST, periodicalEditions,
+                        Page.READER_SUBSCRIPTION);
             } catch (ServiceException e) {
                 return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }

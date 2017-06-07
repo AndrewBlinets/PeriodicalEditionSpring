@@ -20,7 +20,7 @@
     </table>
     ${errorLoginOrPassword} <br />
     <input type="submit" value="Войти" />
-    <a href="userAndAccount">Регистрация</a>
+    <a href="/registration">Регистрация</a>
 </form>
 </body>
 </html>

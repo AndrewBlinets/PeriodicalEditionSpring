@@ -31,4 +31,16 @@ public class UserDAOImpl extends BaseDAOImpl<User> implements UserDAO {
             throw new DaoException(Error.ERROR_READ_USER + e.getMessage());
         }
     }
+
+    @Override
+    public List<User> readReader() throws DaoException {
+        try {
+            return getEntityManager().createQuery(MyQuery.GET_USERS_READER).getResultList();
+        }
+        catch (HibernateException e)
+        {
+            logger.error(Error.ERROR_READ_USER + e.getMessage());
+            throw new DaoException(Error.ERROR_READ_USER + e.getMessage());
+        }
+    }
 }

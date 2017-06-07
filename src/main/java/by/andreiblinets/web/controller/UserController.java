@@ -5,23 +5,27 @@ import by.andreiblinets.constant.Message;
 import by.andreiblinets.constant.Page;
 import by.andreiblinets.constant.Parameters;
 import by.andreiblinets.entity.Account;
+import by.andreiblinets.entity.Subscription;
 import by.andreiblinets.entity.User;
 import by.andreiblinets.entity.dto.UserAndAccount;
 import by.andreiblinets.entity.enums.UserRole;
 import by.andreiblinets.exceptions.ServiceException;
 import by.andreiblinets.service.AccountService;
+import by.andreiblinets.service.SubscriptionService;
 import by.andreiblinets.service.UserService;
 import by.andreiblinets.web.mamager.PagePathManager;
 import by.andreiblinets.web.util.Coding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -31,6 +35,9 @@ public class UserController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private SubscriptionService subscriptionService;
 
     @Autowired
     private PagePathManager pagePathManager;
@@ -121,7 +128,7 @@ public class UserController {
         }
         else {
             try {
-                return pagePathManager.getPage(Parameters.USER_LIST, userService.readAll(), Page.USER);
+                return pagePathManager.getPage(Parameters.USER_LIST, userService.readReader(), Page.USER);
             } catch (ServiceException e) {
                 return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
@@ -129,7 +136,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/userupdate", method = RequestMethod.POST)
-    public ModelAndView updatePayment(HttpServletRequest request, @ModelAttribute UserAndAccount update) {
+    public ModelAndView updateUser(HttpServletRequest request, @ModelAttribute UserAndAccount update) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
         if(user == null)
         {
@@ -165,6 +172,35 @@ public class UserController {
             catch (ServiceException e) {
                 return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
+        }
+    }
+
+    // @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user/remove/{id}")
+    public ModelAndView delete(HttpServletRequest request, @PathVariable long id) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR))) {
+            try {
+                List<Subscription> subscriptionList = subscriptionService.getSubscribtionByIdUser(id);
+                for (Subscription sub :subscriptionList) {
+                    subscriptionService.delete(sub.getId());
+                }
+                userService.delete(id);
+                return pagePathManager.getPage(Parameters.USER_LIST, userService.readReader(), Page.USER);
+                /*if (newsService.readById(id) == null) {
+                    return pagePathManager.getPage(Parameters.NEWS, newsService.readAll(),
+                            Page.PATH_EDITOR_NEWS);
+                } else {
+                    return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.NOT_DELETE_NEWS,
+                            Page.PATH_EDITOR_NEWS);
+                }*/
+            } catch (ServiceException e) {
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
+            }
+        }
+        else
+        {
+            return pagePathManager.getPage(null, null, Page.CONTROL);
         }
     }
 }

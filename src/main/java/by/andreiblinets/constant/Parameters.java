@@ -1,9 +1,6 @@
 package by.andreiblinets.constant;
 
 public class Parameters {
-
-    public static final String CONFIGS_SOURCE = "configs";
-
     public static final String USER_LIST = "readerList";
     public static final String PERIODICAL_EDITION_LIST = "periodicalList";
 

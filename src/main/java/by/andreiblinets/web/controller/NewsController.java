@@ -133,4 +133,42 @@ public class NewsController {
             return pagePathManager.getPage(null, null, Page.CONTROL);
         }
     }
+
+    @RequestMapping(value = "/newsupdate/{id}", method = RequestMethod.GET)
+    public ModelAndView goUpdateNews(HttpServletRequest request, @PathVariable long id) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user == null)
+        {
+            return pagePathManager.getPage(null, null, Page.CONTROL);
+        }
+        else
+        {
+            try {
+                News news = newsService.readById(id);
+                return pagePathManager.getPage(Parameters.NEWS, news, Page.UPDATE_NEWS);
+            }
+            catch (ServiceException e) {
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
+            }
+        }
+    }
+
+    @RequestMapping(value = "/updateNews", method = RequestMethod.POST)
+    public ModelAndView updateNews(HttpServletRequest request, @ModelAttribute News news) {
+        User user = (User)request.getSession().getAttribute(Parameters.USER);
+        if(user == null)
+        {
+            return pagePathManager.getPage(null, null, Page.CONTROL);
+        }
+        else
+        {
+            try {
+                newsService.update(news);
+                return pagePathManager.getPage(Parameters.NEWS, newsService.readAll(), Page.ADD_NEWS);
+            }
+            catch (ServiceException e) {
+                return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
+            }
+        }
+    }
 }

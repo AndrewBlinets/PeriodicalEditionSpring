@@ -6,11 +6,11 @@ import javax.persistence.*;
 @Table(name = "subscription")
 public class Subscription extends AbstractEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn (name = "iduser")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn (name = "idperiodicaledition")
     private PeriodicalEdition periodicalEdition;
 

@@ -15,6 +15,7 @@ public class Message {
     public static final String EMPYTY_FIELD = "Enter login and password";
     public static final String NEWS_CREATE_SUCSEC = "News create successfully.";
     public static final String SUBSCRIPTION_SUCSECC = "Subscription is successfully";
+    public static final String SUBSCRIPTION_DELETE = "Subscription remove";
     public static final String SURNAME_MUST_LENGHT = "Surname must lenght > 3 and < 45";
     public static final String NAME_MUST_LENGHT = "Name must lenght > 3 and < 45";
     public static final String LOGIN_MUST_LENGHT = "Login must lenght > 3 and < 45";

@@ -13,7 +13,7 @@
 		${operationMessage}
 		<a href="/periodicalEditions">Показать список всех изданий</a> <br/>
 		<a href="/news">Новости</a> <br/>
-		<!--<a href="controller?command=editions">Подписки</a> <br/>-->
+		<a href="/subscription">Подписки</a> <br/>
 		<a href="/index">Выйти из системы</a> <br/>
 	</body>
 </html>

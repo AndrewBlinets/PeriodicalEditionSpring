@@ -33,7 +33,7 @@
 		${operationMessage}
 		${errorUserExists} <br />
 		<input type="submit" value="Сохранить изменения"/>
-		<a href="index">Назад</a>
+		<a href="main">Назад</a>
 	</form>
 	</body>
 </html>

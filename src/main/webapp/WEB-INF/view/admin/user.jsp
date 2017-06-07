@@ -9,7 +9,6 @@
 
 <table>
     <tr>
-        <td align="center"><strong>№</strong></td>
         <td align="center"><strong>Имя</strong></td>
         <td align="center"><strong>Фамилия</strong></td>
         <td></td>
@@ -17,11 +16,10 @@
     </tr>
     <c:forEach var="reader" items="${readerList}">
         <tr>
-            <td><c:out value="${ reader.id }" /></td>
             <td><c:out value="${ reader.name }" /></td>
             <td><c:out value="${ reader.surname }" /></td>
             <td><c:out value="${ reader.userRole }" /></td>
-            <td><a href="<c:url value='/user/remove/${user.id}' />" >Delete</a></td></td>
+            <td><a href="<c:url value='/user/remove/${reader.id}' />" >Delete</a></td></td>
         </tr>
     </c:forEach>
 </table>
