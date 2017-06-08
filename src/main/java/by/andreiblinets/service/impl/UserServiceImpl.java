@@ -18,6 +18,7 @@ import java.util.List;
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
     private static Logger logger = Logger.getLogger(UserServiceImpl.class.getName());
+
     @Autowired
     private UserDAO userDAO;
 

@@ -1,7 +1,7 @@
 package by.andreiblinets.service.impl;
 
 import by.andreiblinets.dao.AccountDAO;
-import by.andreiblinets.dao.BaseDAO;
+import by.andreiblinets.dao.UserDAO;
 import by.andreiblinets.exceptions.DaoException;
 import by.andreiblinets.entity.Account;
 import by.andreiblinets.entity.User;
@@ -25,7 +25,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account> implements Acco
     private AccountDAO accountDAO;
 
     @Autowired
-    private BaseDAO<User> userBaseDAO;
+    private UserDAO userDAO;
 
     @Autowired
     public AccountServiceImpl(AccountDAO accountDAO) {
@@ -39,7 +39,7 @@ public class AccountServiceImpl extends BaseServiceImpl<Account> implements Acco
             List<Account> accounts = accountDAO.getAccountByLoginAndPassword(login, password);
             if(accounts.size() != 0)
             {
-                user = userBaseDAO.readById(accounts.get(0).getId());
+                user = userDAO.readById(accounts.get(0).getId());
             }
             return user;
         } catch (DaoException e) {

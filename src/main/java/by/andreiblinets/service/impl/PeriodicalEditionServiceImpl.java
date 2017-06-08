@@ -28,7 +28,7 @@ public class PeriodicalEditionServiceImpl extends BaseServiceImpl<PeriodicalEdit
     @Override
     public boolean chekingNamePeriodicalEdition(String name) throws ServiceException {
         try {
-            return periodicalEditionDAO.chekingNameCamelCase(name);
+            return periodicalEditionDAO.chekingNamePeriodicalEdition(name);
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
             throw new ServiceException(ConstantsService.TRANSACTION_FAIL);

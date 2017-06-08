@@ -1,6 +1,5 @@
 package by.andreiblinets.dao.impl;
 
-
 import by.andreiblinets.dao.BaseDAO;
 import by.andreiblinets.constant.Error;
 import by.andreiblinets.exceptions.DaoException;

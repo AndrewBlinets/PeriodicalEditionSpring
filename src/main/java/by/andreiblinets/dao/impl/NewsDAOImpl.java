@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import java.util.List;
+
 @Repository
 public class NewsDAOImpl  extends BaseDAOImpl<News> implements NewsDAO {
 
