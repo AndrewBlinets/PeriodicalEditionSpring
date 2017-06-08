@@ -49,7 +49,7 @@ public class NewsController {
     public ModelAndView getAllNews(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(Parameters.USER);
         try {
-            if (user.getUserRole().equals(String.valueOf(UserRole.REDACTOR))) {
+            if (user.getUserRole().equals(String.valueOf(UserRole.EDITOR))) {
                 try {
                     return pagePathManager.getPage(Parameters.NEWS,
                             newsService.getNewsByIdPeriodicalEdition(editorService.getPeriodicalEdition(user.getId())),
@@ -82,7 +82,7 @@ public class NewsController {
     @RequestMapping(value = "/addNewsPage", method = RequestMethod.GET)
     public ModelAndView getPageWithAddNews(HttpServletRequest request) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
-        if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.REDACTOR)))
+        if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.EDITOR)))
         {
             return pagePathManager.getPage(null, null, Page.CONTROL);
         }
@@ -95,7 +95,7 @@ public class NewsController {
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
     public ModelAndView addNews(HttpServletRequest request, @ModelAttribute("news") News news) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
-        if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.REDACTOR)))
+        if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.EDITOR)))
         {
             return pagePathManager.getPage(null, null, Page.CONTROL);
         }
@@ -123,7 +123,7 @@ public class NewsController {
     @RequestMapping(value = "/news/remove/{id}")
     public ModelAndView delete(HttpServletRequest request, @PathVariable long id) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
-        if(user.getUserRole().equals(String.valueOf(UserRole.REDACTOR))) {
+        if(user.getUserRole().equals(String.valueOf(UserRole.EDITOR))) {
             try {
                 newsService.delete(id);
                 if (newsService.readById(id) == null) {

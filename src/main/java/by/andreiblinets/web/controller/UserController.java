@@ -100,7 +100,7 @@ public class UserController {
             {
                 return pagePathManager.getPage(Parameters.USER, user, Page.READER_MAIN);
             }
-            case "REDACTOR":
+            case "EDITOR":
             {
                 return pagePathManager.getPage(Parameters.USER, user, Page.EDITOR_MAIN);
             }

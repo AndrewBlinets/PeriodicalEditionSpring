@@ -12,7 +12,6 @@ import by.andreiblinets.constant.Parameters;
 import by.andreiblinets.web.mamager.PagePathManager;
 import by.andreiblinets.web.util.Coding;
 import by.andreiblinets.web.util.Validation;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -91,7 +90,7 @@ public class PeriodicalEditionController {
                             userEditor.setAccount(account);
                             userEditor.setSurname(periodicalEditionDTO.getSurname());
                             userEditor.setName(periodicalEditionDTO.getName());
-                            userEditor.setUserRole(String.valueOf(UserRole.REDACTOR));
+                            userEditor.setUserRole(String.valueOf(UserRole.EDITOR));
                             PeriodicalEdition periodicalEdition = new PeriodicalEdition();
                             periodicalEdition.setPrice(Long.parseLong(periodicalEditionDTO.getPrice()));
                             periodicalEdition.setName(periodicalEditionDTO.getNamePeriodicalEdition());
