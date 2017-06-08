@@ -23,4 +23,10 @@ public class Message {
     public static final String LOGIN_MUST_WITHOUT = "Login without space";
     public static final String PASSWORD_OLD = "Old Password incorrect";
     public static final String NOT_DELETE_NEWS = "Sorre we don't delete news";
+    public static final String TITLE_MUST_LENGHT = "Title news must lenght > 3 and < 45";
+    public static final String AUTHOR_MUST_LENGHT = "Author news must lenght > 3 and < 45";
+    public static final String BODY_MUST_LENGHT = "Text news must lenght > 3 and < 225";
+    public static final String NAME_PERIODICAL_EDITION = "Name periodical edition must lenght < 45";
+    public static final String PRICE = "Price periodical edition must number";
+    public static final String NEW_PASSWORD_MUST_LENGHT = "New " + PASSWORD_MUST_LENGHT;
 }

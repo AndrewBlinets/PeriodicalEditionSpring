@@ -13,6 +13,7 @@ import by.andreiblinets.constant.Page;
 import by.andreiblinets.constant.Parameters;
 import by.andreiblinets.web.mamager.PagePathManager;
 import by.andreiblinets.web.util.Coding;
+import by.andreiblinets.web.util.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,30 +35,21 @@ public class AccountController {
     public ModelAndView createAccount(@ModelAttribute("registration") UserAndAccount userAndAccount) {
         try {
             if (chekingIsNull(userAndAccount)) {
-                if(userAndAccount.getSurname().length() < 3 || userAndAccount.getSurname().length() > 45)
+                User user = createUser(userAndAccount);
+                String message = Validation.validationUser(user);
+               if(message != null)
+               {
+                   return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, message, Page.REGISTRATION);
+               }
+               message = Validation.validationAccount(user.getAccount());
+                if(message != null)
                 {
-                    return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.SURNAME_MUST_LENGHT, Page.REGISTRATION);
-                }
-                if(userAndAccount.getName().length() < 3 || userAndAccount.getName().length() > 45)
-                {
-                    return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.NAME_MUST_LENGHT, Page.REGISTRATION);
-                }
-                if(userAndAccount.getLogin().length() < 3 || userAndAccount.getLogin().length() > 45)
-                {
-                    return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.LOGIN_MUST_LENGHT, Page.REGISTRATION);
-                }
-                if (userAndAccount.getLogin().indexOf(' ') != -1)
-                {
-                    return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.LOGIN_MUST_WITHOUT, Page.REGISTRATION);
-                }
-                if(userAndAccount.getPassword().length() < 6)
-                {
-                    return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.PASSWORD_MUST_LENGHT, Page.REGISTRATION);
+                   return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, message, Page.REGISTRATION);
                 }
                 if (!accountService.chekingLogin(userAndAccount.getLogin())) {
                     return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.ERROR_LOGIN_EXISTENCE, Page.REGISTRATION);
                 } else {
-                    userService.create(createUser(userAndAccount));
+                    userService.create(user);
                     return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.USER_CREATE, Page.REGISTRATION);
                 }
             } else {

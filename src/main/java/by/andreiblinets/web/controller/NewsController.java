@@ -14,9 +14,9 @@ import by.andreiblinets.constant.Message;
 import by.andreiblinets.constant.Page;
 import by.andreiblinets.constant.Parameters;
 import by.andreiblinets.web.mamager.PagePathManager;
+import by.andreiblinets.web.util.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,13 +46,13 @@ public class NewsController {
     private PagePathManager pagePathManager;
 
     @RequestMapping(value = "/news", method = RequestMethod.GET)
-    public ModelAndView getAllAccount(ModelMap model, HttpServletRequest request) {
+    public ModelAndView getAllNews(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(Parameters.USER);
         try {
             if (user.getUserRole().equals(String.valueOf(UserRole.REDACTOR))) {
                 try {
                     return pagePathManager.getPage(Parameters.NEWS,
-                            newsService.getNewsByIdPeriodicalEdition(editorService.getCamelCase(user.getId())),
+                            newsService.getNewsByIdPeriodicalEdition(editorService.getPeriodicalEdition(user.getId())),
                             Page.PATH_EDITOR_NEWS);
                 } catch (ServiceException e) {
                     return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
@@ -93,7 +93,7 @@ public class NewsController {
     }
 
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
-    public ModelAndView addNews(ModelMap model, HttpServletRequest request, @ModelAttribute("news") News news) {
+    public ModelAndView addNews(HttpServletRequest request, @ModelAttribute("news") News news) {
         User user = (User)request.getSession().getAttribute(Parameters.USER);
         if(user == null || !user.getUserRole().equals(String.valueOf(UserRole.REDACTOR)))
         {
@@ -101,9 +101,18 @@ public class NewsController {
         }
         else {
             try {
-                news.setPeriodicalEdition(periodicalEditionService.readById(editorService.getCamelCase(user.getId())));
-                newsService.create(news);
-                return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.NEWS_CREATE_SUCSEC, Page.PATH_EDITOR_MAIN);
+                if(chekingIsNull(news)) {
+                    String message = Validation.validationNews(news);
+                    if(message != null)
+                    {
+                        return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, message, Page.ADD_NEWS);
+                    }
+                    news.setPeriodicalEdition(periodicalEditionService.readById(editorService.getPeriodicalEdition(user.getId())));
+                    newsService.create(news);
+                    return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.NEWS_CREATE_SUCSEC, Page.EDITOR_MAIN);
+                }
+                else
+                    return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.ERROR_FIELD_IS_NULL, Page.ADD_NEWS);
             } catch (ServiceException e) {
                 return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
@@ -169,6 +178,20 @@ public class NewsController {
             catch (ServiceException e) {
                 return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
+        }
+    }
+
+    private boolean chekingIsNull(News news) {
+        try {
+            if (!news.getTitle().isEmpty()
+                    & !news.getBody().isEmpty()
+                    & !news.getAuthor().isEmpty()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NullPointerException e) {
+            return false;
         }
     }
 }

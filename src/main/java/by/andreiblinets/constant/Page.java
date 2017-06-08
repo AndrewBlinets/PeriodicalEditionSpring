@@ -11,7 +11,7 @@ public final class Page {
     public static final String READER_MAIN = "reader/main";
 
 
-    public static final String PATH_EDITOR_MAIN = "editor/main";
+    public static final String EDITOR_MAIN = "editor/main";
 
 
 

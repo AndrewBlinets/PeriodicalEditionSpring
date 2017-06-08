@@ -11,6 +11,7 @@ import by.andreiblinets.constant.Page;
 import by.andreiblinets.constant.Parameters;
 import by.andreiblinets.web.mamager.PagePathManager;
 import by.andreiblinets.web.util.Coding;
+import by.andreiblinets.web.util.Validation;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,37 +74,44 @@ public class PeriodicalEditionController {
         if(user.getUserRole().equals(String.valueOf(UserRole.ADMINISTRATOR)))
         {
             try {
-                if(periodicalEditionService.chekingNamePeriodicalEdition(periodicalEditionDTO.getName()))
-                {
-                    if(accountService.chekingLogin(periodicalEditionDTO.getLogin()))
+                if (chekingField(periodicalEditionDTO)) {
+                    String message = Validation.validationPeriodicalEdition(periodicalEditionDTO);
+                    if(message != null)
                     {
-                        Editor editor = new Editor();
-                        Account account = new Account();
-                        account.setLogin(periodicalEditionDTO.getLogin());
-                        account.setHashpassword(Coding.md5Apache(periodicalEditionDTO.getPassword()));
-                        User userEditor = new User();
-                        userEditor.setAccount(account);
-                        userEditor.setSurname(periodicalEditionDTO.getSurname());
-                        userEditor.setName(periodicalEditionDTO.getName());
-                        userEditor.setUserRole(String.valueOf(UserRole.REDACTOR));
-                        PeriodicalEdition periodicalEdition = new PeriodicalEdition();
-                        periodicalEdition.setPrice(Long.parseLong(periodicalEditionDTO.getPrice()));
-                        periodicalEdition.setName(periodicalEditionDTO.getNamePeriodicalEdition());
-                        editor.setPeriodicalEdition(periodicalEdition);
-                        editor.setUser(userEditor);
-                        editorService.create(editor);
-                        return pagePathManager.getPage(Parameters.PERIODICAL_EDITION_LIST, periodicalEditionService.readAll(),
-                                Page.PATH_ADMIN_PERIODICAL_EDITION);
+                        return pagePathManager.getPage(Error.ERROR_EXISTENCE_PERIODICAL_EDITION, message,
+                                Page.PATH_ADD_PERIODICAL_EDITION);
                     }
-                    else
-                    {
-                        return pagePathManager.getPage(Error.ERROR_EXISTENCE_PERIODICAL_EDITION, Message.ERROR_LOGIN_EXISTENCE,
+                    if (periodicalEditionService.chekingNamePeriodicalEdition(periodicalEditionDTO.getName())) {
+                        if (accountService.chekingLogin(periodicalEditionDTO.getLogin())) {
+                            Editor editor = new Editor();
+                            Account account = new Account();
+                            account.setLogin(periodicalEditionDTO.getLogin());
+                            account.setHashpassword(Coding.md5Apache(periodicalEditionDTO.getPassword()));
+                            User userEditor = new User();
+                            userEditor.setAccount(account);
+                            userEditor.setSurname(periodicalEditionDTO.getSurname());
+                            userEditor.setName(periodicalEditionDTO.getName());
+                            userEditor.setUserRole(String.valueOf(UserRole.REDACTOR));
+                            PeriodicalEdition periodicalEdition = new PeriodicalEdition();
+                            periodicalEdition.setPrice(Long.parseLong(periodicalEditionDTO.getPrice()));
+                            periodicalEdition.setName(periodicalEditionDTO.getNamePeriodicalEdition());
+                            editor.setPeriodicalEdition(periodicalEdition);
+                            editor.setUser(userEditor);
+                            editorService.create(editor);
+                            return pagePathManager.getPage(Parameters.PERIODICAL_EDITION_LIST, periodicalEditionService.readAll(),
+                                    Page.PATH_ADMIN_PERIODICAL_EDITION);
+                        } else {
+                            return pagePathManager.getPage(Error.ERROR_EXISTENCE_PERIODICAL_EDITION, Message.ERROR_LOGIN_EXISTENCE,
+                                    Page.PATH_ADD_PERIODICAL_EDITION);
+                        }
+                    } else {
+                        return pagePathManager.getPage(Error.ERROR_EXISTENCE_PERIODICAL_EDITION, Message.ERROR_PERIODICAL_EDITION_EXISTENCE,
                                 Page.PATH_ADD_PERIODICAL_EDITION);
                     }
                 }
                 else
                 {
-                    return pagePathManager.getPage(Error.ERROR_EXISTENCE_PERIODICAL_EDITION, Message.ERROR_PERIODICAL_EDITION_EXISTENCE,
+                    return pagePathManager.getPage(Error.ERROR_EXISTENCE_PERIODICAL_EDITION, Message.ERROR_FIELD_IS_NULL,
                             Page.PATH_ADD_PERIODICAL_EDITION);
                 }
             } catch (ServiceException e) {
@@ -158,6 +166,28 @@ public class PeriodicalEditionController {
         else
         {
             return pagePathManager.getPage(null, null, Page.CONTROL);
+        }
+    }
+
+    private boolean chekingField(PeriodicalEditionDTO periodicalEditionDTO) {
+        try{
+            if (!periodicalEditionDTO.getLogin().isEmpty()
+                    & !periodicalEditionDTO.getPassword().isEmpty()
+                    & !periodicalEditionDTO.getName().isEmpty()
+                    & !periodicalEditionDTO.getNamePeriodicalEdition().isEmpty()
+                    & !periodicalEditionDTO.getPrice().isEmpty()
+                    & !periodicalEditionDTO.getSurname().isEmpty())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (NullPointerException e)
+        {
+            return false;
         }
     }
 }

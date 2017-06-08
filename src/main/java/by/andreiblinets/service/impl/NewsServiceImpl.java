@@ -28,9 +28,9 @@ public class NewsServiceImpl extends BaseServiceImpl<News> implements NewsServic
     }
 
     @Override
-    public List<News> getNewsByIdPeriodicalEdition(long idCamelCase) throws ServiceException {
+    public List<News> getNewsByIdPeriodicalEdition(long idPeriodicalEdition) throws ServiceException {
         try {
-            return newsDAO.getNewsByIdPeriodicalEdition(idCamelCase);
+            return newsDAO.getNewsByIdPeriodicalEdition(idPeriodicalEdition);
         } catch (DaoException e) {
             logger.error(ConstantsService.TRANSACTION_FAIL + e.getMessage());
             throw new ServiceException(ConstantsService.TRANSACTION_FAIL);

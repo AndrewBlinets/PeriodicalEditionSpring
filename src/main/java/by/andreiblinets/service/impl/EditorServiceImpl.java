@@ -27,7 +27,7 @@ public class EditorServiceImpl extends BaseServiceImpl<Editor> implements Editor
     }
 
     @Override
-    public Long getCamelCase(long id) throws ServiceException {
+    public Long getPeriodicalEdition(long id) throws ServiceException {
        try{
            return Long.valueOf(editorDAO.getPeriodicalEdition(id).get(0).getPeriodicalEdition().getId());
         } catch (DaoException e) {

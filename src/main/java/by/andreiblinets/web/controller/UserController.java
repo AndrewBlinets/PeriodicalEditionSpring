@@ -15,6 +15,7 @@ import by.andreiblinets.service.SubscriptionService;
 import by.andreiblinets.service.UserService;
 import by.andreiblinets.web.mamager.PagePathManager;
 import by.andreiblinets.web.util.Coding;
+import by.andreiblinets.web.util.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,6 +54,11 @@ public class UserController {
         else {
             if(chekingField(account)) {
                 try {
+                    if(Validation.validationAccount(account) != null)
+                    {
+                        return pagePathManager.getPage(Parameters.EROR_LOGIN_OR_PASSWORD,
+                                Message.ERROR_USER_LOGIN_OR_PASSWORD, Page.INDEX);
+                    }
                     return chekingUser(account, httpSession);
                 } catch (ServiceException e) {
                     return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
@@ -96,7 +102,7 @@ public class UserController {
             }
             case "REDACTOR":
             {
-                return pagePathManager.getPage(Parameters.USER, user, Page.PATH_EDITOR_MAIN);
+                return pagePathManager.getPage(Parameters.USER, user, Page.EDITOR_MAIN);
             }
             default:
             {
@@ -146,6 +152,11 @@ public class UserController {
             {
             try {
                 if (!user.getName().equals(update.getName()) || !user.getSurname().equals(update.getSurname())) {
+                    String message = Validation.validationUser(new User(update.getName(), update.getSurname()));
+                    if(message != null)
+                    {
+                        return getModelAndView(user,Error.ERROR_EXISTENCE_LOGIN, message);
+                    }
                     user.setName(update.getName());
                     user.setSurname(update.getSurname());
                     userService.update(user);
@@ -154,17 +165,24 @@ public class UserController {
                     if (user.getAccount().getHashpassword().equals(Coding.md5Apache(update.getOldPassword()))) {
                         if (!user.getAccount().getLogin().equals(update.getLogin())) {
                             if (accountService.chekingLogin(update.getLogin())) {
-                                return pagePathManager.getPage(Error.ERROR_EXISTENCE_LOGIN, Message.ERROR_LOGIN_EXISTENCE, Page.PERSONAL_AREA);
+                                return getModelAndView(user,Error.ERROR_EXISTENCE_LOGIN,Message.ERROR_LOGIN_EXISTENCE);
                             }
                         }
-                        Account account = new Account();
+                        if(update.getPassword().length() < 6)
+                        {
+                            return getModelAndView(user,Error.ERROR_EXISTENCE_LOGIN, Message.NEW_PASSWORD_MUST_LENGHT);
+                        }
+                        Account account = user.getAccount();
                         account.setHashpassword(Coding.md5Apache(update.getPassword()));
                         account.setLogin(update.getLogin());
-                        account.setId(user.getAccount().getId());
+                        String message = Validation.validationAccount(account);
+                        if(message != null)
+                        {
+                           return getModelAndView(user,Error.ERROR_EXISTENCE_LOGIN, message);
+                        }
                         accountService.update(account);
                     } else {
-                        return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.PASSWORD_OLD,
-                                Page.PERSONAL_AREA);
+                        return getModelAndView(user,Parameters.OPERATION_MESSAGE,Message.PASSWORD_OLD);
                     }
                 }
                 return backPage(user);
@@ -173,6 +191,18 @@ public class UserController {
                 return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }
         }
+    }
+
+    private ModelAndView getModelAndView(User user, String error, String message) {
+        ModelAndView model = new ModelAndView();
+        model.addObject(error, message);
+        UserAndAccount userAndAccount = new UserAndAccount();
+        userAndAccount.setLogin(user.getAccount().getLogin());
+        userAndAccount.setName(user.getName());
+        userAndAccount.setSurname(user.getSurname());
+        model.addObject(Parameters.USER, userAndAccount);
+        model.setViewName(Page.PERSONAL_AREA);
+        return model;
     }
 
     // @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
@@ -187,13 +217,6 @@ public class UserController {
                 }
                 userService.delete(id);
                 return pagePathManager.getPage(Parameters.USER_LIST, userService.readReader(), Page.USER);
-                /*if (newsService.readById(id) == null) {
-                    return pagePathManager.getPage(Parameters.NEWS, newsService.readAll(),
-                            Page.PATH_EDITOR_NEWS);
-                } else {
-                    return pagePathManager.getPage(Parameters.OPERATION_MESSAGE, Message.NOT_DELETE_NEWS,
-                            Page.PATH_EDITOR_NEWS);
-                }*/
             } catch (ServiceException e) {
                 return pagePathManager.getPage(Error.ERROR_DATABASE, Message.ERROR_DB, Page.ERROR_PAGE_PATH);
             }

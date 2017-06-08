@@ -23,6 +23,11 @@ public class User extends AbstractEntity {
     public User() {
     }
 
+    public User(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
     public String getName() {
         return name;
     }

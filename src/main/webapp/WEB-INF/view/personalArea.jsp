@@ -15,7 +15,7 @@
 			</tr>
 			<tr>
 				<td>Фамилия:</td>
-				<td><input type="text" name="surname" value=${user.surname} th:field="*{surname}"/></td>
+				<td><input type="text" name="surname" value=${user.surname} th:field="*{surname}" /></td>
 			</tr>
 			<tr>
 				<td>Логин:</td>
