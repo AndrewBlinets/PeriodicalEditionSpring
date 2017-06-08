@@ -10,8 +10,10 @@
 	   http://www.springframework.org/schema/context
 	   http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <!-- Включение опции использования конфигурационных аннотаций-->
     <mvc:annotation-driven/>
 
+    <!-- View  jsp-файлы -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="order" value="1" />
         <property name="prefix" value="/WEB-INF/view/" />
@@ -20,8 +22,10 @@
 
     <context:annotation-config />
 
+    <!-- Указываем папку, где искать бины-компоненты -->
     <context:component-scan base-package="by.andreiblinets" />
 
+    <!-- Для использования аннотации @Transactional -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 

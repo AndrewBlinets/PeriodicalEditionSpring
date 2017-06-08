@@ -13,15 +13,17 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
-
+    <!-- Указываем папку, где искать бины-компоненты -->
     <context:component-scan base-package="by.andreiblinets" />
 
+    <!-- Менеджер транзакций -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManager" />
         <property name="dataSource" ref="dataSource" />
         <property name="jpaDialect" ref="jpaDialect" />
     </bean>
 
+    <!-- Определение менеджера сущностей, c указанием бина поставщика данных, необходимых настроек -->
     <bean id="entityManager" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="packagesToScan" value="by.andreiblinets"/>
@@ -42,6 +44,7 @@
         <property name="jpaDialect" ref="jpaDialect" />
     </bean>
 
+    <!-- Бин для подключение к БД, с указанием необходимых параметров для подключения -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="url" value="jdbc:mysql://localhost:3306/periodicaledition?useSSL=false" />
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -49,8 +52,10 @@
         <property name="password" value="root"/>
     </bean>
 
+    <!-- для работы с Hibernate-->
     <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
 
+    <!-- Процессор для инъекции entityManager -->
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
 </beans>
