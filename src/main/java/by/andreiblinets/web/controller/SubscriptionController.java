@@ -86,7 +86,10 @@ public class SubscriptionController {
                 List<PeriodicalEdition> periodicalEditions = new ArrayList<>();
                 List<Subscription> subscriptions = subscriptionService.getSubscribtionByIdUser(user.getId());
                 for (Subscription sub : subscriptions) {
-                    periodicalEditions.add(periodicalEditionService.readById(sub.getPeriodicalEdition().getId()));
+                    PeriodicalEdition periodicalEdition = periodicalEditionService.readById(sub.getPeriodicalEdition().getId());
+                    periodicalEdition.setId(sub.getId());
+                    periodicalEditions.add(periodicalEdition);
+
                 }
                 return pagePathManager.getPage(Parameters.PERIODICAL_EDITION_LIST, periodicalEditions,
                         Page.READER_SUBSCRIPTION);
