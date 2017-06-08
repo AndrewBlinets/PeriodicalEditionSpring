@@ -11,6 +11,7 @@
 		<a href="/personalArea">Личный кабинет</a> <br/>
 		<h4>Выберите операцию:</h4>
 		<a href="/users">Показать список читателей</a> <br/>
+		<a href="/addperiodicalEdition">Добавить периодическое издание</a> <br/>
 		<a href="/periodicalEditions">Показать список всех изданий</a> <br/>
 		<a href="/index">Выйти из системы</a> <br/>
 	</body>

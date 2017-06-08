@@ -13,7 +13,7 @@
                 <td><c:out value="${ newsOne.body }" /></td>
                 <td><c:out value="${ newsOne.author }" /></td>
                 <td><a href="<c:url value='/news/remove/${newsOne.id}' />" >Delete</a></td></td>
-                <td><a href="<c:url value='/newsupdate/${newsOne.id}' />" >Обновить</a></td></td>
+               <!-- <td><a href="<c:url value='/newsupdate/${newsOne.id}' />" >Обновить</a></td></td>-->
             </tr>
         </c:forEach>
     </table>

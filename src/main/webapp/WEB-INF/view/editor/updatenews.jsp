@@ -10,7 +10,7 @@
     <table>
         <tr>
             <td>Заголовок:</td>
-            <td><input type="text" name="title" value=${news.title} size="20" th:field="*{title}"/></td>
+            <td><input type="text" name="title" value=${news.title} th:field="*{title}"/></td>
         </tr>
         <tr>
             <td>Текст:</td>
@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td>Автор:</td>
-            <td><input type="text" name="author" value=${news.author} size="20" th:field="*{author}"/></td>
+            <td><input type="text" name="author" value=${news.author} th:field="*{author}"/></td>
         </tr>
     </table>
     ${operationMessage}

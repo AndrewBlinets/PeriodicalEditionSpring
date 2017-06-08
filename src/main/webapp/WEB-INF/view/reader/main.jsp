@@ -10,7 +10,7 @@
 		<h3>Вы вошли в систему как пользватель</h3>
 		<a href="/personalArea">Личный кабинет</a> <br/>
 		<h4>Выберите операцию:</h4>
-		${operationMessage}
+		${operationMessage}<br/>
 		<a href="/periodicalEditions">Показать список всех изданий</a> <br/>
 		<a href="/news">Новости</a> <br/>
 		<a href="/subscription">Подписки</a> <br/>
