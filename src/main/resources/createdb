@@ -71,3 +71,117 @@ CREATE TABLE `periodicaledition`.`news` (
     REFERENCES `periodicaledition`.`periodicaledition` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
+
+
+/*Start date */
+
+/*Account*/
+
+INSERT INTO
+  `account` (`id`, `login`, `hashpassword`)
+VALUES
+  (1, 'Admin', 'e10adc3949ba59abbe56e057f20f883e');
+INSERT INTO
+  `account` (`id`, `login`, `hashpassword`)
+VALUES
+  (2, 'Sport', 'e10adc3949ba59abbe56e057f20f883e');
+INSERT INTO
+  `account` (`id`, `login`, `hashpassword`)
+VALUES
+  (3, 'Politiks', 'e10adc3949ba59abbe56e057f20f883e');
+INSERT INTO
+  `account` (`id`, `login`, `hashpassword`)
+VALUES
+  (4, 'Country', 'e10adc3949ba59abbe56e057f20f883e');
+INSERT INTO
+  `account` (`id`, `login`, `hashpassword`)
+VALUES
+  (5, 'Ivan', 'e10adc3949ba59abbe56e057f20f883e');
+INSERT INTO
+  `account` (`id`, `login`, `hashpassword`)
+VALUES
+  (6, 'Peter', 'e10adc3949ba59abbe56e057f20f883e');
+INSERT INTO
+  `account` (`id`, `login`, `hashpassword`)
+VALUES
+  (7, 'Sidor', 'e10adc3949ba59abbe56e057f20f883e');
+
+/*User*/
+
+INSERT INTO
+  `user` (`id`, `name`, `surname`, `userRole`, `idAccount`)
+VALUES
+  (1, 'Andrew', 'Blinets', 'ADMINISTRATOR', 1);
+INSERT INTO
+  `user` (`id`, `name`, `surname`, `userRole`, `idAccount`)
+VALUES
+  (2, 'Alexander', 'Gleb', 'EDITOR', 2);
+INSERT INTO
+  `user` (`id`, `name`, `surname`, `userRole`, `idAccount`)
+VALUES
+  (3, 'Kuzma', 'Chorny', 'EDITOR', 3);
+INSERT INTO
+  `user` (`id`, `name`, `surname`, `userRole`, `idAccount`)
+VALUES
+  (4, 'Basil', 'Knyazev', 'EDITOR', 4);
+INSERT INTO
+  `user` (`id`, `name`, `surname`, `userRole`, `idAccount`)
+VALUES
+  (5, 'Ivan', 'Ivanov', 'READER', 5);
+INSERT INTO
+  `user` (`id`, `name`, `surname`, `userRole`, `idAccount`)
+VALUES
+  (6, 'Peter', 'Petrov', 'READER', 6);
+INSERT INTO
+  `user` (`id`, `name`, `surname`, `userRole`, `idAccount`)
+VALUES
+  (7, 'Sidor', 'Sidorov', 'READER', 7);
+
+/* periodical edition */
+
+INSERT INTO
+  `periodicaledition` (`id`, `name`, `price`)
+VALUES
+  (1, 'Sport news', 100);
+INSERT INTO
+  `periodicaledition` (`id`, `name`, `price`)
+VALUES
+  (2, 'Politic news', 150);
+INSERT INTO
+  `periodicaledition` (`id`, `name`, `price`)
+VALUES
+  (3, 'Country news', 100);
+
+/* editor*/
+
+INSERT INTO
+  `editor` (`id`,`periodicaledition`, `user`)
+VALUES
+  (1, 1, 2);
+INSERT INTO
+  `editor` (`id`,`periodicaledition`, `user`)
+VALUES
+  (2, 2, 3);
+INSERT INTO
+  `editor` (`id`,`periodicaledition`, `user`)
+VALUES
+  (3, 3, 4);
+
+/*news*/
+
+INSERT INTO
+  `news` (`id`, `title`, `body`, `author`, `periodicaledition`)
+VALUES
+  (1, 'Belarusian youth team defeated San Marino', 'The youth national football team of Belarus started qualifying for the European Championship - 2019 with a labor victory over San Marino - 1: 0.', 'SPORT.TUT.BY', 1);
+INSERT INTO
+  `news` (`id`, `title`, `body`, `author`, `periodicaledition`)
+VALUES
+  (2, 'Buffon - no alternative. ', 'Coach Krumkacho Alexei Kuchuk, midfielder Brest Dynamo Leandro Torres, as well as commentators Belarus-5 Pavel Baranov and Nikolai Khodasevich composed symbolic teams from the best players of the current season of the Champions League. .', 'SPORT.TUT.BY', 1);
+INSERT INTO
+  `news` (`id`, `title`, `body`, `author`, `periodicaledition`)
+VALUES
+  (3, '"Arsenal" is ready to offer 150 million euros', '"Arsenal" is ready to offer 150 million euro for the striker "Monaco" Kilian Mbppe. This is reported by La Gazzetta Dello Sport.', 'SPORT.TUT.BY', 1);
+INSERT INTO
+  `news` (`id`, `title`, `body`, `author`, `periodicaledition`)
+VALUES
+  (4, 'Footballers of the English national', 'Footballers of the England team spent one day in the training camp of the Royal Marines of Great Britain. This is reported on the website of the Football Association of the country.', 'SPORT.TUT.BY', 1);
