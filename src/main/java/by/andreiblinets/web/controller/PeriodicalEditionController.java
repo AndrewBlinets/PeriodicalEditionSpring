@@ -123,18 +123,6 @@ public class PeriodicalEditionController {
         }
     }
 
-//    @RequestMapping(value = "/periodicalEdition/{id}", method = RequestMethod.PUT)
-//    public String updateCamelCase(ModelMap model, @PathVariable("id") long id, @RequestBody PeriodicalEdition periodicalEdition) {
-//       String pagePath = null;
-//        try {
-//            periodicalEditionService.update(periodicalEdition);
-//            model.addAttribute(Parameters.CAMEL_CASE, periodicalEditionService.readById(id));
-//        } catch (ServiceException e) {
-//            model.addAttribute(Error.ERROR_DATABASE, Message.ERROR_DB);
-//            pagePath = pagePathManager.getProperty(Page.ERROR_PAGE_PATH);
-//        }
-//        return pagePath;
-//    }
 
    // @RequestMapping(value = "/periodicalEdition/{id}", method = RequestMethod.DELETE)
     @RequestMapping(value = "/periodicalEdition/remove/{id}")

@@ -8,7 +8,7 @@ public class Message {
     public static final String NOT_DELETE_ACCOUNT = "Sorre we don't delete your account";
     public static final String DELETE_PERIODICAL_EDITION = "delete Periodical edition";
     public static final String NOT_DELETE_PERIODICAL_EDITION = "Sorre we don't delete Periodical edition";
-    public static final String USER_CREATE = "User create successfully. Click \"Назад\" for authorization";
+    public static final String USER_CREATE = "User create successfully. Click \"Back\" for authorization";
     public static final String ERROR_USER_LOGIN_OR_PASSWORD = "Error in login or password";
     public static final String ERROR = "Error in work service";
     public static final String ERROR_PERIODICAL_EDITION_EXISTENCE = "Periodical Edition is existence";

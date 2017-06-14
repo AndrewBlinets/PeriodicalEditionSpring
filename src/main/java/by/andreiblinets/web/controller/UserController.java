@@ -43,7 +43,7 @@ public class UserController {
     @Autowired
     private PagePathManager pagePathManager;
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequestMapping(value = "/main", method = RequestMethod.POST)
     public ModelAndView authorization(HttpServletRequest request, @ModelAttribute("authorization") Account account) {
         HttpSession httpSession  = request.getSession();
         User user = (User) httpSession.getAttribute(Parameters.USER);
@@ -68,6 +68,21 @@ public class UserController {
                 return pagePathManager.getPage(Parameters.EROR_LOGIN_OR_PASSWORD, Message.EMPYTY_FIELD,
                         Page.INDEX);
             }
+        }
+    }
+
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public ModelAndView backUser(HttpServletRequest request)
+    {
+        HttpSession httpSession  = request.getSession();
+        User user = (User) httpSession.getAttribute(Parameters.USER);
+        if(user != null)
+        {
+            return backPage(user);
+        }
+        else
+        {
+            return pagePathManager.getPage(null, null, Page.CONTROL);
         }
     }
 

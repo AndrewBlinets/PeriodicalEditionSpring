@@ -6,7 +6,7 @@
     <title>Авторизация</title>
 </head>
 <body>
-<form name="loginForm" method="GET" action="/main" th:object="${account}">
+<form name="loginForm" method="POST" action="/main" th:object="${account}">
     Введите ваш логин и пароль: <br/>
     <table>
         <tr>
