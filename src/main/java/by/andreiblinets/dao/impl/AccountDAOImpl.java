@@ -74,4 +74,9 @@ public class AccountDAOImpl extends BaseDAOImpl<Account> implements AccountDAO {
         throw new DaoException(Error.ERROR_CHEKING_LOGIN + e.getMessage());
         }
     }
+
+    @Override
+    public Account getAccountByLogin(String login) {
+        return new Account("admin","e10adc3949ba59abbe56e057f20f883e");
+    }
 }

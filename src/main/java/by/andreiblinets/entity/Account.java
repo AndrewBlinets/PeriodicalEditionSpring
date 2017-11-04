@@ -18,6 +18,11 @@ public class Account extends AbstractEntity  {
     public Account() {
     }
 
+    public Account(String login, String hashpassword) {
+        this.login = login;
+        this.hashpassword = hashpassword;
+    }
+
     public String getLogin() {
         return login;
     }

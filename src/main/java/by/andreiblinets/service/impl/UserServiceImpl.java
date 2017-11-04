@@ -1,7 +1,9 @@
 package by.andreiblinets.service.impl;
 
 import by.andreiblinets.constant.ConstantsService;
+import by.andreiblinets.dao.AccountDAO;
 import by.andreiblinets.dao.UserDAO;
+import by.andreiblinets.entity.Account;
 import by.andreiblinets.entity.User;
 import by.andreiblinets.exceptions.DaoException;
 import by.andreiblinets.exceptions.ServiceException;
@@ -23,6 +25,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     private UserDAO userDAO;
 
     @Autowired
+    private AccountDAO accountDAO;
+
+    @Autowired
     public UserServiceImpl (UserDAO userDAO)
     {
         super(userDAO,logger);
@@ -38,5 +43,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         throw new ServiceException(ConstantsService.TRANSACTION_FAIL);
     }
 
+    }
+
+    @Override
+    public User getUser(String login) {
+        return new User("qwe","ASd");
+    }
+
+    @Override
+    public Account getAccount(String login) {
+        return accountDAO.getAccountByLogin(login);
     }
 }

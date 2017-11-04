@@ -11,6 +11,7 @@ import by.andreiblinets.entity.dto.UserAndAccount;
 import by.andreiblinets.entity.enums.UserRole;
 import by.andreiblinets.exceptions.ServiceException;
 import by.andreiblinets.service.AccountService;
+import by.andreiblinets.service.GetTokenService;
 import by.andreiblinets.service.SubscriptionService;
 import by.andreiblinets.service.UserService;
 import by.andreiblinets.web.mamager.PagePathManager;
@@ -42,6 +43,9 @@ public class UserController {
 
     @Autowired
     private PagePathManager pagePathManager;
+
+    @Autowired
+    private GetTokenService getTokenService;
 
     @RequestMapping(value = "/main", method = RequestMethod.POST)
     public ModelAndView authorization(HttpServletRequest request, @ModelAttribute("authorization") Account account) {
@@ -131,6 +135,11 @@ public class UserController {
         User user = accountService.getUser(account.getLogin(), Coding.md5Apache(account.getHashpassword()));
         if (user != null) {
             httpSession.setAttribute(Parameters.USER, user);
+            try {
+                httpSession.setAttribute("token", getTokenService.getToken(user));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return backPage(user);
         }
         else
